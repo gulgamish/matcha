@@ -69,13 +69,11 @@ export const RECOVER_PASSWD = gql`
 export const RESET_PASSWD = gql`
     mutation reset (
         $password: String!,
-        $rPassword: String!,
         $token: String!
     ) {
         resetPassword (
             resetInput: {
                 password: $password,
-                confirmPassword: $rPassword,
                 resetToken: $token
             }
         ) {

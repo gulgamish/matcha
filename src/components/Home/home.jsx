@@ -3,8 +3,9 @@ import { Card, CardActionArea, CardContent, CardMedia, makeStyles } from "@mater
 import { Person, DateRange, GpsFixed } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import client from "../../client";
-import { USERS } from "../../GraphQl/match/Queries";
+import { USERS } from "../../GraphQl/Match/Queries";
 import Search from './Search'
+import User from "./User";
 
 var useStyles = makeStyles({
   media: {
@@ -61,7 +62,11 @@ export default function () {
         <Search />
       </div>
       <div className="users">
-        
+        <Card>
+          <CardContent>
+            <User />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

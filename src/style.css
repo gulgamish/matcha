@@ -74,7 +74,7 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 800px;
+  height: 70vh;
 }
 
 .user-info {
@@ -242,8 +242,5 @@ label {
   display: flex;
   height: 100vh;
   background-color: #f1f2f4;
-}
-
-.users {
-  margin: auto;
+  justify-content: space-around;
 }

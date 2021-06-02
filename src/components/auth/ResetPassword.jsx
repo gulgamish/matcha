@@ -109,7 +109,6 @@ const ResetPassword = () => {
                             reset({
                                 variables: {
                                     password: values.password,
-                                    rPassword: values.password,
                                     token
                                 }
                             })
