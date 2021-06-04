@@ -57,17 +57,13 @@ export default function () {
   }, []);
 
   return (
+    <>
     <div className="home-container">
       <div className="search">
         <Search />
       </div>
-      <div className="users">
-        <Card>
-          <CardContent>
-            <User />
-          </CardContent>
-        </Card>
-      </div>
+      <User />
     </div>
+    </>
   );
 }

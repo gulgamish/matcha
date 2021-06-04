@@ -1,0 +1,26 @@
+
+
+.card {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.media {
+    height: 200px;
+    flex: 1;
+}
+
+.content {
+    flex: 1;
+}
+
+.fullname {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    padding: 5px;
+}
