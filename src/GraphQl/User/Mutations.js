@@ -2,9 +2,11 @@ import { gql } from '@apollo/client'
 
 export const UPLOAD = gql`
     mutation uploadFile (
+        $type: Type!
         $file: Upload!
     ) {
         uploadFile (
+            type: $type
             file: $file
         ) {
             url

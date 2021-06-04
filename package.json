@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://limitless-retreat-41474.herokuapp.com",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@apollo/client": "^3.3.16",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -21,6 +21,7 @@
     "font-awesome": "^4.7.0",
     "graphql": "^15.5.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.6.0",
     "react-dom": "^17.0.2",
     "react-loading": "^2.0.3",
     "react-router-dom": "^5.2.0",

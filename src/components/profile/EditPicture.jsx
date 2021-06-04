@@ -30,7 +30,7 @@ var useStyles = makeStyles({
 var EditPicture = (props) => {
     var [ img, setImg ] = useState(null);
     var [ image, setImage ] = useState(null);
-    var [ choice, setChoice ] = useState("1");
+    var [ choice, setChoice ] = useState("profile");
     var [ fetching, setFetching ] = useState(false);
     const [ uploadFile ] = useMutation(UPLOAD, {
         onCompleted: (data) => {
@@ -115,12 +115,14 @@ var EditPicture = (props) => {
                                     type="file"
                                     style={{ display: 'none' }}
                                     onChange={({ target: { validity, files: [file] } }) => {
-                                        if (validity.valid)
+                                        if (validity.valid) {
                                             uploadFile({
                                                 variables: {
+                                                    type: choice,
                                                     file
                                                 }
                                             })
+                                        }
                                     }}
                                 />
                                 <label htmlFor="icon-button-file">
@@ -144,8 +146,8 @@ var EditPicture = (props) => {
                                     setChoice(e.target.value);
                                 }}
                             >
-                                <FormControlLabel value="1" control={<Radio />} label="Profile picture" />
-                                <FormControlLabel value="2" control={<Radio />} label="Regular picture" />
+                                <FormControlLabel value="profile" control={<Radio />} label="Profile picture" />
+                                <FormControlLabel value="regular" control={<Radio />} label="Regular picture" />
                             </RadioGroup>
                         </FormControl>
                     </div>
