@@ -23,7 +23,9 @@
     "graphql": "^15.5.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",
+    "react-circular-progressbar": "^2.0.4",
     "react-dom": "^17.0.2",
+    "react-heart": "^1.0.6",
     "react-loading": "^2.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -34,8 +36,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "start": "craco start",
-    "build": "craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

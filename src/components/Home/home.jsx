@@ -1,50 +1,70 @@
 import { useQuery } from "@apollo/client";
-import { Card, CardActionArea, CardContent, CardMedia, makeStyles } from "@material-ui/core";
 import { Person, DateRange, GpsFixed } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import client from "../../client";
 import { USERS } from "../../GraphQl/Match/Queries";
-import Search from './Search'
-import User from "./User";
+import Search from './SearchBar/Search'
+import Card from "./Card/Card";
+import "./style.css"
 
-var useStyles = makeStyles({
-  media: {
-    height: "150px",
-  },
-  card: {
-    width: "250px",
-    marginLeft: '10px',
-    marginRight: '10px',
-    border: 'none'
-  },
-});
+
 
 export default function () {
-  var classes = useStyles();
   var [users, setUsers] = useState([
     {
       firstName: "ayman",
       lastName: "elamrani",
       age: 24,
-      distance: 30.22
+      distance: 30.22,
+      interests: [
+        "vegan",
+        "geek"
+      ],
+      fameRating: 20
     },
     {
       firstName: "ayman",
       lastName: "elamrani",
       age: 24,
-      distance: 30.22
+      distance: 30.22,
+      interests: [
+        "vegan",
+        "geek"
+      ],
+      fameRating: 24
     },
     {
       firstName: "ayman",
       lastName: "elamrani",
       age: 24,
-      distance: 30.22
+      distance: 30.22,
+      interests: [
+        "vegan",
+        "geek"
+      ],
+      fameRating: 90
     },
     {
       firstName: "ayman",
       lastName: "elamrani",
       age: 24,
-      distance: 30.22
+      distance: 30.22,
+      interests: [
+        "vegan",
+        "geek"
+      ],
+      fameRating: 50
+    },
+    {
+      firstName: "ayman",
+      lastName: "elamrani",
+      age: 24,
+      distance: 30.22,
+      interests: [
+        "vegan",
+        "geek"
+      ],
+      fameRating: 50
     }
   ]);
   var { loading, data } = useQuery(USERS);
@@ -57,13 +77,22 @@ export default function () {
   }, []);
 
   return (
-    <>
     <div className="home-container">
-      <div className="search">
-        <Search />
+      <Search />
+      <div className="users">
+        {
+          users.map(user => (
+            <Card
+              firstName={user.firstName}
+              lastName={user.lastName}
+              age={user.age}
+              distance={user.distance}
+              interests={user.interests}
+              fameRating={user.fameRating}
+            />
+          ))
+        }
       </div>
-      <User />
     </div>
-    </>
   );
 }

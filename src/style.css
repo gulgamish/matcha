@@ -238,13 +238,3 @@ label {
 .map {
   position: relative;
 }
-
-.search {
-}
-
-.home-container {
-  display: flex;
-  height: 100vh;
-  background-color: #f1f2f4;
-  justify-content: space-around;
-}

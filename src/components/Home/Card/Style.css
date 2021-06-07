@@ -1,26 +1,118 @@
-
+* {
+  margin: 0;
+  padding: 0;
+}
 
 .card {
-    width: 350px;
-    display: flex;
-    flex-direction: column;
+  width: 300px;
+  height: 420px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.2);
+  cursor: pointer;
+  border-radius: 3%;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.card:hover .progressBar {
+  transform: scale(1.1);
+}
+
+.header {
+  display: flex;
+  position: relative;
+  height: 250px;
+}
+
+.overlay {
+  background: linear-gradient(#e66465, #9198e5);
+  width: 100%;
+  height: 150px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: 0.4s ease;
+}
+
+.tag {
+  padding: 5px;
 }
 
 .media {
-    height: 200px;
-    flex: 1;
+  width: 150px;
+  position: absolute;
+  top: 20%;
+  left: 4.5rem;
+  height: 150px;
 }
 
 .content {
-    flex: 1;
+  flex: 1;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+ul li {
+  display: inline;
+  list-style: none;
+}
+
+.progressBar {
+  position: absolute;
+  width: 200px;
+  height: 160px;
+  top: 2.785rem;
+  right: 0.12rem;
+  transition: 0.4s ease;
 }
 
 .fullname {
-    padding: 10px;
-    display: flex;
-    align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-style: normal;
 }
 
-.icon {
-    padding: 5px;
+.info {
+  margin: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.side-info-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  color: rgb(97, 97, 97);
+}
+
+.align {
+  display: flex;
+}
+
+.info ul {
+  text-align: center;
+}
+
+.fa {
+  color: rgb(97, 97, 97);
+}
+
+.heart {
+  width: 60px;
+  height: 30px;
+  position: absolute;
+  top: 53%;
+  left: 40%;
+  stroke: lightgray;
 }

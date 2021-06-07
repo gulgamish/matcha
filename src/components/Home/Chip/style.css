@@ -1,0 +1,36 @@
+.chip-container {
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 16px;
+  padding: 3px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  margin: 5px;
+}
+
+.label {
+  font-size: 0.8125rem;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.icon {
+  background-image: url("./success-icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
+.fa-check-circle {
+  font: antiquewhite;
+}
+
+.chip-active .icon {
+  display: block;
+}
