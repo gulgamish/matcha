@@ -19,29 +19,44 @@
   padding-left: 5px;
 }
 
-.chip-icon {
-  background-image: url("./success-icon.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 20px;
-  height: 20px;
-  display: none;
-}
-
-.fa-check-circle {
-  font: antiquewhite;
-}
-
-.chip-active .icon {
-  display: block;
-}
-
 .chip-up {
   width: 20px;
   height: 20px;
-  border: 1px solid rgb(228, 228, 228);
   border-radius: 50%;
   position: absolute;
-  bottom: 19px;
-  right: 0;
+  bottom: 20px;
+  right: -5px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  opacity: 0.2;
+}
+
+.chip-down {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  opacity: 0.2;
+  position: absolute;
+  top: 20px;
+  right: -5px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.up-active {
+  border: 1px solid rgb(228, 228, 228);
+  opacity: 1;
+  font-style: inherit;
+}
+
+.down-active {
+  border: 1px solid rgb(228, 228, 228);
+  opacity: 1;
+  font-style: inherit;
 }

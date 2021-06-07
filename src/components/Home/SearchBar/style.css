@@ -5,7 +5,12 @@
   padding: 10px;
 }
 
-.filter {
+.sort {
   display: inline-flex;
   align-items: center;
+}
+
+.divider {
+  margin-top: 10px;
+  margin-bottom: 10px;  
 }

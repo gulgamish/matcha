@@ -4,22 +4,33 @@ import "font-awesome/css/font-awesome.min.css"
 
 const Chip = ({
     label,
-    isActive,
-    onClick
+    isUpActive,
+    isDownActive,
+    onUpClick,
+    onDownClick
 }) => {
-    console.log(label, isActive)
 
     return (
         <div
-            className={`chip-container ${isActive ? "chip-active" : ""}`}
-            onClick={onClick}
+            className="chip-container"
         >
-            <div className="chip-icon">
+            <div className={`chip-icon`}>
             </div>
             <div className="chip-label">
                 {label}
             </div>
-            
+            <div
+                className={`chip-up ${isUpActive ? "up-active" : ""}`}
+                onClick={onUpClick}
+            >
+                <i className="fa fa-arrow-up"></i>
+            </div>
+            <div
+                className={`chip-down ${isDownActive ? "down-active" : ""}`}
+                onClick={onDownClick}
+            >
+                <i className="fa fa-arrow-down"></i>
+            </div>
         </div>
     )
 }
