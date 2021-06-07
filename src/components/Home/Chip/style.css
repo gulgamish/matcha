@@ -10,15 +10,16 @@
   justify-content: center;
   height: 30px;
   margin: 5px;
+  position: relative;
 }
 
-.label {
+.chip-label {
   font-size: 0.8125rem;
   padding-right: 5px;
   padding-left: 5px;
 }
 
-.icon {
+.chip-icon {
   background-image: url("./success-icon.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -33,4 +34,14 @@
 
 .chip-active .icon {
   display: block;
+}
+
+.chip-up {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 19px;
+  right: 0;
 }

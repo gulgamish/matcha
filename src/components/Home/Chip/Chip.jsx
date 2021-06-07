@@ -3,22 +3,23 @@ import "./style.css"
 import "font-awesome/css/font-awesome.min.css"
 
 const Chip = ({
-    label
+    label,
+    isActive,
+    onClick
 }) => {
-    const [ active, setActive ] = useState(false);
+    console.log(label, isActive)
 
     return (
         <div
-            className={`chip-container ${active ? "chip-active" : ""}`}
-            onClick={() => {
-                setActive(!active)
-            }}
+            className={`chip-container ${isActive ? "chip-active" : ""}`}
+            onClick={onClick}
         >
-            <div className="icon">
+            <div className="chip-icon">
             </div>
-            <div className="label">
+            <div className="chip-label">
                 {label}
             </div>
+            
         </div>
     )
 }
