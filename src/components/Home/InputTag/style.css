@@ -1,0 +1,40 @@
+.tags-container {
+    border: 1px solid rgb(206, 206, 206);
+    border-radius: 5px;
+    padding: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.input-tag {
+    border: none;
+    margin: 5px;
+    flex: 1;
+}
+
+.input-tag:focus {
+    outline: none;
+}
+
+.tag {
+    margin: 3px;
+}
+
+.clear-tags {
+    cursor: pointer;
+    border-radius: 50%;
+    justify-content: center;
+    display: none;
+    padding: 2px;
+}
+
+.clear-tags:hover {
+    background-color: rgb(241, 241, 241);
+}
+
+.clear-tags-active {
+    display: flex;
+}

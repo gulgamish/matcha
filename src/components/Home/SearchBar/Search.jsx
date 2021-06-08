@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import {
-    Divider, Slider
+    Button,
+    Divider, Slider, Typography
 } from "@material-ui/core"
 import Chip from "../Chip/Chip"
+import InputTag from "../InputTag/InputTag"
 import "./style.css"
 
 const Search = () => {
@@ -27,6 +29,7 @@ const Search = () => {
     const [ filter, setFilter ] = useState({
         age: 18
     })
+
 
     return (
         <div className="search-container">
@@ -218,20 +221,87 @@ const Search = () => {
                     className="divider"
                 />
                 <div className="filter">
-                    <div className="filt">
-                        <Slider
-                            value={filter.age}
-                            defaultValue={[18, 25]}
-                            valueLabelDisplay="auto"
-                            onChange={(e, newValue) => {
-                                setFilter({
-                                    ...filter,
-                                    age: newValue
-                                })
-                            }}
-                            aria-labelledby="track-false-range-slider"
-                            track={false}
-                        />
+                    <div className="filter-controllers">
+                        <div className="filter-wrapper">
+                            <Typography id="track-inverted-range-slider" gutterBottom>
+                                Age
+                            </Typography>
+                            <Slider
+                                aria-labelledby="track-inverted-range-slider"
+                                onChange={(e, newv) => {
+                                    console.log(newv);
+                                }}
+                                defaultValue={[18, 25]}
+                                marks={[
+                                    
+                                ]}
+                                valueLabelDisplay="auto"
+                                min={18}
+                                max={60}
+                                marks={[18, 25, 40, 60].map(elem => {
+                                    return {
+                                        value: elem,
+                                        label: `${elem}`
+                                    }
+                                })}
+                            />
+                        </div>
+                        <div className="filter-wrapper">
+                            <Typography gutterBottom>
+                                Distance
+                            </Typography>
+                            <Slider
+                                onChange={(e, newv) => {
+                                    console.log(newv);
+                                }}
+                                defaultValue={0}
+                                valueLabelDisplay="auto"
+                                max={100}
+                                marks={[0, 20, 40, 60, 80, 100].map(elem => {
+                                    return {
+                                        value: elem,
+                                        label: `${elem} km`
+                                    }
+                                })}
+                            />
+                        </div>
+                        <div className="filter-wrapper">
+                            <Typography gutterBottom>
+                                Fame Rating
+                            </Typography>
+                            <Slider
+                                onChange={(e, newv) => {
+                                    console.log(newv);
+                                }}
+                                defaultValue={0}
+                                valueLabelDisplay="auto"
+                                max={100}
+                                marks={[0, 30, 60, 100].map(elem => {
+                                    return {
+                                        value: elem,
+                                        label: `${elem}`
+                                    }
+                                })}
+                            />
+                        </div>
+                        <div className="filter-wrapper">
+                            <Typography>
+                                Common tags
+                            </Typography>
+                            <InputTag
+                                onChange={(tag) => {
+                                    console.log(tag);
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className="filter-button">
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                        >
+                            Filter
+                        </Button>
                     </div>
                 </div>
             </div>
