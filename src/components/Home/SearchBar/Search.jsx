@@ -221,6 +221,7 @@ const Search = () => {
                     <div className="filt">
                         <Slider
                             value={filter.age}
+                            defaultValue={[18, 25]}
                             valueLabelDisplay="auto"
                             onChange={(e, newValue) => {
                                 setFilter({
@@ -228,7 +229,8 @@ const Search = () => {
                                     age: newValue
                                 })
                             }}
-                            aria-labelledby="range-slider"
+                            aria-labelledby="track-false-range-slider"
+                            track={false}
                         />
                     </div>
                 </div>
