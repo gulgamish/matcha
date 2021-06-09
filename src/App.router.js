@@ -7,10 +7,11 @@ import Home from './components/Home/home'
 import ProtectedRoute from './Protected.route'
 import AuthRoute from './Auth.route'
 import UserWrapper from './user.wrapper'
-import UserProfile from './components/profile/userProfile';
+import Profile from './components/profile/userProfile';
 import Confirm from './components/auth/Confirm'
 import RecoverPassword from './components/auth/RecoverPassword';
 import ResetPassword from './components/auth/ResetPassword';
+import UserProfile from "./components/User-profile/UserProfile"
 
 export default function() {
 
@@ -25,7 +26,8 @@ export default function() {
                     <AuthRoute exact path="/recover" component={RecoverPassword} />
                     <AuthRoute exact path="/change-password/:token" component={ResetPassword} />
                     <Route exact path='/home' component={Home} />
-                    <ProtectedRoute exact path='/profile' component={UserProfile} />
+                    <ProtectedRoute exact path='/profile' component={Profile} />
+                    <Route exact path="/user/profile" component={UserProfile} />
                 </UserWrapper>
             </Switch>
         </Router>

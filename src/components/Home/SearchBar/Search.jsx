@@ -4,7 +4,7 @@ import {
     Divider, Slider, Typography
 } from "@material-ui/core"
 import Chip from "../Chip/Chip"
-import InputTag from "../InputTag/InputTag"
+import InputTags from "../InputTag/InputTag"
 import "./style.css"
 
 const Search = () => {
@@ -288,7 +288,7 @@ const Search = () => {
                             <Typography>
                                 Common tags
                             </Typography>
-                            <InputTag
+                            <InputTags
                                 onChange={(tag) => {
                                     console.log(tag);
                                 }}
