@@ -33,6 +33,7 @@ const Card = ({
                 </div>
                 <div className="media">
                     <img
+                        className="media-avatar"
                         src={image}
                     />
                 </div>

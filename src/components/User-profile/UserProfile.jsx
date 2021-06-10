@@ -1,19 +1,14 @@
 import { Card, CardContent } from "@material-ui/core"
 import React from "react"
 import "./style.css"
+import Upper from "./side-left-bar/Upper"
 
 const UserProfile = () => {
 
 
     return (
         <div className="user-profile-container">
-            <div className="card-container">
-                <Card variant="outlined">
-                    <CardContent>
-                        
-                    </CardContent>
-                </Card>
-            </div>
+            <Upper />
         </div>
     )
 }
