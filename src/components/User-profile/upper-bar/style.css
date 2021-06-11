@@ -73,3 +73,7 @@
 .tag-container {
   margin: 5px;
 }
+
+.upper-left-4 {
+  display: flex;
+}
