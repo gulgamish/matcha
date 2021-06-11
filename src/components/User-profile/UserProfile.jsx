@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@material-ui/core"
 import React from "react"
 import "./style.css"
-import Upper from "./side-left-bar/Upper"
+import Upper from "./upper-bar/Upper"
 
 const UserProfile = () => {
 
