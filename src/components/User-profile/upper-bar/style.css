@@ -1,8 +1,8 @@
 .upper-container {
-  border: 1px solid rgb(242, 242, 242);
-  padding: 50px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  width: 70%;
+  margin: auto;
 }
 
 .upper-left-1 {
@@ -30,15 +30,13 @@
 }
 
 .profile-image-container {
-  width: 300px;
-  height: 300px;
+  flex: 1;
 }
 
 .profile-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
 .profile-info {
@@ -50,25 +48,33 @@
   flex: 1;
 }
 
-.ratings-label {
+.info-label {
   font-size: 13px;
   color: rgba(0, 0, 0, 0.728);
 }
 
-.ratings {
+.info-d {
   display: flex;
   align-items: center;
+  margin-left: 5px;
 }
 
 .progress {
   margin-left: 5px;
   margin-right: 5px;
-  height: 5px;
+  height: 10px;
   width: 40%;
 }
 
 .upper-left-3 {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.interests-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .tag-container {

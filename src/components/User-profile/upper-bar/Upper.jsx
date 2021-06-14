@@ -44,23 +44,46 @@ const Upper = () => {
                     </div>
                 </div>
                 <div className="upper-left-2">
-                    <span className="ratings-label">Fame Rating</span>
-                    <div className="ratings">
+                    <span className="info-label">Fame Rating</span>
+                    <div className="info-d">
                         <span className="percentage">87 %</span>
                         <ProgressBar now={87} />
                     </div>
                 </div>
+                <div className="upper-left-5">
+                    <span className="info-label">Gender</span>
+                    <div className="info-d">
+                        <span>Male</span>
+                    </div>
+                </div>
+                <div className="upper-left-6">
+                    <span className="info-label">Sexual Orientation</span>
+                    <div className="info-d">
+                        <span>Homosexual</span>
+                    </div>
+                </div>
+                <div className="upper-left-7">
+                    <span className="info-label">Bio</span>
+                    <div className="info-d">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dolorem, est maiores facere magni expedita fugit rerum quaerat. Molestiae corporis quis beatae corrupti. Dicta veniam explicabo, nemo commodi dolorem numquam!
+                        </p>
+                    </div>
+                </div>
                 <div className="upper-left-3">
-                    {["vegan", "geek", "activist"].map(tag => (
-                        <div className="tag-container">
-                            <Chip
-                                key={tag}
-                                label={tag}
-                                variant="outlined"
-                                color="primary"
-                            />
-                        </div>
-                    ))}
+                    <span className="info-label">Interests</span>
+                    <div className="interests-container">
+                        {["vegan", "geek", "activist", "geek", "geek", "geek"].map(tag => (
+                            <div className="tag-container">
+                                <Chip
+                                    key={tag}
+                                    label={tag}
+                                    variant="outlined"
+                                    color="primary"
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className="upper-left-4">
                     <LoveButton
@@ -76,6 +99,9 @@ const Upper = () => {
                     >
                         view photos
                     </Button>
+                </div>
+                
+            </div>
                     <div className="icon-bar">
                         <IconButton
                             aria-label="more"
@@ -106,8 +132,6 @@ const Upper = () => {
                             </MenuItem>
                         </Menu>
                     </div>
-                </div>
-            </div>
         </div>
     )
 }
