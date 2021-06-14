@@ -9,9 +9,11 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { Button } from "@material-ui/core"
 import { ViewCarouselOutlined, MoreVert, EmojiFlags, Block } from "@material-ui/icons"
 import { IconButton } from "@material-ui/core"
+import LoveButton from "../love-button/LoveButton"
 
 const Upper = () => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [ toggleHeart, setToggle ] = useState(false);
     const open = Boolean(anchorEl);
   
     const handleClick = (event) => {
@@ -61,6 +63,12 @@ const Upper = () => {
                     ))}
                 </div>
                 <div className="upper-left-4">
+                    <LoveButton
+                        isActive={toggleHeart}
+                        onClick={() => {
+                            setToggle(!toggleHeart);
+                        }}
+                    />
                     <Button
                         variant="outlined"
                         color="primary"

@@ -2,6 +2,7 @@
   border: 1px solid rgb(242, 242, 242);
   padding: 50px;
   display: flex;
+  justify-content: center;
 }
 
 .upper-left-1 {
@@ -60,10 +61,10 @@
 }
 
 .progress {
-  flex: 1;
   margin-left: 5px;
   margin-right: 5px;
   height: 5px;
+  width: 40%;
 }
 
 .upper-left-3 {
