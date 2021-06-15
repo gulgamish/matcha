@@ -7,9 +7,10 @@ import { ProgressBar } from "react-bootstrap"
 import "font-awesome/css/font-awesome.min.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Button } from "@material-ui/core"
-import { ViewCarouselOutlined, MoreVert, EmojiFlags, Block } from "@material-ui/icons"
+import { ViewCarouselOutlined, MoreVert, EmojiFlags, Block, Message } from "@material-ui/icons"
 import { IconButton } from "@material-ui/core"
 import LoveButton from "../love-button/LoveButton"
+import Connected from "../connected/Connected"
 
 const Upper = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -86,19 +87,27 @@ const Upper = () => {
                     </div>
                 </div>
                 <div className="upper-left-4">
-                    <LoveButton
-                        isActive={toggleHeart}
-                        onClick={() => {
-                            setToggle(!toggleHeart);
-                        }}
-                    />
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        startIcon={<ViewCarouselOutlined />}
-                    >
-                        view photos
-                    </Button>
+                    <div className="btn-mgn">
+                        <LoveButton
+                            isActive={toggleHeart}
+                            onClick={() => {
+                                setToggle(!toggleHeart);
+                            }}
+                        />
+                    </div>
+                    <div className="btn-mgn">
+                        <Connected>
+                            Connected
+                        </Connected>
+                    </div>
+                    <div className="btn-mgn">
+                        <Button
+                            color="primary"
+                            startIcon={<Message />}
+                        >
+                            send message
+                        </Button>
+                    </div>
                 </div>
                 
             </div>

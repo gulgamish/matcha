@@ -84,3 +84,8 @@
 .upper-left-4 {
   display: flex;
 }
+
+.btn-mgn {
+  margin-left: 5px;
+  margin-right: 5px;
+}
