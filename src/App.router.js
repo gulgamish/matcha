@@ -12,6 +12,7 @@ import Confirm from './components/auth/Confirm'
 import RecoverPassword from './components/auth/RecoverPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import UserProfile from "./components/User-profile/UserProfile"
+import Messenger from './components/messenger/messenger';
 
 export default function() {
 
@@ -28,6 +29,7 @@ export default function() {
                     <ProtectedRoute exact path='/home' component={Home} />
                     <Route exact path='/profile' component={Profile} />
                     <Route exact path="/user/profile" component={UserProfile} />
+                    <Route exact path="/messenger" component={Messenger} />
                 </UserWrapper>
             </Switch>
         </Router>

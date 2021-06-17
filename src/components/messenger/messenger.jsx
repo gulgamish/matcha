@@ -1,11 +1,15 @@
 import React from "react"
+import Conversation from "./Conversation/Conversation"
+import List from "./List/List"
+import "./style.css"
 
 const Messenger = () => {
 
 
     return (
-        <div>
-            
+        <div className="messenger-container">
+            <List />
+            <Conversation />
         </div>
     )
 }

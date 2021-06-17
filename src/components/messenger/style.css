@@ -1,0 +1,28 @@
+.messenger-container {
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+}
+
+@media screen and (max-width: 700px) {
+    .messenger-container {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .conversation-container {
+        flex: 1;
+        width: 90%;
+        margin: auto;
+    }
+    .list-container {
+        border: none;
+        flex-direction: row;
+        width: 100%;
+    }
+    .m-container {
+        flex-direction: column;
+    }
+    .m-container-username {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,35 @@
+.msg-input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.msg-input {
+    flex: 1;
+}
+
+.m-input {
+    border-radius: 22px;
+    border: 1px solid lightgray;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.m-input:focus {
+    outline: none;
+    border: 1px solid rgb(177, 176, 176);
+}
+
+.msg-button {
+    cursor: pointer;
+    margin: 5px;
+    border: none;
+    background-color: white;
+}
+
+.msg-button:focus {
+    outline: none;
+}
