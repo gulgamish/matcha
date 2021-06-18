@@ -81,14 +81,16 @@ export default function () {
       <Search />
       <div className="users">
         {
-          users.map(user => (
+          !loading && data.browseUsers.map(user => (
             <Card
+              id={user.id}
               firstName={user.firstName}
               lastName={user.lastName}
               age={user.age}
               distance={user.distance}
               interests={user.interests}
-              fameRating={user.fameRating}
+              fameRating={user.score}
+              image={user.profilePicture}
             />
           ))
         }

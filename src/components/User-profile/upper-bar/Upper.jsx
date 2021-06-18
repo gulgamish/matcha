@@ -51,26 +51,6 @@ const Upper = () => {
                         <ProgressBar now={87} />
                     </div>
                 </div>
-                <div className="upper-left-5">
-                    <span className="info-label">Gender</span>
-                    <div className="info-d">
-                        <span>Male</span>
-                    </div>
-                </div>
-                <div className="upper-left-6">
-                    <span className="info-label">Sexual Orientation</span>
-                    <div className="info-d">
-                        <span>Homosexual</span>
-                    </div>
-                </div>
-                <div className="upper-left-7">
-                    <span className="info-label">Bio</span>
-                    <div className="info-d">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis dolorem, est maiores facere magni expedita fugit rerum quaerat. Molestiae corporis quis beatae corrupti. Dicta veniam explicabo, nemo commodi dolorem numquam!
-                        </p>
-                    </div>
-                </div>
                 <div className="upper-left-3">
                     <span className="info-label">Interests</span>
                     <div className="interests-container">
@@ -111,36 +91,36 @@ const Upper = () => {
                 </div>
                 
             </div>
-                    <div className="icon-bar">
-                        <IconButton
-                            aria-label="more"
-                            aria-controls="menu"
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                        >
-                            <MoreVert />
-                        </IconButton>
-                        <Menu
-                            id="menu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={open}
-                            onClose={handleClose}
-                        >
-                            <MenuItem key="report">
-                                <ListItemIcon>
-                                    <EmojiFlags />
-                                </ListItemIcon>
-                                <Typography variant="inherit">Report as fake account</Typography>
-                            </MenuItem>
-                            <MenuItem key="block">
-                                <ListItemIcon>
-                                    <Block />
-                                </ListItemIcon>
-                                <Typography variant="inherit">Block</Typography>
-                            </MenuItem>
-                        </Menu>
-                    </div>
+            <div className="icon-bar">
+                <IconButton
+                    aria-label="more"
+                    aria-controls="menu"
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                >
+                    <MoreVert />
+                </IconButton>
+                <Menu
+                    id="menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <MenuItem key="report">
+                        <ListItemIcon>
+                            <EmojiFlags />
+                        </ListItemIcon>
+                        <Typography variant="inherit">Report as fake account</Typography>
+                    </MenuItem>
+                    <MenuItem key="block">
+                        <ListItemIcon>
+                            <Block />
+                        </ListItemIcon>
+                        <Typography variant="inherit">Block</Typography>
+                    </MenuItem>
+                </Menu>
+            </div>
         </div>
     )
 }

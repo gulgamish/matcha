@@ -1,0 +1,33 @@
+.menu-container {
+}
+
+.menu-header {
+    position: relative;
+}
+
+.menu-content {
+    background-color: white;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    opacity: 0;
+    margin: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
+.menu-content > * {
+    width: 100%;
+    height: 100%;
+}
+
+.menu-header:focus + .menu-content {
+    opacity: 1;
+}
+

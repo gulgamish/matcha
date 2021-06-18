@@ -5,11 +5,12 @@ import { useUserContext } from './user.wrapper'
 import client from './client'
 import img from './img/profile-photo.png'
 import 'font-awesome/css/font-awesome.min.css'
-import { Avatar, Button, Chip, Fab, makeStyles } from '@material-ui/core'
-import { MeetingRoom } from '@material-ui/icons'
+import { Avatar, Button, Chip, Divider, Fab, List, ListItemIcon, makeStyles, MenuItem, MenuList, Typography } from '@material-ui/core'
+import { ChatBubble, ExitToApp, MeetingRoom, Notifications, Person } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_USERNAME } from './GraphQl/User/Queries'
+import Menu from './sub-components/menu-dropdown/Menu'
 
 var useStyles = makeStyles({
     logOut: {
@@ -50,24 +51,58 @@ export default function(props) {
         <div id="navbar">
             <div className="app">
                 <a href="/home" className="app-name">
-                    ꪑꪖꪻᥴꫝꪖ
+                    matcha
                 </a>
             </div>
             {(user.isLoggedIn) ? (
                 <div className="profile-nav">
-                    <Chip
-                        clickable={true}
-                        variant="outlined"
-                        label={loading ? "" : data.getUser.username}
-                        avatar={<Avatar src={image} />}
-                        className={classes.navLinkProfile}
-                        onClick={() => {
-                            history.push("/profile");
-                        }}
+                    <Menu
+                        nav={<Chip
+                            clickable={true}
+                            variant="outlined"
+                            avatar={<Avatar src={image} />}
+                            className="menu-header"
+                        />}
+                        subNavs={
+                            <MenuList>
+                                <MenuItem
+                                    onClick={() => {
+                                        history.push('/profile')
+                                    }}
+                                >
+                                    <ListItemIcon>
+                                        <Person fontSize="small" />
+                                    </ListItemIcon>
+                                    <Typography variant="inherit">
+                                        profile
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        history.push("/messenger")
+                                    }}
+                                >
+                                    <ListItemIcon>
+                                        <ChatBubble fontSize="small" />
+                                    </ListItemIcon>
+                                    <Typography variant="inherit">
+                                        messages
+                                    </Typography>
+                                </MenuItem>
+                                <Divider style={{
+                                    margin: "5px"
+                                }} />
+                                <MenuItem>
+                                    <ListItemIcon>
+                                        <ExitToApp fontSize="small" />
+                                    </ListItemIcon>
+                                    <Typography variant="inherit">
+                                        sign out
+                                    </Typography>
+                                </MenuItem>
+                            </MenuList>
+                        }
                     />
-                    <Fab size="small" className={classes.logOut} onClick={signOut}>
-                        <MeetingRoom />
-                    </Fab>
                 </div>
             ) : (
                 <div className="profile-nav">

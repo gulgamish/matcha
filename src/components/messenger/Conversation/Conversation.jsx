@@ -1,5 +1,5 @@
 import React from "react"
-import MessageInput from "../message-input/MessageInput"
+import MessageInput from "./message-input/MessageInput"
 import Message from "./Message/Message"
 import "./style.css"
 

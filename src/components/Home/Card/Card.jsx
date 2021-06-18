@@ -6,6 +6,7 @@ import { Chip, Fab, makeStyles } from '@material-ui/core';
 import { CircularProgressbar } from 'react-circular-progressbar'
 import "react-circular-progressbar/dist/styles.css";
 import Heart from 'react-heart'
+import { useHistory } from "react-router-dom"
 
 var useStyles = makeStyles({
     root: {
@@ -15,6 +16,7 @@ var useStyles = makeStyles({
 })
 
 const Card = ({
+    id,
     image = img,
     firstName,
     lastName,
@@ -25,9 +27,15 @@ const Card = ({
 }) => {
     const [toggle, setToggle] = useState(false);
     const classes = useStyles();
+    const history = useHistory();
 
     return (
-        <div className="card">
+        <div
+            className="card"
+            onClick={() => {
+                history.push(`/user/profile/${id}`)
+            }}
+        >
             <div className="header">
                 <div className="overlay">
                 </div>
