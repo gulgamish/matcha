@@ -3,9 +3,7 @@ import "./Style.css"
 import img from "../../../img/profile-photo.png"
 import 'font-awesome/css/font-awesome.min.css';
 import { Chip, Fab, makeStyles } from '@material-ui/core';
-import { CircularProgressbar } from 'react-circular-progressbar'
 import "react-circular-progressbar/dist/styles.css";
-import Heart from 'react-heart'
 import { useHistory } from "react-router-dom"
 
 var useStyles = makeStyles({
@@ -45,12 +43,6 @@ const Card = ({
                         src={image}
                     />
                 </div>
-                <CircularProgressbar
-                    value={fameRating}
-                    className="progressBar"
-                    strokeWidth={3}
-                    
-                />
             </div>
             <div className="content">
                 <div className="info">
@@ -84,15 +76,6 @@ const Card = ({
                     </ul>
                 </div>
             </div>
-            <Heart
-                className="heart"
-                isActive={toggle}
-                onClick={() => {
-                    setToggle(
-                        !toggle
-                    )
-                }}
-            />
         </div>
     )
 }

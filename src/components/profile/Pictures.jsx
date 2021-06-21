@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, Dialog, DialogContent, Button, makeStyles, DialogActions, Avatar } from '@material-ui/core';
-import { Camera, CameraAlt, Delete } from '@material-ui/icons'
+import { Card, CardContent, Dialog, DialogContent, Button, makeStyles, DialogActions, Avatar, Fab } from '@material-ui/core';
+import { Add, Camera, CameraAlt, Delete, Edit } from '@material-ui/icons'
 import client from '../../client'
 import ConfirmDelete from './ConfirmDelete'
+import { useQuery } from '@apollo/client';
+import { GET_PICTURES } from '../../GraphQl/User/Queries';
 
 var useStyles = makeStyles({
     image: {
@@ -82,22 +84,19 @@ var Pictures = () => {
     var [ pictures, setPictures ] = useState([]);
     var [ image, setImage ] = useState("");
     var classes = useStyles();
+    const { data, loading } = useQuery(GET_PICTURES, {
+        onError: (err) => {
+            console.error(err);
+        }
+    });
 
     useEffect(() => {
-        client
-            .get('/user/picture')
-            .then(({ data }) => {
-                setPictures(data.pictures);
-            })
-            .catch(err => {
-                if (err)
-                    console.error(err);
-            })
-    }, []);
+        if (!loading)
+            setPictures(data.getUser.regulatPictures);
+    }, [data]);
 
     return (
         <div className="images-group">
-            
                 {
                     pictures && pictures.length > 0 ? ( <ul>
                     {pictures.map((picture) => (
@@ -131,6 +130,17 @@ var Pictures = () => {
                 setOpen={setOpen}
                 img={image}
             />
+            <div className="edit-regular-picture">
+                <Fab>
+                    <Add />
+                    <input
+                        accept="image/*"
+                        type="file"
+                        id="epicture"
+                        
+                    />
+                </Fab>
+            </div>
         </div>
     )
 }

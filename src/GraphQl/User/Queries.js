@@ -1,5 +1,21 @@
 import { gql } from "@apollo/client";
 
+export const GET_PICTURES = gql`
+  query user {
+    getUser {
+      regularPictures
+    }
+  }
+`
+
+export const GET_PROFILE_PICTURE = gql`
+  query user {
+    getUser {
+      profilePicture
+    }
+  }
+`
+
 export const GET_USERNAME = gql`
   query user {
     getUser {

@@ -69,15 +69,6 @@ ul li {
   list-style: none;
 }
 
-.progressBar {
-  position: absolute;
-  width: 200px;
-  height: 160px;
-  top: 2.785rem;
-  right: 0.12rem;
-  transition: 0.4s ease;
-}
-
 .fullname {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 25px;
@@ -101,18 +92,11 @@ ul li {
 }
 
 .info ul {
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .fa {
   color: rgb(97, 97, 97);
-}
-
-.heart {
-  width: 60px;
-  height: 30px;
-  position: absolute;
-  top: 53%;
-  left: 40%;
-  stroke: lightgray;
 }

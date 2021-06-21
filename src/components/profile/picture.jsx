@@ -9,6 +9,11 @@ import client from '../../client'
 import EditPicture from './EditPicture'
 import img from '../../img/profile-photo.png'
 import Pictures from './Pictures'
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_PROFILE_PICTURE } from '../../GraphQl/User/Queries'
+import "./style.css"
+import { UPLOAD } from '../../GraphQl/User/Mutations'
+import useAlert from "../tools/useAlert"
 
 var useStyles = makeStyles({
     importButton: {
@@ -31,27 +36,55 @@ var useStyles = makeStyles({
 var Picture = (props) => {
     var classes = useStyles();
     var [ open, setOpen ] = useState(false);
+    const { SnackBar, setAlert } = useAlert();
     var [ profilePic, setProfilePic ] = useState(img);
+    const { data, loading, error } = useQuery(GET_PROFILE_PICTURE);
+    const [ uploadFile ] = useMutation(UPLOAD, {
+        onCompleted: (data) => {
+            setAlert({
+                open: true,
+                isSucces: true,
+                msg: "Picture uploaded successfuly"
+            });
+            setProfilePic(data.uploadFile.url);
+        },
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: "Error, please try again"
+            })
+        }
+    })
 
     useEffect(() => {
-        client
-            .get('/user/picture/profile')
-            .then(({ data }) => {
-                if (data.picture != "none") {
-                    setProfilePic(data.picture)
-                }
-            })
-            .catch(err => {
-                if (err)
-                    console.error(err);
-            })
-    }, []);
+        if (!loading)
+            setProfilePic(data.getUser.profilePicture)
+    }, [data]);
 
     return (
         <Card>
             <CardContent>
                 <div className="img-container">
                     <Avatar src={profilePic} className={classes.profilePic} />
+                    <div className="edit-picture">
+                        <input
+                            accept="image/*"
+                            type="file"
+                            id="epicture"
+                            onChange={({ target: { validity, files: [file] } }) => {
+                                if (validity.valid) {
+                                    uploadFile({
+                                        variables: {
+                                            type: "profile",
+                                            file
+                                        }
+                                    })
+                                }
+                            }}
+                        />
+                        <label htmlFor="epicture">Edit picture</label>
+                    </div>
                 </div>
                 <Pictures />
                 <EditPicture
@@ -73,6 +106,7 @@ var Picture = (props) => {
                     import a photo
                 </Button>
             </CardActions>
+            <SnackBar />
         </Card>
     )
 }
