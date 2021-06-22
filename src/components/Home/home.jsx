@@ -72,10 +72,6 @@ export default function () {
   if (!loading)
     console.log(data);
 
-  useEffect(() => {
-    
-  }, []);
-
   return (
     <div className="home-container">
       <Search />

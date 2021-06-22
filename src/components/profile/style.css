@@ -1,45 +1,39 @@
 .img-container {
-    position: relative;
+  position: relative;
 }
 
-
-
 #epicture {
-    display: none;
+  display: none;
 }
 
 .edit-picture > * {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .edit-picture {
-    position: absolute;
-    border: 1px solid lightgray;
-    padding: 5px;
-    font-size: 14px;
-    border-radius: 5px;
-    left: 250px;
-    top: 150px;
-    background-color: white;
-    display: none;
-    transition: 2s ease-in;
+  position: absolute;
+  border: 1px solid lightgray;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  left: 250px;
+  top: 150px;
+  background-color: white;
+  display: none;
+  transition: 2s ease-in;
 }
 
-.img-container:hover .edit-picture{
-    display: block;
+.img-container:hover .edit-picture {
+  display: block;
 }
 
 .images-group {
-    position: relative;
+  position: relative;
 }
 
 .edit-regular-picture {
-    position: absolute;
-    right: -10px;
-    top: 70px;
-    display: none;
-}
-
-.images-group:hover .edit-regular-picture {
-    display: block;
+  position: absolute;
+  right: -10px;
+  top: 70px;
+  display: block;
 }

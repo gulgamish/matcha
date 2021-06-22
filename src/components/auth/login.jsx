@@ -20,6 +20,7 @@ import { SIGN_IN } from "../../GraphQl/Auth/Mutations";
 import ReactLoading from 'react-loading'
 import useForm from '../tools/useForm';
 import ResetPassword from './RecoverPassword';
+import useAlert from '../tools/useAlert';
 
 const useStyles = makeStyles({
     card: {
@@ -35,39 +36,31 @@ const useStyles = makeStyles({
 
 export default function(props) {
     var { values, onChange } = useForm({});
-    var [ alert, setAlert ] = useState({
-        open: false,
-        msg: ""
-    });
-    var [ open, setOpen ] = useState(false);
+    const { SnackBar, setAlert } = useAlert();
     var classes = useStyles();
-    const [ signin, { data, error, loading } ] = useMutation(SIGN_IN, {
-        errorPolicy: 'all',
+    const [ signin ] = useMutation(SIGN_IN, {
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            })
+        },
+        onCompleted: (data) => {
+            window.location.reload();
+        }
     });
 
     console.log(values);
-
-    const login = () => {
-        signin({
-            variables: values
-        })
-        if (loading)
-            setOpen(true);
-        if (error) {
-            setAlert({
-                open: true,
-                msg: error.message
-            });
-            setOpen(false);
-        }
-    }
 
     return (
         <Card className={classes.card}>
             <form
                 onSubmit={e => {
                     e.preventDefault();
-                    login();
+                    signin({
+                        variables: values
+                    })
                 }}
             >
                 <CardContent>
@@ -108,36 +101,8 @@ export default function(props) {
                      <Link to="/recover">
                         Forgot your password ?
                     </Link>
-                    {open && (
-                        <ReactLoading type="bars" color="lightgray" width="30px" height="30px" />
-                    )}
-                    <Snackbar
-                        open={alert.open}
-                        onClose={() => {
-                            setAlert({
-                                open: false,
-                                msg: ""
-                            })
-                        }}
-                        autoHideDuration={5000}
-                        anchorOrigin={{
-                            vertical: "top",
-                            horizontal: "center"
-                        }}
-                    >
-                        <Alert
-                            severity="error"
-                            onClose={() => {
-                                setAlert({
-                                    open: false,
-                                    msg: ""
-                                })
-                            }}
-                        >
-                            {alert.msg}
-                        </Alert>
-                    </Snackbar>
                 </CardActions>
+                <SnackBar />
             </form>
         </Card>
     )

@@ -94,18 +94,6 @@ var Picture = (props) => {
                     }}
                 />
             </CardContent>
-            <CardActions>
-                <Button
-                    startIcon={<Edit />}
-                    variant="contained"
-                    className={classes.importButton}
-                    onClick={() => {
-                        setOpen(true);
-                    }}
-                >
-                    import a photo
-                </Button>
-            </CardActions>
             <SnackBar />
         </Card>
     )

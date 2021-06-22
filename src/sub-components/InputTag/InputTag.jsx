@@ -6,8 +6,9 @@ import "./style.css"
 const InputTags = ({
     onChange = () => {},
     max = -1,
+    initialTags = []
 }) => {
-    const [ tags, setTags ] = useState([]);
+    const [ tags, setTags ] = useState(initialTags);
     const [ value, setValue ] = useState("");
     const [ isActive, setActive ] = useState(false);
 

@@ -4,7 +4,7 @@ import {
     Divider, Slider, Typography
 } from "@material-ui/core"
 import Chip from "../Chip/Chip"
-import InputTags from "../InputTag/InputTag"
+import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
 
 const Search = () => {

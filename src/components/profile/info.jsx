@@ -20,6 +20,8 @@ import {
   Fab,
   Backdrop,
   CircularProgress,
+  FormHelperText,
+  OutlinedInput
 } from "@material-ui/core";
 import { Edit, Save } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
@@ -40,6 +42,7 @@ import { useUserContext } from "../../user.wrapper";
 import { v_email, v_name } from "../../validation/authValidation";
 import useAlert from "../tools/useAlert";
 import useForm from "../tools/useForm";
+import InputTags from "../../sub-components/InputTag/InputTag"
 import Tags from "./Tags";
 
 var useStyles = makeStyles({
@@ -118,23 +121,30 @@ const Input = ({
 
   return (
     <div className={classes.form}>
-      <TextField
+      <FormControl
+        error={error}
         variant="outlined"
         size="small"
-        type={type}
-        label={label}
-        error={error}
-        value={value}
-        InputLabelProps={{
-          shrink: true,
-        }}
         className={classes.fullWidth}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-        helperText= {error ? errorMessage : null}
-        {...props}
-      />
+        required
+      >
+        <InputLabel htmlFor={label}>
+            {label}
+        </InputLabel>
+        <OutlinedInput
+            type={type}
+            value={value}
+            label={label}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+        />
+        {error && (
+          <FormHelperText>
+            {errorMessage}
+          </FormHelperText>
+        )}
+      </FormControl>
       <Fab
         size="small"
         className={classes.fab}
@@ -319,6 +329,12 @@ var Info = () => {
           rows={4}
           name="bio"
           resolver={modifyBio}
+        />
+        <InputTags
+          initialTags={values.interests}
+          onChange={(tag) => {
+            console.log(tag)
+          }}
         />
         <Tags tags={values.interests} />
       </CardContent>

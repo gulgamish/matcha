@@ -94,9 +94,9 @@ export default function(props) {
                                 }} />
                                 <MenuItem>
                                     <ListItemIcon>
-                                        <ExitToApp fontSize="small" />
+                                        <ExitToApp fontSize="small" color="secondary" />
                                     </ListItemIcon>
-                                    <Typography variant="inherit">
+                                    <Typography variant="inherit" color="secondary">
                                         sign out
                                     </Typography>
                                 </MenuItem>
