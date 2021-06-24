@@ -1,12 +1,15 @@
 import React from "react"
 import "./style.css"
-import img from "../../../../img/profile-img.JPG"
 
-const MatchedUser = () => {
+const MatchedUser = ({
+    img,
+    username,
+    onClick
+}) => {
 
 
     return (
-        <div className="m-container">
+        <div className="m-container" onClick={onClick}>
             <div className="m-container-profile-photo">
                 <img
                     className="m-profile-photo"
@@ -14,7 +17,7 @@ const MatchedUser = () => {
                 />
             </div>
             <div className="m-container-username">
-                <span className="username">Jumper</span>
+                <span className="username">{username}</span>
             </div>
         </div>
     )

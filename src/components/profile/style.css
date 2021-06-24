@@ -37,3 +37,8 @@
   top: 70px;
   display: block;
 }
+
+.user-input-tags {
+  width: 100%;
+  margin: 0;
+}

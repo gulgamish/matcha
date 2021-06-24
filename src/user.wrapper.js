@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState, createContext } from 'react'
 import client from './client';
-import { gql, useQuery, useApolloClient, ApolloLink, HttpLink, from, useMutation, createHttpLink, InMemoryCache, ApolloProvider, ApolloClient } from "@apollo/client"
+import { ApolloLink, InMemoryCache, ApolloProvider, ApolloClient } from "@apollo/client"
 import { GET_TOKEN } from './GraphQl/Auth/Queries';
 import { getAccessToken, setAccessToken } from './accessToken'
 import { REFRESH_TOKEN } from './GraphQl/Auth/Mutations';
 import axios from 'axios';
 import { createUploadLink } from 'apollo-upload-client'
+import { WebSocketLink } from "@apollo/client/link/ws"
+import { RetryLink } from "@apollo/client/link/retry"
+import { getMainDefinition } from "apollo-utilities"
 
 export var UserContext = createContext(null);
 
@@ -22,9 +25,12 @@ export default function({ children }) {
         uri: '/graphql'
     });
 
-    const httpLink = createHttpLink({
-        uri: "/graphql"
-    });
+    const socketLink = new WebSocketLink({
+        uri: `ws://localhost:5000/graphql`,
+        options: {
+            reconnect: true
+        }
+    })
 
     const authLink = new ApolloLink((operation, forward) => {
 
@@ -37,7 +43,11 @@ export default function({ children }) {
     })
 
     const client = new ApolloClient({
-        link: authLink.concat(uploadLink),
+        link: new RetryLink().split(({ query }) => {
+            const { operation } = getMainDefinition(query);
+            console.log(operation);
+            return operation == "subscription"
+        }, socketLink, authLink.concat(uploadLink)),
         cache: new InMemoryCache(),
         credentials: "include"
     })

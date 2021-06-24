@@ -6,7 +6,7 @@ import "./style.css"
 const MessageInput = ({
     placeholder,
     onChange,
-    onSubmit
+    submit
 }) => {
 
 
@@ -14,7 +14,7 @@ const MessageInput = ({
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                onSubmit();
+                submit();
             }}
         >
             <div className="msg-input-container">

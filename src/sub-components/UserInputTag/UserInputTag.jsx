@@ -3,11 +3,14 @@ import { Clear } from "@material-ui/icons"
 import React, { useEffect, useState } from 'react'
 import "./style.css"
 
-const InputTags = ({
+const UserInputTags = ({
+    tags = [],
+    setTags,
+    onTagDelete,
     onChange = () => {},
     max = -1,
+    className = ""
 }) => {
-    const [ tags, setTags ] = useState([]);
     const [ value, setValue ] = useState("");
     const [ isActive, setActive ] = useState(false);
 
@@ -31,18 +34,10 @@ const InputTags = ({
             }
             setValue("");
         }
-        if (e.key === "Backspace") {
-            if (value.length != 0)
-                setValue("");
-            else {
-                const newTags = tags.filter((value, index) => index < tags.length - 1);
-                setTags(newTags);
-            }
-        }
     }
 
     return (
-        <div className="container">
+        <div className={`${className}`}>
             <div
                 className="tags-container"
             >
@@ -57,6 +52,7 @@ const InputTags = ({
                             setTags(
                                 tags.filter(value => value != tag)
                             )
+                            onTagDelete(tag);
                         }}
                     />
                 ))}
@@ -70,17 +66,9 @@ const InputTags = ({
                     onKeyUp={onKeyUp}
                     disabled={tags.length == max}
                 />
-                <div
-                    className={`clear-tags ${isActive ? "clear-tags-active" : ""}`}
-                    onClick={() => {
-                        setTags([]);
-                    }}    
-                >
-                    <Clear />
-                </div>
             </div>
         </div>
     )
 }
 
-export default InputTags;
+export default UserInputTags;

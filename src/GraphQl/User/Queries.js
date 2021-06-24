@@ -52,7 +52,8 @@ export const GET_USER = gql`
       biography
       sexualPreference,
       birthday,
-      distance
+      distance,
+      interests
     }
   }
 `;

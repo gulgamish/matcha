@@ -35,8 +35,6 @@ const Card = ({
             }}
         >
             <div className="header">
-                <div className="overlay">
-                </div>
                 <div className="media">
                     <img
                         className="media-avatar"

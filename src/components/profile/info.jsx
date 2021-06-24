@@ -28,6 +28,8 @@ import { Alert } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import client from "../../client";
 import { 
+  ADD_TAG,
+  DELETE_TAG,
   MODIFY_BIO,
   MODIFY_BIRTHDAY,
   MODIFY_EMAIL,
@@ -42,7 +44,7 @@ import { useUserContext } from "../../user.wrapper";
 import { v_email, v_name } from "../../validation/authValidation";
 import useAlert from "../tools/useAlert";
 import useForm from "../tools/useForm";
-import InputTags from "../../sub-components/InputTag/InputTag"
+import UserInputTag from "../../sub-components/UserInputTag/UserInputTag"
 import Tags from "./Tags";
 
 var useStyles = makeStyles({
@@ -214,6 +216,7 @@ const SelectInput = ({
 var Info = () => {
   var classes = useStyles();
   const { SnackBar, setAlert } = useAlert();
+  const [ tags, setTags ] = useState([]);
   const { values, errors, onChange, setValues } = useForm({
     firstName: true,
     email: true,
@@ -222,6 +225,7 @@ var Info = () => {
   const { loading, data } = useQuery(GET_USER, {
     onCompleted: (data) => {
       setValues(data.getUser);
+      setTags(data.getUser.interests);
     }
   });
 
@@ -250,6 +254,14 @@ var Info = () => {
     onCompleted: success(setAlert)
   });
   const [ modifyBio ] = useMutation(MODIFY_BIO, {
+    onError: error(setAlert),
+    onCompleted: success(setAlert)
+  })
+  const [ addTag ] = useMutation(ADD_TAG, {
+    onError: error(setAlert),
+    onCompleted: success(setAlert)
+  })
+  const [ deleteTag ] = useMutation(DELETE_TAG, {
     onError: error(setAlert),
     onCompleted: success(setAlert)
   })
@@ -330,13 +342,26 @@ var Info = () => {
           name="bio"
           resolver={modifyBio}
         />
-        <InputTags
+        <UserInputTag
+          className={classes.fullWidth}
+          tags={tags}
+          setTags={setTags}
           initialTags={values.interests}
           onChange={(tag) => {
-            console.log(tag)
+            addTag({
+              variables: {
+                tag
+              }
+            });
+          }}
+          onTagDelete={(tag) => {
+            deleteTag({
+              variables: {
+                tag
+              }
+            })
           }}
         />
-        <Tags tags={values.interests} />
       </CardContent>
       <SnackBar />
     </Card>

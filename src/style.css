@@ -78,7 +78,11 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 70vh;
+}
+
+.side-bar > * {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .user-info {

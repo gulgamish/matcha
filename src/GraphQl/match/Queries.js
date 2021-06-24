@@ -14,3 +14,27 @@ export const USERS = gql`
         }
     }
 `
+
+export const GET_MATCHED_USERS = gql`
+    query match {
+        getMatchedUsers {
+            id,
+            profilePicture,
+            username
+        }
+    }
+`
+
+export const GET_MESSAGES = gql`
+    query GetMessages (
+            $from: String!
+        ) {
+            getMessages (
+                from: $from
+            ) {
+                from,
+                to,
+                content
+            }
+        }
+`

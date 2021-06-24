@@ -109,7 +109,7 @@ const Location = () => {
         coords: { lat: 33.58, lng: -7.60 }
     });
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: "AIzaSyBl3z-3r8fWcjeUF0TgIW3FNJgliwNaFTs",
+        googleMapsApiKey: "AIzaSyCtE_1tTVIceccd1gz4cS_oj0HRJJ53Oqg",
         libraries
     });
     const { SnackBar, setAlert } = useAlert();
