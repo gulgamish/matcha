@@ -12,6 +12,7 @@
   .conversation-container {
     width: 90%;
     margin: auto;
+    overflow: auto;
   }
   .list-container {
     border: none;
@@ -24,6 +25,6 @@
   }
 
   .m-container-username {
-    font-size: 12px;
+    display: none;
   }
 }

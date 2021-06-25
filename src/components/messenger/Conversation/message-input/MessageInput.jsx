@@ -6,7 +6,7 @@ import "./style.css"
 const MessageInput = ({
     placeholder,
     onChange,
-    submit
+    submit,
 }) => {
 
 

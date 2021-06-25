@@ -9,7 +9,9 @@ export const SEND_MESSAGE = gql`
             to: $to,
             content: $content
         ) {
-            id
+            from
+            to
+            content
         }
     }
 `
