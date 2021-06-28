@@ -5,26 +5,20 @@
 }
 
 @media screen and (max-width: 700px) {
-  .messenger-container {
-    flex-direction: column;
-    justify-content: center;
+  .m-container {
+    width: 100px;
   }
   .conversation-container {
-    width: 90%;
-    margin: auto;
-    overflow: auto;
+    width: 70%;
   }
-  .list-container {
-    border: none;
-    flex-direction: row;
-    width: 100%;
-  }
+}
 
-  .m-container {
-    flex-direction: column;
-  }
-
+@media screen and (max-width: 800px) {
   .m-container-username {
     display: none;
+  }
+
+  .m-container-profile-photo {
+    margin: auto;
   }
 }

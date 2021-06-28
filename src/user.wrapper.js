@@ -28,7 +28,10 @@ export default function({ children }) {
     const socketLink = new WebSocketLink({
         uri: `ws://localhost:5000/graphql`,
         options: {
-            reconnect: true
+            reconnect: true,
+            connectionParams: {
+                Authorization: `Bearer ${token}`
+            }
         }
     })
 
@@ -45,7 +48,6 @@ export default function({ children }) {
     const client = new ApolloClient({
         link: new RetryLink().split(({ query }) => {
             const { operation } = getMainDefinition(query);
-            console.log(operation);
             return operation == "subscription"
         }, socketLink, authLink.concat(uploadLink)),
         cache: new InMemoryCache(),

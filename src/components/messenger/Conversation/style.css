@@ -3,12 +3,12 @@
   flex-direction: column;
   margin-left: 10px;
   margin-right: 10px;
-  width: 500px;
+  width: 600px;
 }
 
 .messages {
   flex: 1;
-  overflow: auto;
+  overflow-y: auto;
   padding-left: 20px;
   padding-bottom: 10px;
   padding-top: 10px;

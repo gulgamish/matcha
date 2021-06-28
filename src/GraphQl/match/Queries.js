@@ -32,6 +32,7 @@ export const GET_MESSAGES = gql`
             getMessages (
                 from: $from
             ) {
+                id
                 from,
                 to,
                 content

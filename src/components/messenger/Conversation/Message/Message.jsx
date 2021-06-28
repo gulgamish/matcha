@@ -2,6 +2,7 @@ import React from "react"
 import "./style.css"
 
 const Message = ({
+    id,
     sent = false,
     received = false,
     content = ""
@@ -9,7 +10,10 @@ const Message = ({
 
 
     return (
-        <div className={`message-container ${sent ? "flex-end" : ""}`}>
+        <div
+            className={`message-container ${sent ? "flex-end" : ""}`}
+            key={id}
+        >
             {
                 sent && (
                     <div className="message-sent">

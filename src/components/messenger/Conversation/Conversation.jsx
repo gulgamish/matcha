@@ -1,8 +1,9 @@
-import { useMutation, useQuery } from "@apollo/client"
+import { useMutation, useQuery, useSubscription } from "@apollo/client"
 import React, { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { SEND_MESSAGE } from "../../../GraphQl/Match/Mutations"
 import { GET_MESSAGES } from "../../../GraphQl/Match/Queries"
+import { NEW_MESSAGE } from "../../../GraphQl/Match/Subscriptions"
 import MessageInput from "./message-input/MessageInput"
 import Message from "./Message/Message"
 import "./style.css"
@@ -19,7 +20,6 @@ const Conversation = ({
     })
     const [ sendMessage ] = useMutation(SEND_MESSAGE, {
         onCompleted: ({ sendMessage: { from, to, content } }) => {
-            setMessage("");
             setMessages([
                 ...messages,
                 { from, to, content }
@@ -29,7 +29,18 @@ const Conversation = ({
             console.log(err);
         }
     })
+    const { data: dataNewMessage , loading: loadingNewMessage } = useSubscription(NEW_MESSAGE);
     const messagesRef = useRef();
+
+    useEffect(() => {
+        if (!loadingNewMessage) {
+            if (dataNewMessage.newMessage.from == from)
+                setMessages([
+                    ...messages,
+                    dataNewMessage.newMessage
+                ])
+        }
+    }, [dataNewMessage])
 
     useEffect(() => {
         if (!loading)
@@ -50,11 +61,15 @@ const Conversation = ({
 
     return (
         <div className="conversation-container">
+            <div className="m-header">
+                
+            </div>
             <div className="messages" ref={messagesRef}>
                 {
                     messages && (
                         messages.map(user => (
                             <Message
+                                id={user.id}
                                 received={user.from == from}
                                 sent={user.from != from}
                                 content={user.content}
@@ -78,6 +93,7 @@ const Conversation = ({
                                 }
                             });
                         }
+                        setMessage("");
                     }}
                 />
             </div>
