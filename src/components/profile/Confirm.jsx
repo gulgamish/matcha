@@ -11,7 +11,13 @@ var useStyles = makeStyles({
     }
 })
 
-const ConfirmDelete = ({ text, open, setOpen, handleDelete }) => {
+const Confirm = ({
+    title,
+    text,
+    open,
+    setOpen,
+    handle
+}) => {
     var classes = useStyles();
 
     return (
@@ -22,7 +28,7 @@ const ConfirmDelete = ({ text, open, setOpen, handleDelete }) => {
             }}
         >
             <DialogTitle>
-                <span>Delete profile picture</span>
+                <span>{title}</span>
             </DialogTitle>
             <DialogContent
                 className={classes.content}
@@ -37,9 +43,9 @@ const ConfirmDelete = ({ text, open, setOpen, handleDelete }) => {
                 <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={handleDelete}
+                    onClick={handle}
                 >
-                    Delete
+                    Confirm
                 </Button>
                 <Button
                     variant="contained"
@@ -54,4 +60,4 @@ const ConfirmDelete = ({ text, open, setOpen, handleDelete }) => {
     )
 }
 
-export default ConfirmDelete;
+export default Confirm;

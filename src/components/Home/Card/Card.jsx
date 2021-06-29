@@ -21,7 +21,7 @@ const Card = ({
     age,
     distance,
     interests,
-    fameRating
+    onClick
 }) => {
     const [toggle, setToggle] = useState(false);
     const classes = useStyles();
@@ -30,9 +30,7 @@ const Card = ({
     return (
         <div
             className="card"
-            onClick={() => {
-                history.push(`/user/profile/${id}`)
-            }}
+            onClick={onClick}
         >
             <div className="header">
                 <div className="media">

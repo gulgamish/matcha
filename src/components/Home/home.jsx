@@ -6,68 +6,14 @@ import { USERS } from "../../GraphQl/Match/Queries";
 import Search from './SearchBar/Search'
 import Card from "./Card/Card";
 import "./style.css"
+import Display from "../Display-user/Display";
 
 
 
 export default function () {
-  var [users, setUsers] = useState([
-    {
-      firstName: "ayman",
-      lastName: "elamrani",
-      age: 24,
-      distance: 30.22,
-      interests: [
-        "vegan",
-        "geek"
-      ],
-      fameRating: 20
-    },
-    {
-      firstName: "ayman",
-      lastName: "elamrani",
-      age: 24,
-      distance: 30.22,
-      interests: [
-        "vegan",
-        "geek"
-      ],
-      fameRating: 24
-    },
-    {
-      firstName: "ayman",
-      lastName: "elamrani",
-      age: 24,
-      distance: 30.22,
-      interests: [
-        "vegan",
-        "geek"
-      ],
-      fameRating: 90
-    },
-    {
-      firstName: "ayman",
-      lastName: "elamrani",
-      age: 24,
-      distance: 30.22,
-      interests: [
-        "vegan",
-        "geek"
-      ],
-      fameRating: 50
-    },
-    {
-      firstName: "ayman",
-      lastName: "elamrani",
-      age: 24,
-      distance: 30.22,
-      interests: [
-        "vegan",
-        "geek"
-      ],
-      fameRating: 50
-    }
-  ]);
-  var { loading, data } = useQuery(USERS);
+  const { loading, data } = useQuery(USERS);
+  const [ open, setOpen ] = useState(false);
+  const [ userId, setUserId ] = useState();
 
   if (!loading)
     console.log(data);
@@ -77,7 +23,8 @@ export default function () {
       <Search />
       <div className="users">
         {
-          !loading && data.browseUsers.map(user => (
+          !loading && data ?
+          data.browseUsers.map(user => (
             <Card
               id={user.id}
               firstName={user.firstName}
@@ -87,10 +34,26 @@ export default function () {
               interests={user.interests}
               fameRating={user.score}
               image={user.profilePicture}
+              onClick={() => {
+                setOpen(true);
+                setUserId(user.id);
+              }}
             />
-          ))
+          )) : (
+            <div>
+              no match found
+            </div>
+          )
         }
+        
       </div>
+      <Display
+        open={open}
+        handleClose={() => {
+          setOpen(false);
+        }}
+        userId={userId}
+      />
     </div>
   );
 }

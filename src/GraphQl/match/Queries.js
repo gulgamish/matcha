@@ -1,5 +1,29 @@
 import { gql } from '@apollo/client'
 
+export const GET_USER = gql`
+    query checkProfile (
+        $id: ID
+    ) {
+        checkProfile (
+            profileId: $id
+        ) {
+            firstName
+            lastName
+            username
+            distance
+            gender
+            biography
+            score
+            sexualPreference
+            age
+            interests
+            profilePicture
+            regularPictures
+            liked
+        }
+    }
+`
+
 export const USERS = gql`
     query users {
         browseUsers {
@@ -38,4 +62,12 @@ export const GET_MESSAGES = gql`
                 content
             }
         }
+`
+
+export const GET_NOTIFICATIONS = gql`
+    query getNotifications {
+        getNotifications {
+            message
+        }
+    }
 `

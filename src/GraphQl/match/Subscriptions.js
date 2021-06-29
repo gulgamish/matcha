@@ -9,3 +9,11 @@ export const NEW_MESSAGE = gql`
         }
     }
 `
+
+export const NEW_NOTIFICATION = gql`
+    subscription newNotification {
+        newNotification {
+            message
+        }
+    }
+`

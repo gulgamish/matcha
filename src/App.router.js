@@ -11,8 +11,8 @@ import Profile from './components/profile/userProfile';
 import Confirm from './components/auth/Confirm'
 import RecoverPassword from './components/auth/RecoverPassword';
 import ResetPassword from './components/auth/ResetPassword';
-import UserProfile from "./components/User-profile/UserProfile"
 import Messenger from './components/messenger/messenger';
+import Notifications from './components/Notifications/Notifications';
 
 export default function() {
 
@@ -28,7 +28,6 @@ export default function() {
                     <AuthRoute exact path="/change-password/:token" component={ResetPassword} />
                     <ProtectedRoute exact path='/home' component={Home} />
                     <ProtectedRoute exact path='/profile' component={Profile} />
-                    <Route exact path="/user/profile" component={UserProfile} />
                     <ProtectedRoute exact path="/messenger" component={Messenger} />
                 </UserWrapper>
             </Switch>

@@ -1,0 +1,101 @@
+.d-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-container {
+    height: 600px;
+}
+
+.image-display {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.others-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.slide-image-container {
+    width: 100px;
+    height: 100px;
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+    margin: 4px;
+}
+
+.name {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.name-username {
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    margin: 5px;
+    font-size: 20px;
+}
+
+.user-content {
+    margin-left: 10px;
+}
+
+.name-distance {
+    display: flex;
+    align-items: center;
+}
+
+.d-distance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-distance-label {
+    font-size: 14px;
+    color: rgb(69, 69, 69);
+}
+
+.d-info {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+}
+
+.d-info-label {
+    font-size: 13px;
+    color: rgb(96, 96, 96);
+}
+
+.d-info-content {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.progress-number {
+    margin: 0 5px 0 5px;
+}
+
+.progress-bar {
+    flex: 1;
+}
+
+.charging {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: 200px;
+    margin-right: 200px;
+}

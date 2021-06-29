@@ -6,11 +6,12 @@ import client from './client'
 import img from './img/profile-photo.png'
 import 'font-awesome/css/font-awesome.min.css'
 import { Avatar, Button, Chip, Divider, Fab, List, ListItemIcon, makeStyles, MenuItem, MenuList, Typography } from '@material-ui/core'
-import { ChatBubble, ExitToApp, MeetingRoom, Notifications, Person } from '@material-ui/icons'
+import { ChatBubble, ExitToApp, MeetingRoom, Person } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_USERNAME } from './GraphQl/User/Queries'
 import Menu from './sub-components/menu-dropdown/Menu'
+import Notifications from './components/Notifications/Notifications'
 
 var useStyles = makeStyles({
     logOut: {
@@ -50,12 +51,16 @@ export default function(props) {
     return (
         <div id="navbar">
             <div className="app">
-                <a href="/home" className="app-name">
+                <NavLink
+                    to="/home"
+                    className="navLink"
+                >
                     matcha
-                </a>
+                </NavLink>
             </div>
             {(user.isLoggedIn) ? (
                 <div className="profile-nav">
+                    <Notifications />
                     <Menu
                         nav={<Chip
                             clickable={true}

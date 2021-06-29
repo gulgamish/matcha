@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Dialog, DialogContent, Button, makeStyles, DialogActions, Avatar, IconButton } from '@material-ui/core';
 import { Add, Camera, CameraAlt, Delete, Edit, PhotoCamera } from '@material-ui/icons'
 import client from '../../client'
-import ConfirmDelete from './ConfirmDelete'
+import Confirm from './Confirm'
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_PICTURES } from '../../GraphQl/User/Queries';
-import { UPLOAD } from "../../GraphQl/User/Mutations"
+import { DELETE_PICTURE, UPLOAD } from "../../GraphQl/User/Mutations"
 import useAlert from "../tools/useAlert"
 
 var useStyles = makeStyles({
@@ -28,21 +28,15 @@ var useStyles = makeStyles({
 
 var DisplayImage = ({ open, setOpen, img }) => {
     var [ openDeleteDialog, setValue ] = useState(false);
+    const [ deletePicture ] = useMutation(DELETE_PICTURE, {
+        onCompleted: (data) => {
+            window.location.reload();
+        },
+        onError: (err) => {
+            console.error(err);
+        }
+    })
     var classes = useStyles();
-
-    var deletePicture = () => {
-        client
-            .post('/user/picture', {
-                picture: img
-            })
-            .then(() => {
-                window.location.reload();
-            })
-            .catch(err => {
-                if (err)
-                    console.error(err);
-            })
-    }
 
     return (
         <Dialog
@@ -58,11 +52,19 @@ var DisplayImage = ({ open, setOpen, img }) => {
                         className={classes.preImg}
                     />
                 </div>
-                <ConfirmDelete
+                <Confirm
+                    title="Delete picture"
                     open={openDeleteDialog}
                     setOpen={setValue}
                     text="Do you want to delete this picture ?"
-                    handleDelete={deletePicture}
+                    handle={() => {
+                        deletePicture({
+                            variables: {
+                                url: img,
+                                type: "regular"
+                            }
+                        })
+                    }}
                 />
             </DialogContent>
             <DialogActions>
@@ -94,7 +96,10 @@ var Pictures = () => {
     });
     const [ uploadFile ] = useMutation(UPLOAD, {
         onCompleted: (data) => {
-            console.log(data);
+            setPictures([
+                ...pictures,
+                data.uploadFile.url
+            ])
         },
         onError: (err) => {
             setAlert({

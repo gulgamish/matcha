@@ -124,3 +124,15 @@ export const FORCE_GEO_POSITION = gql`
         }
     }
 `
+
+export const DELETE_PICTURE = gql`
+    mutation deletePicture (
+        $url: String!,
+        $type: Type!
+    ) {
+        deletePicture (
+            url: $url,
+            type: $type
+        )
+    }
+`
