@@ -3,17 +3,14 @@ import React from "react"
 import MatchedUser from "./match-user/MatchedUser"
 import { GET_MATCHED_USERS } from "../../../GraphQl/Match/Queries"
 import "./style.css"
-import Conversation from "../Conversation/Conversation"
 
 const List = ({
+    selectedUser,
     setSelectedUser
 }) => {
     const { loading, data } = useQuery(GET_MATCHED_USERS, {
-
+        
     })
-    if (!loading)
-        console.log(data);
-
 
     return (
         <div className="list-container">
@@ -26,6 +23,7 @@ const List = ({
                             onClick={() => {
                                 setSelectedUser(user.id)
                             }}
+                            selected={selectedUser === user.id}
                         />
                     ))
                 )

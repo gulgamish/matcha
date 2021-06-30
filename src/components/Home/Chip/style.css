@@ -19,44 +19,36 @@
   padding-left: 5px;
 }
 
-.chip-up {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 20px;
-  right: -5px;
-  background-color: white;
+.up-down {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+}
+
+.chip-up {
+  background-color: white;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
   opacity: 0.2;
 }
 
 .chip-down {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
   opacity: 0.2;
-  position: absolute;
-  top: 20px;
-  right: -5px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .up-active {
-  border: 1px solid rgb(228, 228, 228);
   opacity: 1;
   font-style: inherit;
 }
 
 .down-active {
-  border: 1px solid rgb(228, 228, 228);
   opacity: 1;
   font-style: inherit;
 }

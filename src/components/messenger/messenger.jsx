@@ -11,6 +11,7 @@ const Messenger = () => {
     return (
         <div className="messenger-container">
             <List
+                selectedUser={selectedUser}
                 setSelectedUser={setSelectedUser}
             />
             <Conversation

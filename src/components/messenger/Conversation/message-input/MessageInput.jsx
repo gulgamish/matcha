@@ -5,7 +5,8 @@ import "./style.css"
 
 const MessageInput = ({
     placeholder,
-    onChange,
+    value,
+    setValue,
     submit,
 }) => {
 
@@ -20,7 +21,10 @@ const MessageInput = ({
             <div className="msg-input-container">
                 <div className="msg-input">
                     <input
-                        onChange={onChange}
+                        value={value}
+                        onChange={(e) => {
+                            setValue(e.target.value);
+                        }}
                         type="text"
                         className="m-input"
                         placeholder={placeholder}

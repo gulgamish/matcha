@@ -7,7 +7,7 @@ import Search from './SearchBar/Search'
 import Card from "./Card/Card";
 import "./style.css"
 import Display from "../Display-user/Display";
-
+import { Backdrop } from "@material-ui/core"
 
 
 export default function () {
@@ -23,7 +23,7 @@ export default function () {
       <Search />
       <div className="users">
         {
-          !loading && data ?
+          !loading && data &&
           data.browseUsers.map(user => (
             <Card
               id={user.id}
@@ -39,11 +39,7 @@ export default function () {
                 setUserId(user.id);
               }}
             />
-          )) : (
-            <div>
-              no match found
-            </div>
-          )
+          ))
         }
         
       </div>

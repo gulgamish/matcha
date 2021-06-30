@@ -6,8 +6,8 @@
   cursor: pointer;
 }
 
-.m-container-active {
-  background-color: rgb(249, 249, 249);
+.selected {
+  background-color: rgb(236, 236, 236);
 }
 
 .m-container:hover {

@@ -16,9 +16,10 @@ export const GET_PROFILE_PICTURE = gql`
   }
 `
 
-export const GET_USERNAME = gql`
+export const GET_USERNAME_PICTURE = gql`
   query user {
     getUser {
+      profilePicture
       username
     }
   }

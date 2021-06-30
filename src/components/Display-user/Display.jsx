@@ -97,6 +97,7 @@ const Display = ({
         <Dialog
             open={open}
             onClose={handleClose}
+            className="dialog-display-user"
         >
             <div className="d-container">
                 <div className="user-images-container">

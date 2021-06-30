@@ -1,15 +1,19 @@
 import React from "react"
+import clsx from "clsx"
 import "./style.css"
 
 const MatchedUser = ({
     img,
     username,
-    onClick
+    onClick,
+    selected
 }) => {
 
 
     return (
-        <div className="m-container" onClick={onClick}>
+        <div className={clsx("m-container", {
+            selected
+        })} onClick={onClick}>
             <div className="m-container-profile-photo">
                 <img
                     className="m-profile-photo"

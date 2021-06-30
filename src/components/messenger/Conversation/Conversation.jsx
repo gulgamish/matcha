@@ -61,9 +61,7 @@ const Conversation = ({
 
     return (
         <div className="conversation-container">
-            <div className="m-header">
-                
-            </div>
+
             <div className="messages" ref={messagesRef}>
                 {
                     messages && (
@@ -81,11 +79,11 @@ const Conversation = ({
             <div className="m-send">
                 <MessageInput
                     placeholder="Send a message"
-                    onChange={(e) => {
-                        setMessage(e.target.value);
-                    }}
+                    setValue={setMessage}
+                    value={message}
                     submit={() => {
                         if (message != "") {
+                            setMessage("");
                             sendMessage({
                                 variables: {
                                     to: from,
@@ -93,7 +91,6 @@ const Conversation = ({
                                 }
                             });
                         }
-                        setMessage("");
                     }}
                 />
             </div>

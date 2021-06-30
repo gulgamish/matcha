@@ -9,7 +9,7 @@ import { Avatar, Button, Chip, Divider, Fab, List, ListItemIcon, makeStyles, Men
 import { ChatBubble, ExitToApp, MeetingRoom, Person } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_USERNAME } from './GraphQl/User/Queries'
+import { GET_USERNAME, GET_USERNAME_PICTURE } from './GraphQl/User/Queries'
 import Menu from './sub-components/menu-dropdown/Menu'
 import Notifications from './components/Notifications/Notifications'
 
@@ -30,10 +30,7 @@ export default function(props) {
     var [ image, setImage ] = useState();
     var classes = useStyles();
     var history = useHistory();
-    const { data, loading, error } = useQuery(GET_USERNAME);
-
-    if (!loading)
-        console.log(data);
+    const { data, loading, error } = useQuery(GET_USERNAME_PICTURE);
 
     function signOut() {
         client
@@ -65,7 +62,8 @@ export default function(props) {
                         nav={<Chip
                             clickable={true}
                             variant="outlined"
-                            avatar={<Avatar src={image} />}
+                            avatar={<Avatar src={!loading ? data.getUser.profilePicture : null} />}
+                            label={!loading ? data.getUser.username : null}
                             className="menu-header"
                         />}
                         subNavs={
