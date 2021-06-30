@@ -1,5 +1,11 @@
 import { gql } from '@apollo/client'
 
+export const SIGN_OUT = gql`
+    mutation signOut {
+        logOut
+    }
+`
+
 export const UPLOAD = gql`
     mutation uploadFile (
         $type: Type!

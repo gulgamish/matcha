@@ -14,6 +14,9 @@ const UserInputTags = ({
     const [ value, setValue ] = useState("");
     const [ isActive, setActive ] = useState(false);
 
+    if (tags === null)
+        tags = [];
+
     useEffect(() => {
         if (tags.length > 0)
             setActive(true);

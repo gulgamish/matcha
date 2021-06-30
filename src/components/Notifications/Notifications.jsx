@@ -3,9 +3,10 @@ import { Divider, MenuList, MenuItem } from "@material-ui/core";
 import { NotificationsNone } from "@material-ui/icons";
 import clsx from "clsx";
 import "./style.css"
-import { useQuery, useSubscription } from "@apollo/client";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { NEW_NOTIFICATION } from "../../GraphQl/Match/Subscriptions";
 import { GET_NOTIFICATIONS } from "../../GraphQl/Match/Queries";
+import { READ_NOTIFICATIONS } from "../../GraphQl/Match/Mutations";
 
 const Notifications = () => {
     const { loading, data, error } = useSubscription(NEW_NOTIFICATION);
@@ -14,6 +15,7 @@ const Notifications = () => {
         loading: loadingNotification,
         error: errorNotifications
     } = useQuery(GET_NOTIFICATIONS);
+    const [ readNotifications ] = useMutation(READ_NOTIFICATIONS);
     const [ redNotif, setRedNotif ] = useState(false);
     const [ notifications, setNotifications ] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
@@ -63,6 +65,7 @@ const Notifications = () => {
                 onClick={() => {
                     setShowMenu(!showMenu);
                     setRedNotif(false);
+                    readNotifications();
                 }}
             >
                 <div className={clsx("notif-signal", {

@@ -15,7 +15,8 @@ import {
     makeStyles,
     Button,
     FormHelperText,
-    Snackbar
+    Snackbar,
+    Backdrop
 } from '@material-ui/core'
 import { useMutation } from "@apollo/client"
 import { SIGN_UP } from "../../GraphQl/Auth/Mutations"
@@ -94,7 +95,6 @@ export default function() {
                     isError: true,
                     msg: error.message
                 })
-                console.log(error.graphQLErrors);
             }
         }
     }
@@ -309,7 +309,7 @@ export default function() {
                         color="primary"
                         type="submit"
                     >
-                        sign up
+                        {loading ? <Backdrop /> : "sign up"}
                     </Button>
                     <Snackbar
                         open={alert.open}

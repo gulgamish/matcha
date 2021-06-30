@@ -1,5 +1,11 @@
 import { gql } from "@apollo/client";
 
+export const PROFILE_COMPLETE = gql`
+  query user {
+    checkIfComplete
+  }
+`
+
 export const GET_PICTURES = gql`
   query user {
     getUser {

@@ -17,7 +17,7 @@ export const useUserContext = () => useContext(UserContext);
 
 
 export default function({ children }) {
-    const [ user, setUser ] = useState({ isLoggedIn: false });
+    const [ user, setUser ] = useState({ isLoggedIn: false, token: "" });
     const [ token, setToken ] = useState("");
     const [ loading, setLoading ] = useState(true);
 
@@ -68,7 +68,8 @@ export default function({ children }) {
             if (data.data) {
                 setToken(data.data.refreshToken.token);
                 setUser({
-                    isLoggedIn: true
+                    isLoggedIn: true,
+                    token: data.data.refreshToken.token
                 });
             }
             else if (data.errors) {

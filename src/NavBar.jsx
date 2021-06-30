@@ -12,6 +12,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { GET_USERNAME, GET_USERNAME_PICTURE } from './GraphQl/User/Queries'
 import Menu from './sub-components/menu-dropdown/Menu'
 import Notifications from './components/Notifications/Notifications'
+import { SIGN_OUT } from './GraphQl/User/Mutations'
 
 var useStyles = makeStyles({
     logOut: {
@@ -31,19 +32,11 @@ export default function(props) {
     var classes = useStyles();
     var history = useHistory();
     const { data, loading, error } = useQuery(GET_USERNAME_PICTURE);
-
-    function signOut() {
-        client
-            .post('/user/logout')
-            .catch(err => {
-                if (err)
-                    console.error(err);
-            })
-            .finally(() => {
-                setUser({ isLoggedIn: false, token: '' });
-                history.push("/");
-            })
-    }
+    const [ signOut ] = useMutation(SIGN_OUT, {
+        onCompleted: (data) => {
+            window.location.reload();
+        }
+    });
 
     return (
         <div id="navbar">
@@ -95,7 +88,11 @@ export default function(props) {
                                 <Divider style={{
                                     margin: "5px"
                                 }} />
-                                <MenuItem>
+                                <MenuItem
+                                    onClick={() => {
+                                        signOut();
+                                    }}
+                                >
                                     <ListItemIcon>
                                         <ExitToApp fontSize="small" color="secondary" />
                                     </ListItemIcon>

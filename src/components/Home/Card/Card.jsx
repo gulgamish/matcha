@@ -30,6 +30,7 @@ const Card = ({
     return (
         <div
             className="card"
+            key={id}
             onClick={onClick}
         >
             <div className="header">
@@ -59,12 +60,11 @@ const Card = ({
                 <div className="info">
                     <ul>
                         {interests.map(item => (
-                            <li>
+                            <li key={item}>
                                 <Chip
                                     label={item}
                                     variant="outlined"
                                     className={classes.root}
-                                    key={item}
                                     color="primary"
                                 />
                             </li>

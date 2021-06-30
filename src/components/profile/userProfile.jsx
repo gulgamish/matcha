@@ -5,9 +5,22 @@ import Picture from './picture'
 import Info from './info'
 import Location from './location'
 import { useQuery } from '@apollo/client'
+import { useUserContext } from '../../user.wrapper'
+import useAlert from '../tools/useAlert'
 
 
 export default function(props) {
+    const { user } = useUserContext();
+    const { SnackBar, setAlert } = useAlert();
+
+    useEffect(() => {
+        if (user.errorMessage)
+            setAlert({
+                open: true,
+                isError: true,
+                msg: user.errorMessage
+            })
+    }, []);
     
     return (
         <div className="profile">
@@ -18,6 +31,7 @@ export default function(props) {
             <div className="user-info">
                 <Info />
             </div>
+            <SnackBar />
         </div>
     )
 }

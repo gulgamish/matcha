@@ -27,8 +27,13 @@ const Search = () => {
         }
     });
     const [ filter, setFilter ] = useState({
-        age: 18
+        age: [],
+        distance: [],
+        fameRating: [],
+        commonTags: []
     })
+
+    console.log(filter);
 
 
     return (
@@ -229,7 +234,10 @@ const Search = () => {
                             <Slider
                                 aria-labelledby="track-inverted-range-slider"
                                 onChange={(e, newv) => {
-                                    console.log(newv);
+                                    setFilter({
+                                        ...filter,
+                                        age: newv
+                                    })
                                 }}
                                 defaultValue={[18, 25]}
                                 marks={[
@@ -247,15 +255,20 @@ const Search = () => {
                             />
                         </div>
                         <div className="filter-wrapper">
-                            <Typography gutterBottom>
+                            <Typography id="track-inverted-range-slider" gutterBottom>
                                 Distance
                             </Typography>
                             <Slider
+                                aria-labelledby="track-inverted-range-slider"
                                 onChange={(e, newv) => {
-                                    console.log(newv);
+                                    setFilter({
+                                        ...filter,
+                                        distance: newv
+                                    })
                                 }}
-                                defaultValue={0}
                                 valueLabelDisplay="auto"
+                                defaultValue={[0, 20]}
+                                min={0}
                                 max={100}
                                 marks={[0, 20, 40, 60, 80, 100].map(elem => {
                                     return {
@@ -271,9 +284,12 @@ const Search = () => {
                             </Typography>
                             <Slider
                                 onChange={(e, newv) => {
-                                    console.log(newv);
+                                    setFilter({
+                                        ...filter,
+                                        fameRating: newv
+                                    })
                                 }}
-                                defaultValue={0}
+                                defaultValue={[0, 60]}
                                 valueLabelDisplay="auto"
                                 max={100}
                                 marks={[0, 30, 60, 100].map(elem => {
@@ -290,7 +306,13 @@ const Search = () => {
                             </Typography>
                             <InputTags
                                 onChange={(tag) => {
-                                    console.log(tag);
+                                    setFilter({
+                                        ...filter,
+                                        commonTags: [
+                                            ...filter.commonTags,
+                                            tag
+                                        ]
+                                    })
                                 }}
                             />
                         </div>

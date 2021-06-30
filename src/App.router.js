@@ -27,7 +27,7 @@ export default function() {
                     <AuthRoute exact path="/recover" component={RecoverPassword} />
                     <AuthRoute exact path="/change-password/:token" component={ResetPassword} />
                     <ProtectedRoute exact path='/home' component={Home} />
-                    <ProtectedRoute exact path='/profile' component={Profile} />
+                    <ProtectedRoute exact path='/profile' canRedirect={false} component={Profile} />
                     <ProtectedRoute exact path="/messenger" component={Messenger} />
                 </UserWrapper>
             </Switch>

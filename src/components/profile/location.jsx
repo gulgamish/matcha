@@ -56,16 +56,18 @@ const Search = ({ resolver }) => {
 
     onselect = async (address) => {
         try {
-            setValue(address, false);
-            clearSuggestions();
-            var results = await getGeocode({ address });
-            var { lat, lng: lon } = await getLatLng(results[0]);
-            resolver({
-                variables: {
-                    lat,
-                    lon
-                }
-            });
+            if (typeof address === "string") {
+                setValue(address, false);
+                clearSuggestions();
+                var results = await getGeocode({ address });
+                var { lat, lng: lon } = await getLatLng(results[0]);
+                resolver({
+                    variables: {
+                        lat,
+                        lon
+                    }
+                });
+            }
         } catch (err) {
             console.error(err);
         }
@@ -109,7 +111,7 @@ const Location = () => {
         coords: { lat: 33.58, lng: -7.60 }
     });
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: "AIzaSyCtE_1tTVIceccd1gz4cS_oj0HRJJ53Oqg",
+        googleMapsApiKey: "AIzaSyCgoTq9s_wEgv25IRebAnlDYJmC2a2HWcY",
         libraries
     });
     const { SnackBar, setAlert } = useAlert();
