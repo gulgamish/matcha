@@ -11,20 +11,22 @@ import { Backdrop } from "@material-ui/core"
 
 
 export default function () {
+  const [ users, setUsers ] = useState([]);
   const { loading, data } = useQuery(USERS);
   const [ open, setOpen ] = useState(false);
   const [ userId, setUserId ] = useState();
 
-  if (!loading)
-    console.log(data);
+  useEffect(() => {
+    if (!loading && data.browseUsers)
+      setUsers(data.browseUsers)
+  }, [data]);
 
   return (
     <div className="home-container">
-      <Search />
+      <Search setUsers={setUsers} />
       <div className="users">
         {
-          !loading && data &&
-          data.browseUsers.map(user => (
+          users.map(user => (
             <Card
               id={user.id}
               firstName={user.firstName}

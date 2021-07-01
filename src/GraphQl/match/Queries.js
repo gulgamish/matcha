@@ -1,5 +1,26 @@
 import { gql } from '@apollo/client'
 
+export const USERS_SORTED_FILTRED = gql`
+    query browse (
+        $orderBy: OrderByInput,
+        $filterBy: FilterByInput
+    ) {
+        browseUsers (
+            orderBy: $orderBy
+            filterBy: $filterBy
+        ) {
+            id,
+            firstName,
+            lastName,
+            age,
+            distance,
+            interests,
+            profilePicture,
+            score
+        }
+    }
+`
+
 export const GET_USER = gql`
     query checkProfile (
         $id: ID

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Button,
     Divider, Slider, Typography
@@ -6,35 +6,62 @@ import {
 import Chip from "../Chip/Chip"
 import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
+import * as _ from "../../../Constants/sort"
+import { useLazyQuery } from '@apollo/client'
+import { USERS_SORTED_FILTRED } from '../../../GraphQl/Match/Queries'
 
-const Search = () => {
-    const [ check, setCheck ] = useState({
-        age: {
-            up: false,
-            down: false
-        },
-        location: {
-            up: false,
-            down: false
-        },
-        fameRating: {
-            up: false,
-            down: false
-        },
-        commonTags: {
-            up: false,
-            down: false
-        }
-    });
+const Search = ({
+    setUsers
+}) => {
+    const [ selected, setSelected ] = useState(null);
     const [ filter, setFilter ] = useState({
-        age: [],
-        distance: [],
-        fameRating: [],
-        commonTags: []
+        age: {
+            min: 0,
+            max: 0
+        },
+        distance: {
+            min: 0,
+            max: 0
+        },
+        score: {
+            min: 0,
+            max: 0
+        },
+        interests: []
     })
+    const [ browse, { data, loading } ] = useLazyQuery(USERS_SORTED_FILTRED);
 
-    console.log(filter);
+    console.log(selected);
 
+    
+    useEffect(() => {
+        if (!loading && selected != null) {
+            if (data.browseUsers) {
+                console.log(data.browseUsers);
+                setUsers(data.browseUsers)
+            }
+        }
+    }, [data])
+    
+    const filterUsers = () => {
+            browse({
+                variables: {
+                    filterBy: filter
+                }
+            })
+    }
+    useEffect(() => {
+        if (selected != null) {
+            if (selected === _.NONE)
+                browse();
+            else
+                browse({
+                    variables: {
+                        orderBy: JSON.parse(selected)
+                    }
+                })
+        }
+    }, [selected])
 
     return (
         <div className="search-container">
@@ -43,182 +70,70 @@ const Search = () => {
                     <span>Sort by : </span>
                     <Chip
                         label="Age"
-                        isUpActive={check.age.up}
-                        isDownActive={check.age.down}
+                        isUpActive={selected === _.AGE_ASC}
+                        isDownActive={selected === _.AGE_DSC}
                         onUpClick={() => {
-                            setCheck({
-                                age: {
-                                    up: !check.age.up,
-                                    down: false
-                                },
-                                location: {
-                                    up: false,
-                                    down: false
-                                },
-                                fameRating: {
-                                    up: false,
-                                    down: false
-                                },
-                                commonTags: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.AGE_ASC);
+                            else
+                                setSelected(_.NONE);
                         }}
                         onDownClick={() => {
-                            setCheck({
-                                age: {
-                                    up: false,
-                                    down: !check.age.down
-                                },
-                                location: {
-                                    up: false,
-                                    down: false
-                                },
-                                fameRating: {
-                                    up: false,
-                                    down: false
-                                },
-                                commonTags: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.AGE_DSC);
+                            else
+                                setSelected(_.NONE)
                         }}
                     />
                     <Chip
                         label="Location"
-                        isUpActive={check.location.up}
-                        isDownActive={check.location.down}
+                        isUpActive={selected === _.LOCATION_ASC}
+                        isDownActive={selected === _.LOCATION_DSC}
                         onUpClick={() => {
-                            setCheck({
-                                location: {
-                                    up: !check.location.up,
-                                    down: false
-                                },
-                                age: {
-                                    up: false,
-                                    down: false
-                                },
-                                fameRating: {
-                                    up: false,
-                                    down: false
-                                },
-                                commonTags: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.LOCATION_ASC);
+                            else
+                                setSelected(_.NONE);
                         }}
                         onDownClick={() => {
-                            setCheck({
-                                location: {
-                                    up: false,
-                                    down: !check.location.down
-                                },
-                                age: {
-                                    up: false,
-                                    down: false
-                                },
-                                fameRating: {
-                                    up: false,
-                                    down: false
-                                },
-                                commonTags: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.LOCATION_DSC);
+                            else
+                                setSelected(_.NONE);
                         }}
                     />
                     <Chip
                         label="Fame Rating"
-                        isUpActive={check.fameRating.up}
-                        isDownActive={check.fameRating.down}
+                        isUpActive={selected === _.F_RATING_ASC}
+                        isDownActive={selected === _.F_RATING_DSC}
                         onUpClick={() => {
-                            setCheck({
-                                fameRating: {
-                                    up: !check.fameRating.up,
-                                    down: false
-                                },
-                                age: {
-                                    up: false,
-                                    down: false
-                                },
-                                location: {
-                                    up: false,
-                                    down: false
-                                },
-                                commonTags: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.F_RATING_ASC);
+                            else
+                                setSelected(_.NONE);
                         }}
                         onDownClick={() => {
-                            setCheck({
-                                fameRating: {
-                                    up: false,
-                                    down: !check.fameRating.down
-                                },
-                                age: {
-                                    up: false,
-                                    down: false
-                                },
-                                location: {
-                                    up: false,
-                                    down: false
-                                },
-                                commonTags: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.F_RATING_DSC);
+                            else
+                                setSelected(_.NONE);
                         }}
                     />
                     <Chip
                         label="Common Tags"
-                        isUpActive={check.commonTags.up}
-                        isDownActive={check.commonTags.down}
+                        isUpActive={selected === _.TAGS_ASC}
+                        isDownActive={selected === _.TAGS_DSC}
                         onUpClick={() => {
-                            setCheck({
-                                commonTags: {
-                                    up: !check.commonTags.up,
-                                    down: false
-                                },
-                                age: {
-                                    up: false,
-                                    down: false
-                                },
-                                location: {
-                                    up: false,
-                                    down: false
-                                },
-                                fameRating: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.TAGS_ASC);
+                            else
+                                setSelected(_.NONE);
                         }}
                         onDownClick={() => {
-                            setCheck({
-                                commonTags: {
-                                    up: false,
-                                    down: !check.commonTags.down
-                                },
-                                age: {
-                                    up: false,
-                                    down: false
-                                },
-                                location: {
-                                    up: false,
-                                    down: false
-                                },
-                                fameRating: {
-                                    up: false,
-                                    down: false
-                                }
-                            })
+                            if (selected === _.NONE)
+                                setSelected(_.TAGS_DSC);
+                            else
+                                setSelected(_.NONE);
                         }}
                     />
                 </div>
@@ -236,7 +151,10 @@ const Search = () => {
                                 onChange={(e, newv) => {
                                     setFilter({
                                         ...filter,
-                                        age: newv
+                                        age: {
+                                            min: newv[0],
+                                            max: newv[1]
+                                        }
                                     })
                                 }}
                                 defaultValue={[18, 25]}
@@ -263,7 +181,10 @@ const Search = () => {
                                 onChange={(e, newv) => {
                                     setFilter({
                                         ...filter,
-                                        distance: newv
+                                        distance: {
+                                            min: newv[0],
+                                            max: newv[1]
+                                        }
                                     })
                                 }}
                                 valueLabelDisplay="auto"
@@ -286,7 +207,10 @@ const Search = () => {
                                 onChange={(e, newv) => {
                                     setFilter({
                                         ...filter,
-                                        fameRating: newv
+                                        score: {
+                                            min: newv[0],
+                                            max: newv[1]
+                                        }
                                     })
                                 }}
                                 defaultValue={[0, 60]}
@@ -308,8 +232,8 @@ const Search = () => {
                                 onChange={(tag) => {
                                     setFilter({
                                         ...filter,
-                                        commonTags: [
-                                            ...filter.commonTags,
+                                        interests: [
+                                            ...filter.interests,
                                             tag
                                         ]
                                     })
@@ -321,6 +245,7 @@ const Search = () => {
                         <Button
                             variant="outlined"
                             color="primary"
+                            onClick={filterUsers}
                         >
                             Filter
                         </Button>
