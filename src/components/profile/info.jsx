@@ -12,7 +12,7 @@ import {
   FormHelperText,
   OutlinedInput
 } from "@material-ui/core";
-import { Edit, Save } from "@material-ui/icons";
+import { Edit, Save, SaveAlt } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import client from "../../client";
@@ -148,7 +148,7 @@ const Input = ({
           })
         }}
       >
-        <Edit />
+        <Save />
       </Fab>
     </div>
   )

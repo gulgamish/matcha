@@ -66,9 +66,16 @@ const Display = ({
         onError: onError(setAlert)
     })
     const [ blockUser ] = useMutation(BLOCK, {
+        onCompleted: (data) => {
+            window.location.reload();
+        },
         onError: onError(setAlert)
     })
     const [ reportUser ] = useMutation(REPORT, {
+        onCompleted: (data) => {
+            setOpenReportDialog(false);
+            handleClose();
+        },
         onError: onError(setAlert)
     })
     const classes = useStyles();
@@ -100,7 +107,6 @@ const Display = ({
         <Dialog
             open={open}
             onClose={handleClose}
-            className={classes.display}
         >
             <div className="d-container">
                 <div className="user-images-container">

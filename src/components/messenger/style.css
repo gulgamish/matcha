@@ -10,6 +10,7 @@
   }
   .list-container {
     flex-direction: row;
+    width: 100%;
     border: none;
   }
   .conversation-container {

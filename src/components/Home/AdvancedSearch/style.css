@@ -1,0 +1,24 @@
+.as-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    float:inline-end;
+    margin: 50px;
+}
+
+.s-container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-input-wrapper {
+    padding: 30px;
+    width: 100%;
+}
+
+.search-button {
+    margin: 10px;
+}
