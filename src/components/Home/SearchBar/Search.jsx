@@ -9,7 +9,7 @@ import "./style.css"
 import * as _ from "../../../Constants/sort"
 import { useLazyQuery } from '@apollo/client'
 import { USERS_SORTED_FILTRED } from '../../../GraphQl/Match/Queries'
-import { sort } from "../tools"
+import { sort, filterList } from "../tools"
 
 const useStyles = makeStyles({
     button: {
@@ -59,24 +59,11 @@ const Search = ({
     }, [selected])
 
     const filterUsers = () => {
-        if (selected != null)
-            browse({
-                variables: {
-                    orderBy: JSON.parse(selected),
-                    filterBy: filter
-                }
-            })
-        else {
-            browse({
-                variables: {
-                    filterBy: filter
-                }
-            })
-        }
+        var newList = filterList(users, filter);
+        setUsers(newList);
     }
 
     const clearAll = () => {
-        browse();
     }
 
     return (

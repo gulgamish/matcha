@@ -3,7 +3,7 @@ import { Dialog, Fab, Typography, Slider, DialogTitle, Button } from "@material-
 import { Search } from "@material-ui/icons"
 import React, { useEffect, useState } from "react"
 import { USERS_SORTED_FILTRED } from "../../../GraphQl/Match/Queries"
-import InputTags from "../../../sub-components/UserInputTag/UserInputTag"
+import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
 
 const SearchDialog = ({

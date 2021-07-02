@@ -9,10 +9,12 @@ import "./style.css"
 import Display from "../Display-user/Display";
 import { Backdrop } from "@material-ui/core"
 import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
+import Clear from "./Clear/Clear"
 
 
 export default function () {
   const [ users, setUsers ] = useState([]);
+  const [ originalUsers, setOriginalUsers ] = useState([]);
   const { loading, data } = useQuery(USERS);
   const [ open, setOpen ] = useState(false);
   const [ userId, setUserId ] = useState();
@@ -20,8 +22,10 @@ export default function () {
   console.log(users);
 
   useEffect(() => {
-    if (!loading && data.browseUsers)
-      setUsers(data.browseUsers)
+    if (!loading && data.browseUsers) {
+      setUsers(data.browseUsers);
+      setOriginalUsers(data.browseUsers);
+    }
   }, [data]);
 
   return (
@@ -58,6 +62,11 @@ export default function () {
       />
       <AdvancedSearch
         setUsers={setUsers}
+      />
+      <Clear
+        onClick={() => {
+          setUsers(originalUsers);
+        }}
       />
     </div>
   );

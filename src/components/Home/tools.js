@@ -1,4 +1,5 @@
 import * as _ from "../../Constants/sort"
+import { filter, reject } from "lodash"
 
 export const sort = (list, type) => {
     var newList = [];
@@ -19,6 +20,25 @@ export const sort = (list, type) => {
         newList = list.slice().sort((a, b) => a.interests.length - b.interests.length);
     else if (_.TAGS_DSC === type)
         newList = list.slice().sort((a, b) => b.interests.length - a.interests.length);
+
+    return newList;
+}
+
+const check = (elem, list) => {
+    console.log(elem, list);
+    var temp = list.filter(element => element === elem);
+    return temp.length;
+}
+
+export const filterList = (
+    list, filters
+) => {
+    var newList = list;
+
+    newList = newList.filter(elem => elem.age >= filters.age.min && elem.age <= filters.age.max);
+    newList = newList.filter(elem => elem.distance >= filters.distance.min && elem.distance <= filters.distance.max);
+    newList = newList.filter(elem => elem.score >= filters.score.min && elem.score <= filters.score.max);
+
 
     return newList;
 }

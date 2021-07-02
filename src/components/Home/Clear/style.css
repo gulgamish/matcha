@@ -1,0 +1,7 @@
+.clear-container {
+    position: fixed;
+    right: 0;
+    bottom: 80px;
+    float:inline-end;
+    margin: 50px;
+}
