@@ -35,6 +35,7 @@ import useAlert from "../tools/useAlert";
 import useForm from "../tools/useForm";
 import UserInputTag from "../../sub-components/UserInputTag/UserInputTag"
 import Tags from "./Tags";
+import { v_bio } from "../../validation/userValidations";
 
 var useStyles = makeStyles({
   card: {
@@ -92,7 +93,7 @@ const Input = ({
   errorMessage,
   name,
   resolver,
-  ...props
+  ...rest
 }) => {
   if (initial == null)
     initial = "";
@@ -118,8 +119,9 @@ const Input = ({
         size="small"
         className={classes.fullWidth}
         required
+        
       >
-        <InputLabel htmlFor={label}>
+        <InputLabel htmlFor={label} shrink>
             {label}
         </InputLabel>
         <OutlinedInput
@@ -129,6 +131,8 @@ const Input = ({
             onChange={(e) => {
               setValue(e.target.value);
             }}
+            notched
+            {...rest}
         />
         {error && (
           <FormHelperText>
@@ -329,7 +333,11 @@ var Info = () => {
           multiline
           rows={4}
           name="bio"
+          errorValidator={v_bio}
+          errorMessage="your biography must not exceeds 500 characters"
           resolver={modifyBio}
+          multiline
+          rows={4}
         />
         <UserInputTag
           className={classes.fullWidth}
@@ -350,6 +358,7 @@ var Info = () => {
               }
             })
           }}
+          max={6}
         />
       </CardContent>
       <SnackBar />

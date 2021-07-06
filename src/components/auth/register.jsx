@@ -83,12 +83,13 @@ export default function() {
             signup({
                 variables: user
             });
-            if (data)
+            if (data) {
                 setAlert({
                     open: true,
                     isSuccess: true,
-                    msg: "you will get laid soon :)"
+                    msg: "mail is sent, please confirm your account"
                 })
+            }
             if (error) {
                 setAlert({
                     open: true,
@@ -309,7 +310,7 @@ export default function() {
                         color="primary"
                         type="submit"
                     >
-                        {loading ? <Backdrop /> : "sign up"}
+                        sign up
                     </Button>
                     <Snackbar
                         open={alert.open}

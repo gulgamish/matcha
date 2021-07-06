@@ -1,6 +1,7 @@
 import { Chip } from '@material-ui/core';
 import { Clear } from "@material-ui/icons"
 import React, { useEffect, useState } from 'react'
+import { v_tag } from '../../validation/userValidations';
 import "./style.css"
 
 const UserInputTags = ({
@@ -12,22 +13,24 @@ const UserInputTags = ({
     className = ""
 }) => {
     const [ value, setValue ] = useState("");
-    const [ isActive, setActive ] = useState(false);
+    const [ error, setError ] = useState(false);
 
     if (tags === null)
         tags = [];
 
     useEffect(() => {
-        if (tags.length > 0)
-            setActive(true);
+        if (!v_tag(value))
+            setError(true);
         else
-            setActive(false);
-    }, [tags]);
+            setError(false);
+        if (value === "")
+            setError(false);
+    }, [value]);
 
     const onKeyUp = (e) => {
-        const tag = value.slice(0, -1);
+        const tag = value;
         
-        if (e.key === " ") {
+        if (e.key === "Enter" && !error) {
             if (tags.filter(elem => elem === tag).length == 0 && tag.length != 0) {
                 setTags([
                     ...tags,
@@ -48,7 +51,7 @@ const UserInputTags = ({
                     <Chip
                         variant="outlined"
                         color="primary"
-                        label={tag}
+                        label={`#${tag}`}
                         key={tag}
                         className="tag"
                         onDelete={() => {
@@ -63,6 +66,7 @@ const UserInputTags = ({
                     className="input-tag"
                     value={value}
                     onChange={(e) => {
+                        
                         setValue(e.target.value);
                     }}
                     placeholder="Enter tag"
@@ -70,6 +74,11 @@ const UserInputTags = ({
                     disabled={tags.length == max}
                 />
             </div>
+            {error && (
+                <div className="error">
+                    <p>tag should contain only alphabets and not exceeds 50 characters</p>
+                </div>
+            )}
         </div>
     )
 }

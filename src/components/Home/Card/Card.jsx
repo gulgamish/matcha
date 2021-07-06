@@ -62,7 +62,7 @@ const Card = ({
                         {interests.map(item => (
                             <li key={item}>
                                 <Chip
-                                    label={item}
+                                    label={`#${item}`}
                                     variant="outlined"
                                     className={classes.root}
                                     color="primary"

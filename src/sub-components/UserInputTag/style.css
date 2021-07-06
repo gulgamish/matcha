@@ -22,3 +22,13 @@
 .tag {
   margin: 3px;
 }
+
+.error {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+.error p {
+  color: #f44336;
+  font-size: 0.75rem;
+}

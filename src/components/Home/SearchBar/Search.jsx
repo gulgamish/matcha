@@ -63,9 +63,6 @@ const Search = ({
         setUsers(newList);
     }
 
-    const clearAll = () => {
-    }
-
     return (
         <div className="search-container">
             <div className="basic-search">
@@ -252,14 +249,6 @@ const Search = ({
                             className={button}
                         >
                             Filter
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            className={button}
-                            onClick={clearAll}
-                        >
-                            clear all
                         </Button>
                     </div>
                 </div>
