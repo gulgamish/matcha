@@ -12,7 +12,7 @@ const Menu = ({
         const onWindowClick = () => {
             setActiveClass(false);
         }
-        
+
         window.addEventListener("click", onWindowClick);
 
         return () => {

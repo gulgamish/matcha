@@ -32,7 +32,7 @@ export default function(props) {
     const { data, loading } = useQuery(GET_USERNAME_PICTURE);
     const [ signOut ] = useMutation(SIGN_OUT, {
         onCompleted: (data) => {
-            props.location.history.push("/");
+            window.location.reload();
         }
     });
 
