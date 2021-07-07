@@ -18,10 +18,10 @@ export default function() {
 
     return (
         <Router>
-            <Switch>
-                <UserWrapper>
-                    <Navbar />
-                    <hr />
+            <UserWrapper>
+                <Navbar />
+                <hr />
+                <Switch>
                     <AuthRoute exact path={[ "/", "/register" ]} component={Auth} />
                     <AuthRoute exact path="/confirmation/:token" component={Confirm} />
                     <AuthRoute exact path="/recover" component={RecoverPassword} />
@@ -29,8 +29,13 @@ export default function() {
                     <ProtectedRoute exact path='/home' component={Home} />
                     <ProtectedRoute exact path='/profile' canRedirect={false} component={Profile} />
                     <ProtectedRoute exact path="/messenger" component={Messenger} />
-                </UserWrapper>
-            </Switch>
+                    <Route component={() => (
+                        <div>
+                            not found
+                        </div>
+                    )} />
+                </Switch>
+            </UserWrapper>
         </Router>
     )
 }

@@ -110,12 +110,20 @@ const Location = () => {
         loaded: false,
         coords: { lat: 33.58, lng: -7.60 }
     });
-    const { isLoaded, loadError } = useLoadScript({
+    const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyCgoTq9s_wEgv25IRebAnlDYJmC2a2HWcY",
         libraries
     });
     const { SnackBar, setAlert } = useAlert();
-    const { loading, data, error, refetch } = useQuery(GET_COORD);
+    const { loading, data, refetch } = useQuery(GET_COORD, {
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: "Error: please try again"
+            })
+        }
+    });
     const [ modifyGeoLocation ] = useMutation(MODIFY_GEO_POSITION, {
         onCompleted: (data) => {
             if (data.modifyPosition) {
@@ -143,8 +151,11 @@ const Location = () => {
     });
     const [ forceGeoPosition ] = useMutation(FORCE_GEO_POSITION, {
         onCompleted: (data) => {
-            if (data.forceGeolocation)
+            if (data.forceGeolocation) {
                 refetch();
+            }
+        },
+        onError: (err) => {
         }
     })
     const classes = useStyles();
@@ -176,8 +187,7 @@ const Location = () => {
                     });
                 },
                 (error) => {
-                    if (error.message == "User denied Geolocation")
-                        forceGeoPosition();
+                    forceGeoPosition();
                 }
             );
         }
@@ -201,7 +211,7 @@ const Location = () => {
                         </GoogleMap>
                     </div>
                 )}     
-                
+                <SnackBar />
             </CardContent>
         </Card>
     )

@@ -1,30 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { NavLink } from 'react-router-dom'
 import { useUserContext } from './user.wrapper'
-import client from './client'
-import img from './img/profile-photo.png'
 import 'font-awesome/css/font-awesome.min.css'
 import { Avatar, Button, Chip, Divider, Fab, List, ListItemIcon, makeStyles, MenuItem, MenuList, Typography } from '@material-ui/core'
-import { ChatBubble, ExitToApp, MeetingRoom, Person } from '@material-ui/icons'
+import { ChatBubble, ExitToApp, Person } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_USERNAME, GET_USERNAME_PICTURE } from './GraphQl/User/Queries'
+import { GET_USERNAME_PICTURE } from './GraphQl/User/Queries'
 import Menu from './sub-components/menu-dropdown/Menu'
 import Notifications from './components/Notifications/Notifications'
 import { SIGN_OUT } from './GraphQl/User/Mutations'
-
-var useStyles = makeStyles({
-    logOut: {
-        boxShadow: "none",
-        backgroundColor: "white",
-        width: "40px",
-        height: "40px"
-    },
-    navLinkProfile: {
-        marginRight: "10px"
-    }
-})
 
 export default function(props) {
     var { user } = useUserContext();
