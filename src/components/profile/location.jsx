@@ -164,7 +164,7 @@ const Location = () => {
     }, [ data ])
 
     
-    var getGeoLocation = () => {
+    useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 (location) => {
@@ -181,7 +181,7 @@ const Location = () => {
                 }
             );
         }
-    }
+    }, []);
 
     return (
         <Card>
@@ -203,17 +203,6 @@ const Location = () => {
                 )}     
                 
             </CardContent>
-            <CardActions>
-                <Button
-                    startIcon={<GpsFixed />}
-                    variant="outlined"
-                    color="inherit"
-                    onClick={getGeoLocation}
-                >
-                    locate
-                </Button>
-                <SnackBar />
-            </CardActions>
         </Card>
     )
 }

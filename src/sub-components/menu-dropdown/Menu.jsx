@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import clsx from "clsx";
+import React, { useEffect, useRef, useState } from "react"
 import "./style.css"
 
 const Menu = ({
@@ -7,11 +8,32 @@ const Menu = ({
 }) => {
     const [ activeClass, setActiveClass ] = useState(false);
 
+    useEffect(() => {
+        const onWindowClick = () => {
+            setActiveClass(false);
+        }
+        
+        window.addEventListener("click", onWindowClick);
+
+        return () => {
+            window.removeEventListener("click", onWindowClick);
+        }
+    }, []);
 
     return (
-        <div className="menu-container">
-            {nav}
-            <div className="menu-content">
+        <div className="menu-container" onClick={e => e.stopPropagation()}>
+            <div
+                className="menu-header"
+                onClick={() => {
+                    setActiveClass(!activeClass);
+                }}
+                
+            >
+                {nav}
+            </div>
+            <div className={clsx("menu-content", {
+                showMenuD: activeClass
+            })}>
                 {subNavs}
             </div>
         </div>

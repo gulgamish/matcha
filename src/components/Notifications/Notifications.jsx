@@ -19,13 +19,10 @@ const Notifications = () => {
     const [ redNotif, setRedNotif ] = useState(false);
     const [ notifications, setNotifications ] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
-    const menuRef = useRef();
 
     useEffect(() => {
         const onWindowClick = (e) => {
-            if (e.target != menuRef.current) {
-                setShowMenu(false);
-            }
+            setShowMenu(false);
         }
         window.addEventListener("click", onWindowClick);
         return () => {
@@ -61,7 +58,7 @@ const Notifications = () => {
     console.log(notifications, redNotif);
 
     return (
-        <div className="menu-notif-container">
+        <div className="menu-notif-container" onClick={e => e.stopPropagation()}>
             <div
                 className="notif-icon-btn"
                 onClick={() => {
@@ -74,7 +71,7 @@ const Notifications = () => {
                     activeNotif: redNotif
                 })} />
                 <div className="notif-icon">
-                    <NotificationsNone  ref={menuRef} />
+                    <NotificationsNone />
                 </div>
             </div>
             <div className={clsx("menu-notif-content", {

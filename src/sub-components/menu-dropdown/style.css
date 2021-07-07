@@ -5,7 +5,6 @@
 .menu-content {
     background-color: white;
     width: max-content;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     border: 1px solid lightgray;
@@ -24,7 +23,7 @@
     height: 100%;
 }
 
-.menu-header:focus + .menu-content {
-    display: block;
+.showMenuD {
+    display: flex;
 }
 
