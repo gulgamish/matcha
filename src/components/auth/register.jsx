@@ -257,7 +257,9 @@ export default function() {
                                 if (!v_password(e.target.value))
                                     setErrors({
                                         ...errors,
-                                        password: "your password is not valid"
+                                        password: "your password is not valid, \
+                                            Minimum eight characters, at least one uppercase letter, one lowercase letter,\
+                                            one number and one special character"
                                     })
                                 else
                                     setErrors({

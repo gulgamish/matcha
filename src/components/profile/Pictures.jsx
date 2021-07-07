@@ -30,13 +30,12 @@ var DisplayImage = ({ open, setOpen, img }) => {
     var [ openDeleteDialog, setValue ] = useState(false);
     const [ deletePicture ] = useMutation(DELETE_PICTURE, {
         onCompleted: (data) => {
-            window.location.reload();
-        },
-        onError: (err) => {
-            console.error(err);
+            if (data.deletePicture)
+                window.location.reload();
         }
     })
     var classes = useStyles();
+    console.log(img);
 
     return (
         <Dialog
@@ -64,6 +63,7 @@ var DisplayImage = ({ open, setOpen, img }) => {
                                 type: "regular"
                             }
                         })
+                        setOpen(false);
                     }}
                 />
             </DialogContent>
@@ -89,7 +89,10 @@ var Pictures = () => {
     var [ image, setImage ] = useState("");
     var classes = useStyles();
     const { SnackBar, setAlert } = useAlert();
-    const { data, loading } = useQuery(GET_PICTURES, {
+    useQuery(GET_PICTURES, {
+        onCompleted: (data) => {
+            setPictures(data.getUser.regularPictures);
+        },
         onError: (err) => {
             console.error(err);
         }
@@ -109,11 +112,6 @@ var Pictures = () => {
             })
         }
     })
-
-    useEffect(() => {
-        if (!loading)
-            setPictures(data.getUser.regularPictures);
-    }, [data]);
 
     return (
         <div className="images-group">
