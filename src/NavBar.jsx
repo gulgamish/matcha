@@ -27,14 +27,12 @@ var useStyles = makeStyles({
 })
 
 export default function(props) {
-    var { user, setUser } = useUserContext();
-    var [ image, setImage ] = useState();
-    var classes = useStyles();
+    var { user } = useUserContext();
     var history = useHistory();
-    const { data, loading, error } = useQuery(GET_USERNAME_PICTURE);
+    const { data, loading } = useQuery(GET_USERNAME_PICTURE);
     const [ signOut ] = useMutation(SIGN_OUT, {
         onCompleted: (data) => {
-            window.location.reload();
+            props.location.history.push("/");
         }
     });
 

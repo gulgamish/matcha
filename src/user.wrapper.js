@@ -1,9 +1,5 @@
 import React, { useContext, useEffect, useState, createContext } from 'react'
-import client from './client';
 import { ApolloLink, InMemoryCache, ApolloProvider, ApolloClient } from "@apollo/client"
-import { GET_TOKEN } from './GraphQl/Auth/Queries';
-import { getAccessToken, setAccessToken } from './accessToken'
-import { REFRESH_TOKEN } from './GraphQl/Auth/Mutations';
 import axios from 'axios';
 import { createUploadLink } from 'apollo-upload-client'
 import { WebSocketLink } from "@apollo/client/link/ws"
@@ -36,7 +32,6 @@ export default function({ children }) {
     })
 
     const authLink = new ApolloLink((operation, forward) => {
-
         operation.setContext({
             headers: {
                 Authorization: `Bearer ${token}`

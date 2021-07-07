@@ -229,6 +229,7 @@ const Search = ({
                                 Common tags
                             </Typography>
                             <InputTags
+                                max={6}
                                 onChange={(tag) => {
                                     setFilter({
                                         ...filter,

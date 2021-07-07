@@ -1,8 +1,6 @@
-import { useQuery } from "@apollo/client";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { PROFILE_COMPLETE } from "./GraphQl/User/Queries";
 import { useUserContext } from "./user.wrapper";
 
 export default function ({ component: Component, ...rest }) {
@@ -10,31 +8,32 @@ export default function ({ component: Component, ...rest }) {
     var { user, setUser } = useUserContext();
 
     useEffect(() => {
-        axios
-            .post(
-                "/graphql",
-                {
-                    query: `
-                        query checkIfComplete {
-                            checkIfComplete
+        if (user.isLoggedIn)
+            axios
+                .post(
+                    "/graphql",
+                    {
+                        query: `
+                            query checkIfComplete {
+                                checkIfComplete
+                            }
+                        `
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`
                         }
-                    `
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`
                     }
-                }
-            )
-            .then(({ data }) => data.data.checkIfComplete)
-            .then(isComplete => {
-                setIsCompleted(isComplete);
-                if (!isComplete)
-                    setUser({
-                        ...user,
-                        errorMessage: "Please complete your profile informations"
-                    })
-            });
+                )
+                .then(({ data }) => data.data.checkIfComplete)
+                .then(isComplete => {
+                    setIsCompleted(isComplete);
+                    if (!isComplete)
+                        setUser({
+                            ...user,
+                            errorMessage: "Please complete your profile informations"
+                        })
+                });
     }, []);
 
     return (

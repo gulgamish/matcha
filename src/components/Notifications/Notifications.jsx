@@ -53,6 +53,8 @@ const Notifications = () => {
                 ...notifications,
                 ...notifs
             ])
+            if (notifs.length > 0)
+                setRedNotif(true);
         }
     }, [dataNotifications])
 

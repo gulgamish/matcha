@@ -5,9 +5,7 @@ import "./style.css"
 
 const Messenger = () => {
     const [ selectedUser, setSelectedUser ] = useState(null);
-
-    console.log(selectedUser)
-
+    
     return (
         <div className="messenger-container">
             <List
