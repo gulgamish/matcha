@@ -8,6 +8,7 @@ const MessageInput = ({
     value,
     setValue,
     submit,
+    disabled
 }) => {
 
 
@@ -28,6 +29,7 @@ const MessageInput = ({
                         type="text"
                         className="m-input"
                         placeholder={placeholder}
+                        disabled={disabled}
                     />
                 </div>
                 <button

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { SEND_MESSAGE } from "../../../GraphQl/Match/Mutations"
 import { GET_MESSAGES } from "../../../GraphQl/Match/Queries"
 import { NEW_MESSAGE } from "../../../GraphQl/Match/Subscriptions"
+import useAlert from "../../tools/useAlert"
 import MessageInput from "./message-input/MessageInput"
 import Message from "./Message/Message"
 import "./style.css"
@@ -13,9 +14,17 @@ const Conversation = ({
 }) => {
     const [ message, setMessage ] = useState("");
     const [ messages, setMessages ] = useState([]);
-    const { loading, data, error } = useQuery(GET_MESSAGES, {
+    const { SnackBar, setAlert } = useAlert();
+    const { loading, data } = useQuery(GET_MESSAGES, {
         variables: {
             from
+        },
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: "Error, please refresh page"
+            })
         }
     })
     const [ sendMessage ] = useMutation(SEND_MESSAGE, {
@@ -26,7 +35,11 @@ const Conversation = ({
             ]);
         },
         onError: (err) => {
-            console.log(err);
+            setAlert({
+                open: true,
+                isError: true,
+                msg: "Error, please try again"
+            })
         }
     })
     const { data: dataNewMessage , loading: loadingNewMessage } = useSubscription(NEW_MESSAGE);
@@ -81,6 +94,7 @@ const Conversation = ({
                     placeholder="Send a message"
                     setValue={setMessage}
                     value={message}
+                    disabled={from === null}
                     submit={() => {
                         if (message != "") {
                             setMessage("");
@@ -94,6 +108,7 @@ const Conversation = ({
                     }}
                 />
             </div>
+            <SnackBar />
         </div>
     )
 }

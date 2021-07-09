@@ -3,3 +3,14 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.no-match {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-match p {
+  font-size: 18px;
+  color: rgb(53, 53, 53);
+}

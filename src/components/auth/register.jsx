@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { useUserContext } from '../../user.wrapper';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import client from '../../client'
 import Alert from '@material-ui/lab/Alert'
 import { v_username, v_name, v_email, v_password } from '../../validation/authValidation'
 import {

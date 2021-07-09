@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import img from '../../img/dating.jpg'
 import Login from './login'
 import Register from './register'
 

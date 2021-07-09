@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { makeStyles } from '@material-ui/core/styles'
-import { Delete, Edit } from '@material-ui/icons/'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import { Avatar, Button, CardActions, Fab } from '@material-ui/core'
-import client from '../../client'
-import EditPicture from './EditPicture'
 import img from '../../img/profile-photo.png'
 import Pictures from './Pictures'
 import { useMutation, useQuery } from '@apollo/client'
@@ -87,12 +84,6 @@ var Picture = (props) => {
                     </div>
                 </div>
                 <Pictures />
-                <EditPicture
-                    open={open}
-                    handleClose={() => {
-                        setOpen(false);
-                    }}
-                />
             </CardContent>
             <SnackBar />
         </Card>

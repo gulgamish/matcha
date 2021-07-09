@@ -5,8 +5,7 @@ import {
     Marker,
     InfoWindow
 } from '@react-google-maps/api'
-import { Button, Card, CardActions, CardContent, makeStyles, Snackbar } from '@material-ui/core';
-import useGeoLocation from './useGeoLocation';
+import { Card, CardContent, makeStyles } from '@material-ui/core';
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng
@@ -19,10 +18,6 @@ import {
     ComboboxList
 } from '@reach/combobox'
 import '@reach/combobox/styles.css'
-import { GpsFixed, SaveAlt } from '@material-ui/icons';
-import client from '../../client'
-import { useUserContext } from '../../user.wrapper';
-import { Alert } from '@material-ui/lab';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_COORD } from '../../GraphQl/User/Queries';
 import { FORCE_GEO_POSITION, MODIFY_GEO_POSITION } from '../../GraphQl/User/Mutations';

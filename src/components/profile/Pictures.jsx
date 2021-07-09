@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Card, CardContent, Dialog, DialogContent, Button, makeStyles, DialogActions, Avatar, IconButton } from '@material-ui/core';
-import { Add, Camera, CameraAlt, Delete, Edit, PhotoCamera } from '@material-ui/icons'
-import client from '../../client'
+import React, { useState } from 'react'
+import { Dialog, DialogContent, Button, makeStyles, DialogActions, Avatar, IconButton } from '@material-ui/core';
+import { CameraAlt, Delete, PhotoCamera } from '@material-ui/icons'
 import Confirm from './Confirm'
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_PICTURES } from '../../GraphQl/User/Queries';

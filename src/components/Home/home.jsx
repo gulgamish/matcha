@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { Person, DateRange, GpsFixed } from "@material-ui/icons";
+import { Person, DateRange, GpsFixed, SentimentDissatisfied, SentimentVeryDissatisfied } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import client from "../../client";
 import { USERS } from "../../GraphQl/Match/Queries";
 import Search from './SearchBar/Search'
 import Card from "./Card/Card";
@@ -33,7 +32,7 @@ export default function () {
       <Search users={users} setUsers={setUsers} />
       <div className="users">
         {
-          users.map(user => {
+          !loading && (users.length > 0 ? users.map(user => {
             if (user)
               return <Card
                 id={user.id}
@@ -49,8 +48,15 @@ export default function () {
                   setUserId(user.id);
                 }}
               />
-          })
-        }
+          }) : (
+            <div className="no-match">
+              <div className="icon">
+                <SentimentVeryDissatisfied fontSize="large" />
+              </div>
+              <p>No match found</p>
+            </div>
+          )
+          )}
         
       </div>
       <Display

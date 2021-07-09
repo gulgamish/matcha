@@ -15,7 +15,6 @@ import {
 import { Edit, Save, SaveAlt } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
-import client from "../../client";
 import { 
   ADD_TAG,
   DELETE_TAG,
@@ -28,13 +27,10 @@ import {
   MODIFY_SEXUAL_ORIENTATION
 } from "../../GraphQl/User/Mutations";
 import { GET_USER } from "../../GraphQl/User/Queries";
-import img from "../../img/dating.jpg";
-import { useUserContext } from "../../user.wrapper";
 import { v_email, v_name } from "../../validation/authValidation";
 import useAlert from "../tools/useAlert";
 import useForm from "../tools/useForm";
 import UserInputTag from "../../sub-components/UserInputTag/UserInputTag"
-import Tags from "./Tags";
 import { v_bio } from "../../validation/userValidations";
 
 var useStyles = makeStyles({

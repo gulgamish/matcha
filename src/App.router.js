@@ -12,7 +12,6 @@ import Confirm from './components/auth/Confirm'
 import RecoverPassword from './components/auth/RecoverPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import Messenger from './components/messenger/messenger';
-import Notifications from './components/Notifications/Notifications';
 
 export default function() {
 

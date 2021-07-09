@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useUserContext } from '../../user.wrapper';
+import React from 'react'
+import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Alert from '@material-ui/lab/Alert'
-import { v_username, v_password } from '../../validation/authValidation'
 import {
     Card,
     CardContent,
@@ -13,14 +10,13 @@ import {
     OutlinedInput,
     Button,
     makeStyles,
-    Snackbar,
+    CircularProgress,
 } from '@material-ui/core';
 import { useMutation } from '@apollo/client'
 import { SIGN_IN } from "../../GraphQl/Auth/Mutations";
-import ReactLoading from 'react-loading'
 import useForm from '../tools/useForm';
-import ResetPassword from './RecoverPassword';
 import useAlert from '../tools/useAlert';
+import "./style.css"
 
 const useStyles = makeStyles({
     card: {
@@ -38,7 +34,7 @@ export default function(props) {
     var { values, onChange } = useForm({});
     const { SnackBar, setAlert } = useAlert();
     var classes = useStyles();
-    const [ signin ] = useMutation(SIGN_IN, {
+    const [ signin, { loading } ] = useMutation(SIGN_IN, {
         onError: (err) => {
             setAlert({
                 open: true,
@@ -51,7 +47,18 @@ export default function(props) {
         }
     });
 
-    console.log(values);
+    if (loading)
+        return (
+            <Card
+                className={classes.card}
+            >
+                <CardContent>
+                    <div className="load">
+                        <CircularProgress />
+                    </div>
+                </CardContent>
+            </Card>
+        )
 
     return (
         <Card className={classes.card}>
