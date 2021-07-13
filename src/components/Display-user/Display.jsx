@@ -49,6 +49,7 @@ const Display = ({
     handleClose,
     userId
 }) => {
+    console.log("user id 2 : ", userId);
     var [ image, setImage ] = useState();
     const { SnackBar, setAlert } = useAlert();
     const [ isHeartActive, setHeart ] = useState(false);
@@ -252,6 +253,7 @@ const Display = ({
                     open={openBlockDialog}
                     setOpen={setOpenBlockDialog}
                     handle={() => {
+                        console.log(userId);
                         blockUser({
                             variables: {
                                 id: userId

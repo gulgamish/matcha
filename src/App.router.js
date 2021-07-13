@@ -12,6 +12,7 @@ import Confirm from './components/auth/Confirm'
 import RecoverPassword from './components/auth/RecoverPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import Messenger from './components/messenger/messenger';
+import NotFound from './components/NotFoundPage/NotFound';
 
 export default function() {
 
@@ -28,11 +29,7 @@ export default function() {
                     <ProtectedRoute exact path='/home' component={Home} />
                     <ProtectedRoute exact path='/profile' canRedirect={false} component={Profile} />
                     <ProtectedRoute exact path="/messenger" component={Messenger} />
-                    <Route component={() => (
-                        <div>
-                            not found
-                        </div>
-                    )} />
+                    <Route component={NotFound} />
                 </Switch>
             </UserWrapper>
         </Router>

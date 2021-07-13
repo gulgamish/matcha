@@ -17,6 +17,7 @@ const Notifications = () => {
     } = useQuery(GET_NOTIFICATIONS);
     const [ readNotifications ] = useMutation(READ_NOTIFICATIONS);
     const [ redNotif, setRedNotif ] = useState(false);
+    const [ notificationCounter, setNotificationCounter ] = useState(null);
     const [ notifications, setNotifications ] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
 
@@ -31,8 +32,11 @@ const Notifications = () => {
     }, []);
 
     useEffect(() => {
+        setNotificationCounter(notifications.length);
+    }, [ notifications ])
+
+    useEffect(() => {
         if (!loading) {
-            console.log(data);
             if (data && data.newNotification) {
                 setRedNotif(true);
                 setNotifications([
@@ -69,7 +73,9 @@ const Notifications = () => {
             >
                 <div className={clsx("notif-signal", {
                     activeNotif: redNotif
-                })} />
+                })}>
+                    <div>{notificationCounter}</div>
+                </div>
                 <div className="notif-icon">
                     <NotificationsNone />
                 </div>

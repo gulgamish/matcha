@@ -38,14 +38,20 @@
 .notif-signal {
     border-radius: 50%;
     background-color: red;
-    width: 5px;
-    height: 5px;
+    color: white;
+    font-size: 13px;
+    width: 22px;
+    height: 22px;
     position: absolute;
     display: none;
+    bottom: 15px;
+    right: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
 .activeNotif {
-    display: block;
+    display: flex;
 }
 
 .notif-container {

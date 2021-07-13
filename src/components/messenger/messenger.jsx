@@ -12,9 +12,15 @@ const Messenger = () => {
                 selectedUser={selectedUser}
                 setSelectedUser={setSelectedUser}
             />
-            <Conversation
-                selectedUser={selectedUser}
-            />
+            {selectedUser !== null ? (
+                <Conversation
+                    selectedUser={selectedUser}
+                />
+            ) : (
+                <div className="conversation-container">
+                    
+                </div>
+            )}
         </div>
     )
 }

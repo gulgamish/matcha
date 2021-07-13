@@ -2,6 +2,6 @@
     display: flex;
     flex-direction: column;
     border-right: 1px solid lightgray;
-    width: 20%;
+    flex: 1;
     overflow: auto;
 }

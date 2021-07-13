@@ -76,18 +76,14 @@ const Conversation = ({
         <div className="conversation-container">
 
             <div className="messages" ref={messagesRef}>
-                {
-                    messages && (
-                        messages.map(user => (
-                            <Message
-                                id={user.id}
-                                received={user.from == from}
-                                sent={user.from != from}
-                                content={user.content}
-                            />
-                        ))
-                    )
-                }
+                {messages.map(user => (
+                    <Message
+                        id={user.id}
+                        received={user.from == from}
+                        sent={user.from != from}
+                        content={user.content}
+                    />
+                ))}
             </div>
             <div className="m-send">
                 <MessageInput

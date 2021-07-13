@@ -16,7 +16,7 @@ export default function () {
   const [ originalUsers, setOriginalUsers ] = useState([]);
   const { loading, data } = useQuery(USERS);
   const [ open, setOpen ] = useState(false);
-  const [ userId, setUserId ] = useState();
+  const [ userId, setUserId ] = useState(null);
 
   console.log(users);
 
@@ -45,6 +45,7 @@ export default function () {
                 image={user.profilePicture}
                 onClick={() => {
                   setOpen(true);
+                  console.log("user id: ", user.id);
                   setUserId(user.id);
                 }}
               />

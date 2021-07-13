@@ -159,7 +159,7 @@ const Location = () => {
         console.log(data);
 
     useEffect(() => {
-        if (!loading)
+        if (!loading && data.getUser)
             setLocation({
                 loaded: true,
                 coords: {
