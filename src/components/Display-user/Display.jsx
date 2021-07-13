@@ -155,10 +155,10 @@ const Display = ({
                         content={
                             <>
                                 <div className="progress-number">
-                                    {user.score} %
+                                    {user.score / 10} %
                                 </div>
                                 <div className="progress-bar">
-                                    <LinearProgress value={user.score} variant="determinate" />
+                                    <LinearProgress value={user.score / 10} variant="determinate" />
                                 </div>
                             </>
                         }

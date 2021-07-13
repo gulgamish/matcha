@@ -45,7 +45,6 @@ export default function () {
                 image={user.profilePicture}
                 onClick={() => {
                   setOpen(true);
-                  console.log("user id: ", user.id);
                   setUserId(user.id);
                 }}
               />
