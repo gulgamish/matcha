@@ -49,7 +49,6 @@ const Display = ({
     handleClose,
     userId
 }) => {
-    console.log("user id 2 : ", userId);
     var [ image, setImage ] = useState();
     const { SnackBar, setAlert } = useAlert();
     const [ isHeartActive, setHeart ] = useState(false);
@@ -103,6 +102,7 @@ const Display = ({
         return null;
 
     const user = data.checkProfile;
+    console.log(`last seen : ${user.lastSeen.toString()} ${Date.now()} ${(Date.now() - user.lastSeen)}`)
 
     return (
         <Dialog
@@ -275,6 +275,7 @@ const Display = ({
                     }}
                 />
             </DialogActions>
+            <SnackBar />
         </Dialog>
     )
 }

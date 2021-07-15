@@ -1,5 +1,11 @@
 import { gql } from '@apollo/client'
 
+export const LAST_SEEN = gql`
+    mutation updateLastSeen {
+        updateLastSeen
+    }
+`
+
 export const SIGN_OUT = gql`
     mutation signOut {
         logOut

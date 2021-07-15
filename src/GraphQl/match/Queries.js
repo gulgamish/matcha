@@ -41,6 +41,7 @@ export const GET_USER = gql`
             profilePicture
             regularPictures
             liked
+            lastSeen
         }
     }
 `

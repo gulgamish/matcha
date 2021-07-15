@@ -54,7 +54,7 @@ export const GET_USER = gql`
       sexualPreference,
       birthday,
       distance,
-      interests
+      interests,
     }
   }
 `;
