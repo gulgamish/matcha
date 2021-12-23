@@ -34,7 +34,7 @@ export const filterList = (
     list, filters
 ) => {
     var newList = list;
-
+    console.log("filters ", filters);
     newList = newList.filter(elem => elem.age >= filters.age.min && elem.age <= filters.age.max);
     newList = newList.filter(elem => elem.distance >= filters.distance.min && elem.distance <= filters.distance.max);
     newList = newList.filter(elem => elem.score >= filters.score.min && elem.score <= filters.score.max);

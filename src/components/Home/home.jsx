@@ -9,16 +9,19 @@ import Display from "../Display-user/Display";
 import { Backdrop } from "@material-ui/core"
 import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
 import Clear from "./Clear/Clear"
-
+import { useLazyQuery } from "@apollo/client";
+import { GET_USER } from "../../GraphQl/Match/Queries";
+import axios from "axios";
+import { useUserContext } from "../../user.wrapper";
 
 export default function () {
+  const { user } = useUserContext();
   const [ users, setUsers ] = useState([]);
   const [ originalUsers, setOriginalUsers ] = useState([]);
   const { loading, data } = useQuery(USERS);
   const [ open, setOpen ] = useState(false);
-  const [ userId, setUserId ] = useState(null);
-
-  console.log(users);
+  const [ userData, setUserData ] = useState(null);
+  const [ userDataLoading, setUserDataLoading ] = useState(false);
 
   useEffect(() => {
     if (!loading && data.browseUsers) {
@@ -26,6 +29,49 @@ export default function () {
       setOriginalUsers(data.browseUsers);
     }
   }, [data]);
+
+  const fetchUser = (id) => {
+    setUserDataLoading(true)
+    axios.post('/graphql' , {
+      query: `
+        query checkProfile (
+          $id: ID
+        ) {
+          checkProfile (
+              profileId: $id
+          ) {
+              id
+              firstName
+              lastName
+              username
+              distance
+              gender
+              biography
+              score
+              sexualPreference
+              age
+              interests
+              profilePicture
+              regularPictures
+              liked
+              lastSeen
+          }
+        }
+      `,
+      variables: {
+        id
+      }
+    }, {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    })
+    .then(({ data }) => {
+      setUserData(data.data.checkProfile);
+    })
+    .catch(err => {})
+    .finally(() => setUserDataLoading(false));
+  }
 
   return (
     <div className="home-container">
@@ -44,8 +90,8 @@ export default function () {
                 fameRating={user.score}
                 image={user.profilePicture}
                 onClick={() => {
+                  fetchUser(user.id);
                   setOpen(true);
-                  setUserId(user.id);
                 }}
               />
           }) : (
@@ -64,7 +110,8 @@ export default function () {
         handleClose={() => {
           setOpen(false);
         }}
-        userId={userId}
+        data={userData}
+        loading={userDataLoading}
       />
       <AdvancedSearch
         setUsers={setUsers}

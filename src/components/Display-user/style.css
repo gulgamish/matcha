@@ -4,6 +4,7 @@
 
 .d-container {
   display: flex;
+  width: 600px;
   flex-direction: column;
 }
 

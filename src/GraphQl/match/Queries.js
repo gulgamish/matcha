@@ -28,6 +28,7 @@ export const GET_USER = gql`
         checkProfile (
             profileId: $id
         ) {
+            id
             firstName
             lastName
             username

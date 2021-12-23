@@ -17,3 +17,12 @@ export const NEW_NOTIFICATION = gql`
         }
     }
 `
+
+export const NEW_LAST_SEEN = gql`
+    subscription newLastSeen {
+        newLastSeen {
+            id,
+            last_seen
+        }
+    }
+`
