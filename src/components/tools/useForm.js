@@ -20,11 +20,8 @@ const useForm = ({
     console.log(errors);
 
     useEffect(() => {
-        console.log("changing");
         if (lastName && ("lastName" in values)) {
-            console.log("validating last name");
             if (!v_name(values.lastName)) {
-                console.log("error in lastName");
                 setErrors({
                     ...errors,
                     lastName: true

@@ -47,18 +47,7 @@ export default function(props) {
         }
     });
 
-    if (loading)
-        return (
-            <Card
-                className={classes.card}
-            >
-                <CardContent>
-                    <div className="load">
-                        <CircularProgress />
-                    </div>
-                </CardContent>
-            </Card>
-        )
+
 
     return (
         <Card className={classes.card}>
@@ -102,8 +91,13 @@ export default function(props) {
                         variant="contained"
                         color="primary"
                         type="submit"
+                        style={{ width: "140px" }}
                     >
-                        sign in
+                        {loading ? (
+                            <CircularProgress color="#FFFFFF" size="25px" />
+                        ) : (
+                            "sign in"
+                        )}
                     </Button>
                      <Link to="/recover">
                         Forgot your password ?

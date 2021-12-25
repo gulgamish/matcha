@@ -13,7 +13,7 @@ import {
     Button,
     FormHelperText,
     Snackbar,
-    Backdrop
+    CircularProgress
 } from '@material-ui/core'
 import { useMutation } from "@apollo/client"
 import { SIGN_UP } from "../../GraphQl/Auth/Mutations"
@@ -66,7 +66,6 @@ export default function() {
         errorPolicy: "all"
     })
 
-    console.log(user);
 
     var register = () => {
         const errs = Object.keys(errors).filter(key => errors[key] != "");
@@ -308,8 +307,13 @@ export default function() {
                         variant="contained"
                         color="primary"
                         type="submit"
+                        style={{ width: "150px" }}
                     >
-                        sign up
+                        {loading ? (
+                            <CircularProgress color="#FFFFFF" size="25px" />
+                        ) : (
+                            "sign up"
+                        )}
                     </Button>
                     <Snackbar
                         open={alert.open}

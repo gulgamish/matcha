@@ -41,6 +41,11 @@
   font-weight: 400;
 }
 
+.name-username-status {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
 .name-username {
   display: flex;
   align-items: center;

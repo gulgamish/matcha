@@ -62,7 +62,7 @@ const Display = ({
     const [ status, setStatus ] = useState("");
     const updateLastSeen = useCallback(() => {
         if(lastSeen && (new Date().getTime() - new Date(lastSeen).getTime()) / 1000 > 20)
-            setStatus(`last seen: ${moment(data.lastSeen).format("HH:mm:ss")}`);
+            setStatus(`last seen: ${moment(data.lastSeen).format("DD MMMM YYYY HH:mm")}`);
     }, [ lastSeen, setLastSeen ]);
     const [ like ] = useMutation(LIKE, {
         onError: onError(setAlert)
@@ -86,6 +86,8 @@ const Display = ({
     const { data: dataNewLastSeen, loading: loadingNewLastSeen } = useSubscription(NEW_LAST_SEEN);
     const classes = useStyles();
 
+    console.log("last seen ", lastSeen);
+
     useEffect(() => {
         if (!loading && data) {
             setImage(data.profilePicture);
@@ -93,7 +95,7 @@ const Display = ({
             if((new Date().getTime() - new Date(data.lastSeen).getTime()) / 1000 < 20)
                 setStatus(`online`);
             else
-                setStatus(`last seen: ${moment(data.lastSeen).format("HH:mm:ss")}`);
+                setStatus(`last seen: ${moment(data.lastSeen).format("DD MMMM YYYY HH:mm")}`);
         }
     }, [data, loading])
 
@@ -164,14 +166,16 @@ const Display = ({
                     </div>
                 </div>
                 <div className="user-content">
-                    <div className="name-username">
-                        <div className="name">
-                            {user.firstName} {user.lastName}
+                    <div className="name-username-status">
+                        <div className="name-username">
+                            <div className="name">
+                                {user.firstName} {user.lastName}
+                            </div>
+                            <div className="username">
+                                [{user.username}]
+                            </div>
                         </div>
-                        <div className="username">
-                            [{user.username}]
-                        </div>
-                        <div>
+                        <div className="status">
                             {status}
                         </div>
                     </div>
