@@ -10,6 +10,7 @@ import * as _ from "../../../Constants/sort"
 import { useLazyQuery } from '@apollo/client'
 import { USERS_SORTED_FILTRED } from '../../../GraphQl/Match/Queries'
 import { sort, filterList } from "../tools"
+import { Cancel } from "@material-ui/icons"
 
 const useStyles = makeStyles({
     button: {
@@ -19,7 +20,9 @@ const useStyles = makeStyles({
 
 const Search = ({
     users,
-    setUsers
+    setUsers,
+    clear,
+    setClear
 }) => {
     const [ selected, setSelected ] = useState(null);
     const [ filter, setFilter ] = useState({
@@ -43,24 +46,54 @@ const Search = ({
     useEffect(() => {
         if (!loading) {
             if (data) {
-                console.log(data.browseUsers);
                 setUsers(data.browseUsers)
             }
         }
-    }, [data])
+    }, [data, loading])
 
     useEffect(() => {
         if (selected != null) {
-            var newList = sort(users, selected);
-            setUsers(newList);
+            browse({
+                variables: {
+                    orderBy: JSON.parse(selected)
+                }
+            })
         }
         else
             browse();
     }, [selected])
 
+    useEffect(() => {
+        if (clear) {
+            setSelected(null);
+            setFilter({
+                age: {
+                    min: 18,
+                    max: 25
+                },
+                distance: {
+                    min: 0,
+                    max: 20
+                },
+                score: {
+                    min: 0,
+                    max: 60
+                },
+                interests: []
+            });
+            setClear(false);
+        }
+    }, [ clear ])
+
     const filterUsers = () => {
-        var newList = filterList(users, filter);
-        setUsers(newList);
+        //var newList = filterList(users, filter);
+        //setUsers(newList);
+        browse({
+            variables: {
+                orderBy: selected == null ? undefined : JSON.parse(selected),
+                filterBy: filter
+            }
+        })
     }
 
     return (
@@ -73,16 +106,10 @@ const Search = ({
                         isUpActive={selected === _.AGE_ASC}
                         isDownActive={selected === _.AGE_DSC}
                         onUpClick={() => {
-                            if (selected === null)
                                 setSelected(_.AGE_ASC);
-                            else
-                                setSelected(null);
                         }}
                         onDownClick={() => {
-                            if (selected === null)
                                 setSelected(_.AGE_DSC);
-                            else
-                                setSelected(null)
                         }}
                     />
                     <Chip
@@ -90,16 +117,10 @@ const Search = ({
                         isUpActive={selected === _.LOCATION_ASC}
                         isDownActive={selected === _.LOCATION_DSC}
                         onUpClick={() => {
-                            if (selected === null)
                                 setSelected(_.LOCATION_ASC);
-                            else
-                                setSelected(null);
                         }}
                         onDownClick={() => {
-                            if (selected === null)
                                 setSelected(_.LOCATION_DSC);
-                            else
-                                setSelected(null);
                         }}
                     />
                     <Chip
@@ -107,16 +128,10 @@ const Search = ({
                         isUpActive={selected === _.F_RATING_ASC}
                         isDownActive={selected === _.F_RATING_DSC}
                         onUpClick={() => {
-                            if (selected === null)
                                 setSelected(_.F_RATING_ASC);
-                            else
-                                setSelected(null);
                         }}
                         onDownClick={() => {
-                            if (selected === null)
                                 setSelected(_.F_RATING_DSC);
-                            else
-                                setSelected(null);
                         }}
                     />
                     <Chip
@@ -124,16 +139,10 @@ const Search = ({
                         isUpActive={selected === _.TAGS_ASC}
                         isDownActive={selected === _.TAGS_DSC}
                         onUpClick={() => {
-                            if (selected === null)
                                 setSelected(_.TAGS_ASC);
-                            else
-                                setSelected(null);
                         }}
                         onDownClick={() => {
-                            if (selected === null)
                                 setSelected(_.TAGS_DSC);
-                            else
-                                setSelected(null);
                         }}
                     />
                 </div>

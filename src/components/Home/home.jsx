@@ -18,15 +18,17 @@ export default function () {
   const { user } = useUserContext();
   const [ users, setUsers ] = useState([]);
   const [ originalUsers, setOriginalUsers ] = useState([]);
-  const { loading, data } = useQuery(USERS);
+  const { loading, data, refetch } = useQuery(USERS);
   const [ open, setOpen ] = useState(false);
   const [ userData, setUserData ] = useState(null);
   const [ userDataLoading, setUserDataLoading ] = useState(false);
+  const [ clear, setClear ] = useState(false);
 
   useEffect(() => {
     if (!loading && data.browseUsers) {
+      console.log(data.browseUsers);
       setUsers(data.browseUsers);
-      setOriginalUsers(data.browseUsers);
+      //setOriginalUsers(data.browseUsers);
     }
   }, [data]);
 
@@ -75,7 +77,7 @@ export default function () {
 
   return (
     <div className="home-container">
-      <Search users={users} setUsers={setUsers} />
+      <Search users={users} setUsers={setUsers} clear={clear} setClear={setClear} />
       <div className="users">
         {
           !loading && (users.length > 0 ? users.map(user => {
@@ -118,7 +120,8 @@ export default function () {
       />
       <Clear
         onClick={() => {
-          setUsers(originalUsers);
+          refetch();
+          setClear(true);
         }}
       />
     </div>

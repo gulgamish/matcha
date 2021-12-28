@@ -1,9 +1,9 @@
 export const NONE = 0;
-export const AGE_ASC = 1;
-export const AGE_DSC = 2;
-export const LOCATION_ASC = 3;
-export const LOCATION_DSC = 4;
-export const F_RATING_ASC = 5;
-export const F_RATING_DSC = 6;
-export const TAGS_ASC = 7;
-export const TAGS_DSC = 8;
+export const AGE_ASC = '{ "age": "asc" }';
+export const AGE_DSC = '{ "age": "desc" }';
+export const LOCATION_ASC = '{ "distance": "asc" }';
+export const LOCATION_DSC = '{ "distance": "desc" }';
+export const F_RATING_ASC = '{ "score": "asc" }';
+export const F_RATING_DSC = '{ "score": "desc" }';
+export const TAGS_ASC = '{ "interests": "asc" }';
+export const TAGS_DSC = '{ "interests": "desc" }';
