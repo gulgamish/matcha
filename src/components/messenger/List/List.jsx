@@ -15,7 +15,7 @@ const List = ({
     return (
         <div className="list-container">
             {
-                !loading && data.getMatchedUsers !== undefined && (
+                !loading && data && (
                     data.getMatchedUsers.map(user => (
                         <MatchedUser
                             img={user.profilePicture}

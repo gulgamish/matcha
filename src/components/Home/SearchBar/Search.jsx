@@ -22,7 +22,8 @@ const Search = ({
     users,
     setUsers,
     clear,
-    setClear
+    setClear,
+    browse
 }) => {
     const [ selected, setSelected ] = useState(null);
     const [ filter, setFilter ] = useState({
@@ -40,16 +41,16 @@ const Search = ({
         },
         interests: []
     })
-    const [ browse, { data, loading } ] = useLazyQuery(USERS_SORTED_FILTRED);
+    //const [ browse, { data, loading } ] = useLazyQuery(USERS_SORTED_FILTRED);
     const { button } = useStyles();
 
-    useEffect(() => {
-        if (!loading) {
-            if (data) {
-                setUsers(data.browseUsers)
-            }
-        }
-    }, [data, loading])
+    // useEffect(() => {
+    //     if (!loading) {
+    //         if (data) {
+    //             setUsers(data.browseUsers)
+    //         }
+    //     }
+    // }, [data, loading])
 
     useEffect(() => {
         if (selected != null) {
@@ -167,6 +168,7 @@ const Search = ({
                                     })
                                 }}
                                 defaultValue={[18, 25]}
+                                value={[ filter.age.min, filter.age.max ]}
                                 marks={[
                                     
                                 ]}
@@ -196,6 +198,7 @@ const Search = ({
                                         }
                                     })
                                 }}
+                                value={[ filter.distance.min, filter.distance.max ]}
                                 valueLabelDisplay="auto"
                                 defaultValue={[0, 20]}
                                 min={0}
@@ -222,6 +225,7 @@ const Search = ({
                                         }
                                     })
                                 }}
+                                value={[ filter.score.min, filter.score.max ]}
                                 defaultValue={[0, 60]}
                                 valueLabelDisplay="auto"
                                 max={100}

@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Person, DateRange, GpsFixed, SentimentDissatisfied, SentimentVeryDissatisfied } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { USERS } from "../../GraphQl/Match/Queries";
+import { USERS, USERS_SORTED_FILTRED } from "../../GraphQl/Match/Queries";
 import Search from './SearchBar/Search'
 import Card from "./Card/Card";
 import "./style.css"
@@ -18,19 +18,27 @@ export default function () {
   const { user } = useUserContext();
   const [ users, setUsers ] = useState([]);
   const [ originalUsers, setOriginalUsers ] = useState([]);
-  const { loading, data, refetch } = useQuery(USERS);
+  const [ browse, { loading, data, refetch } ] = useLazyQuery(USERS_SORTED_FILTRED);
   const [ open, setOpen ] = useState(false);
   const [ userData, setUserData ] = useState(null);
   const [ userDataLoading, setUserDataLoading ] = useState(false);
   const [ clear, setClear ] = useState(false);
 
+  // useEffect(() => {
+  //   if (!loading && data.browseUsers) {
+  //     console.log(data.browseUsers);
+  //     setUsers(data.browseUsers);
+  //     //setOriginalUsers(data.browseUsers);
+  //   }
+  // }, [data]);
+
+  console.log(data, loading);
+
   useEffect(() => {
-    if (!loading && data.browseUsers) {
-      console.log(data.browseUsers);
-      setUsers(data.browseUsers);
-      //setOriginalUsers(data.browseUsers);
-    }
-  }, [data]);
+    console.log("enter here ?");
+    browse();
+  }, [])
+
 
   const fetchUser = (id) => {
     setUserDataLoading(true)
@@ -77,10 +85,10 @@ export default function () {
 
   return (
     <div className="home-container">
-      <Search users={users} setUsers={setUsers} clear={clear} setClear={setClear} />
+      <Search users={users} setUsers={setUsers} clear={clear} setClear={setClear} browse={browse} />
       <div className="users">
         {
-          !loading && (users.length > 0 ? users.map(user => {
+          !loading && data != undefined && (data.browseUsers.length > 0 ? data.browseUsers.map(user => {
             if (user)
               return <Card
                 id={user.id}
