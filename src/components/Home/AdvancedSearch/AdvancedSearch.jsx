@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react"
 import { USERS_SORTED_FILTRED } from "../../../GraphQl/Match/Queries"
 import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
+import axios from "axios"
+import { useUserContext } from "../../../user.wrapper"
 
 const SearchDialog = ({
     search,
@@ -110,13 +112,10 @@ const SearchDialog = ({
                         Common tags
                     </Typography>
                     <InputTags
-                        onChange={(tag) => {
+                        onChange={(tags) => {
                             setSearch({
                                 ...search,
-                                interests: [
-                                    ...search.interests,
-                                    tag
-                                ]
+                                interests: tags
                             })
                         }}
                     />
@@ -138,6 +137,7 @@ const SearchDialog = ({
 const AdvancedSearch = ({
     setUsers
 }) => {
+    const { user } = useUserContext();
     const [ search, setSearch ] = useState({
         age: {
             min: 18,
@@ -154,20 +154,43 @@ const AdvancedSearch = ({
         interests: []
     });
     const [ open, setOpen ] = useState(false);
-    const [ browse, { loading, data } ] = useLazyQuery(USERS_SORTED_FILTRED);
 
-    useEffect(() => {
-        if (!loading && data && data.browseUsers) {
-            setUsers(data.browseUsers);
-        }
-    }, [data]);
+    const fetchUsers = (filterBy) => {
+        axios.post('/graphql', {
+          query: `
+            query browse (
+              $filterBy: FilterByInput
+            ) {
+              browseUsers (
+                  filterBy: $filterBy
+              ) {
+                  id,
+                  firstName,
+                  lastName,
+                  age,
+                  distance,
+                  interests,
+                  profilePicture,
+                  score
+              }
+            }
+          `,
+          variables: {
+            filterBy
+          }
+        }, {
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        })
+        .then(({ data }) => {
+          setUsers(data.data.browseUsers);
+        })
+        .catch(err => {})
+      }
 
     const onSearch = () => {
-        browse({
-            variables: {
-                filterBy: search
-            }
-        });
+        fetchUsers(search);
         setOpen(false);
     }
 

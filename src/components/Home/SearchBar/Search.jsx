@@ -11,6 +11,8 @@ import { useLazyQuery } from '@apollo/client'
 import { USERS_SORTED_FILTRED } from '../../../GraphQl/Match/Queries'
 import { sort, filterList } from "../tools"
 import { Cancel } from "@material-ui/icons"
+import axios from 'axios'
+import { useUserContext } from '../../../user.wrapper'
 
 const useStyles = makeStyles({
     button: {
@@ -23,8 +25,8 @@ const Search = ({
     setUsers,
     clear,
     setClear,
-    browse
 }) => {
+    const { user } = useUserContext();
     const [ selected, setSelected ] = useState(null);
     const [ filter, setFilter ] = useState({
         age: {
@@ -41,27 +43,53 @@ const Search = ({
         },
         interests: []
     })
-    //const [ browse, { data, loading } ] = useLazyQuery(USERS_SORTED_FILTRED);
     const { button } = useStyles();
 
-    // useEffect(() => {
-    //     if (!loading) {
-    //         if (data) {
-    //             setUsers(data.browseUsers)
-    //         }
-    //     }
-    // }, [data, loading])
+    console.log(filter);
+
+    const fetchUsers = (orderBy, filterBy) => {
+        axios.post('/graphql', {
+          query: `
+            query browse (
+              $orderBy: OrderByInput,
+              $filterBy: FilterByInput
+            ) {
+              browseUsers (
+                  orderBy: $orderBy
+                  filterBy: $filterBy
+              ) {
+                  id,
+                  firstName,
+                  lastName,
+                  age,
+                  distance,
+                  interests,
+                  profilePicture,
+                  score
+              }
+            }
+          `,
+          variables: {
+            orderBy,
+            filterBy
+          }
+        }, {
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        })
+        .then(({ data }) => {
+          setUsers(data.data.browseUsers);
+        })
+        .catch(err => {})
+    }
 
     useEffect(() => {
         if (selected != null) {
-            browse({
-                variables: {
-                    orderBy: JSON.parse(selected)
-                }
-            })
+            fetchUsers(JSON.parse(selected));
         }
         else
-            browse();
+            fetchUsers();
     }, [selected])
 
     useEffect(() => {
@@ -87,14 +115,17 @@ const Search = ({
     }, [ clear ])
 
     const filterUsers = () => {
-        //var newList = filterList(users, filter);
-        //setUsers(newList);
-        browse({
-            variables: {
-                orderBy: selected == null ? undefined : JSON.parse(selected),
-                filterBy: filter
+        var obj = {
+            ...filter,
+            score: {
+                min: filter.score.min * 10,
+                max: filter.score.max * 10
             }
-        })
+        }
+        fetchUsers(
+            selected == null ? undefined : JSON.parse(selected),
+            obj
+        )
     }
 
     return (
@@ -243,13 +274,10 @@ const Search = ({
                             </Typography>
                             <InputTags
                                 max={6}
-                                onChange={(tag) => {
+                                onChange={(tags) => {
                                     setFilter({
                                         ...filter,
-                                        interests: [
-                                            ...filter.interests,
-                                            tag
-                                        ]
+                                        interests: tags
                                     })
                                 }}
                             />

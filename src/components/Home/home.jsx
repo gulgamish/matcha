@@ -22,6 +22,7 @@ export default function () {
   const [ open, setOpen ] = useState(false);
   const [ userData, setUserData ] = useState(null);
   const [ userDataLoading, setUserDataLoading ] = useState(false);
+  const [ usersDataLoading, setUsersDataLoading ] = useState(true);
   const [ clear, setClear ] = useState(false);
 
   // useEffect(() => {
@@ -34,9 +35,46 @@ export default function () {
 
   console.log(data, loading);
 
+  const fetchUsers = (orderBy, filterBy) => {
+    axios.post('/graphql', {
+      query: `
+        query browse (
+          $orderBy: OrderByInput,
+          $filterBy: FilterByInput
+        ) {
+          browseUsers (
+              orderBy: $orderBy
+              filterBy: $filterBy
+          ) {
+              id,
+              firstName,
+              lastName,
+              age,
+              distance,
+              interests,
+              profilePicture,
+              score
+          }
+        }
+      `,
+      variables: {
+        orderBy,
+        filterBy
+      }
+    }, {
+      headers: {
+        Authorization: `Bearer ${user.token}`
+      }
+    })
+    .then(({ data }) => {
+      setUsers(data.data.browseUsers);
+    })
+    .catch(err => {})
+    .finally(() => setUsersDataLoading(false));
+  }
+
   useEffect(() => {
-    console.log("enter here ?");
-    browse();
+    fetchUsers();
   }, [])
 
 
@@ -85,10 +123,10 @@ export default function () {
 
   return (
     <div className="home-container">
-      <Search users={users} setUsers={setUsers} clear={clear} setClear={setClear} browse={browse} />
+      <Search users={users} setUsers={setUsers} clear={clear} setClear={setClear} />
       <div className="users">
         {
-          !loading && data != undefined && (data.browseUsers.length > 0 ? data.browseUsers.map(user => {
+          !usersDataLoading && (users.length > 0 ? users.map(user => {
             if (user)
               return <Card
                 id={user.id}
@@ -128,7 +166,7 @@ export default function () {
       />
       <Clear
         onClick={() => {
-          refetch();
+          fetchUsers();
           setClear(true);
         }}
       />

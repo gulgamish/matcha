@@ -14,6 +14,10 @@ const InputTags = ({
     const [ error, setError ] = useState(false);
 
     useEffect(() => {
+        onChange(tags);
+    }, [ tags ])
+
+    useEffect(() => {
         if (tags.length > 0)
             setActive(true);
         else
@@ -38,7 +42,7 @@ const InputTags = ({
                     ...tags,
                     tag
                 ]);
-                onChange(tag);
+                //onChange(tag);
             }
             setValue("");
         }

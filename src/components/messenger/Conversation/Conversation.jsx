@@ -69,8 +69,6 @@ const Conversation = ({
         }
     }, [messages]);
 
-    console.log(messages);
-    
 
     return (
         <div className="conversation-container">

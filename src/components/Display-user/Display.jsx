@@ -65,23 +65,52 @@ const Display = ({
             setStatus(`last seen: ${moment(data.lastSeen).format("DD MMMM YYYY HH:mm")}`);
     }, [ lastSeen, setLastSeen ]);
     const [ like ] = useMutation(LIKE, {
-        onError: onError(setAlert)
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            });
+            handleClose();
+        }
     });
     const [ unlike ] = useMutation(UNLIKE, {
-        onError: onError(setAlert)
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            });
+            handleClose();
+        }
     })
     const [ blockUser ] = useMutation(BLOCK, {
         onCompleted: (data) => {
             window.location.reload();
         },
-        onError: onError(setAlert)
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            });
+            handleClose();
+        }
     })
     const [ reportUser ] = useMutation(REPORT, {
         onCompleted: (data) => {
             setOpenReportDialog(false);
             handleClose();
         },
-        onError: onError(setAlert)
+        onError: (err) => {
+            setOpenReportDialog(false);
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            });
+            //handleClose();
+        }
     })
     const { data: dataNewLastSeen, loading: loadingNewLastSeen } = useSubscription(NEW_LAST_SEEN);
     const classes = useStyles();

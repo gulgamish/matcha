@@ -63,9 +63,22 @@ export default function() {
     });
     var classes = useStyles();
     var [ signup, { data, error, loading } ] = useMutation(SIGN_UP, {
-        errorPolicy: "all"
+        errorPolicy: "all",
+        onCompleted: () => {
+            setAlert({
+                open: true,
+                isSuccess: true,
+                msg: "mail is sent, please confirm your account"
+            })
+        },
+        onError: () => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: error.message
+            })
+        }
     })
-
 
     var register = () => {
         const errs = Object.keys(errors).filter(key => errors[key] != "");
@@ -79,20 +92,6 @@ export default function() {
             signup({
                 variables: user
             });
-            if (data) {
-                setAlert({
-                    open: true,
-                    isSuccess: true,
-                    msg: "mail is sent, please confirm your account"
-                })
-            }
-            if (error) {
-                setAlert({
-                    open: true,
-                    isError: true,
-                    msg: error.message
-                })
-            }
         }
     }
     
