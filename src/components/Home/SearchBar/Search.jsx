@@ -95,21 +95,6 @@ const Search = ({
     useEffect(() => {
         if (clear) {
             setSelected(null);
-            setFilter({
-                age: {
-                    min: 18,
-                    max: 25
-                },
-                distance: {
-                    min: 0,
-                    max: 20
-                },
-                score: {
-                    min: 0,
-                    max: 60
-                },
-                interests: []
-            });
             setClear(false);
         }
     }, [ clear ])

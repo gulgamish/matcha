@@ -6,7 +6,6 @@ import Heart from "react-heart"
 import { BLOCK, LIKE, REPORT, UNLIKE } from "../../GraphQl/Match/Mutations";
 import { GET_USER } from "../../GraphQl/Match/Queries";
 import { NEW_LAST_SEEN } from "../../GraphQl/Match/Subscriptions";
-import image from "../../img/dating.jpg"
 import Confirm from "../profile/Confirm";
 import useAlert from "../tools/useAlert";
 import { useCallback } from "react";

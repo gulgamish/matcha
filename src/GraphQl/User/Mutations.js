@@ -128,15 +128,6 @@ export const MODIFY_GEO_POSITION = gql`
     }
 `
 
-export const FORCE_GEO_POSITION = gql`
-    mutation forceGeoPosition {
-        forceGeolocation {
-            lat
-            lon
-        }
-    }
-`
-
 export const DELETE_PICTURE = gql`
     mutation deletePicture (
         $url: String!,

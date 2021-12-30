@@ -309,7 +309,7 @@ export default function() {
                         style={{ width: "150px" }}
                     >
                         {loading ? (
-                            <CircularProgress color="#FFFFFF" size="25px" />
+                            <CircularProgress htmlColor="#FFFFFF" size="25px" />
                         ) : (
                             "sign up"
                         )}

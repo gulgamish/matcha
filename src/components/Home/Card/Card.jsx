@@ -15,6 +15,7 @@ var useStyles = makeStyles({
 
 const Card = ({
     id,
+    key,
     image = img,
     firstName,
     lastName,
@@ -32,6 +33,7 @@ const Card = ({
             className="card"
             key={id}
             onClick={onClick}
+            key={key}
         >
             <div className="header">
                 <div className="media">

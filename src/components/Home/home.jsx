@@ -126,10 +126,11 @@ export default function () {
       <Search users={users} setUsers={setUsers} clear={clear} setClear={setClear} />
       <div className="users">
         {
-          !usersDataLoading && (users.length > 0 ? users.map(user => {
+          !usersDataLoading && users && (users.length > 0 ? users.map((user, index) => {
             if (user)
               return <Card
                 id={user.id}
+                key={index}
                 firstName={user.firstName}
                 lastName={user.lastName}
                 age={user.age}

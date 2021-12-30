@@ -90,10 +90,15 @@ var Pictures = () => {
     const { SnackBar, setAlert } = useAlert();
     useQuery(GET_PICTURES, {
         onCompleted: (data) => {
-            setPictures(data.getUser.regularPictures);
+            if (data.getUser.regularPictures)
+                setPictures(data.getUser.regularPictures);
         },
         onError: (err) => {
-            console.error(err);
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            })
         }
     });
     const [ uploadFile ] = useMutation(UPLOAD, {
@@ -107,7 +112,7 @@ var Pictures = () => {
             setAlert({
                 open: true,
                 isError: true,
-                msg: "Error, please try again"
+                msg: err.message
             })
         }
     })

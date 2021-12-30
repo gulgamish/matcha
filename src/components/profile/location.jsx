@@ -20,8 +20,9 @@ import {
 import '@reach/combobox/styles.css'
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_COORD } from '../../GraphQl/User/Queries';
-import { FORCE_GEO_POSITION, MODIFY_GEO_POSITION } from '../../GraphQl/User/Mutations';
+import { MODIFY_GEO_POSITION } from '../../GraphQl/User/Mutations';
 import useAlert from '../tools/useAlert';
+import axios from "axios"
 
 const useStyles = makeStyles({
     container: {
@@ -110,7 +111,16 @@ const Location = () => {
         libraries
     });
     const { SnackBar, setAlert } = useAlert();
-    const { loading, data, refetch } = useQuery(GET_COORD, {
+    const { refetch } = useQuery(GET_COORD, {
+        onCompleted: (data) => {
+            setLocation({
+                loaded: true,
+                coords: {
+                    lat: data.getUser.lat,
+                    lng: data.getUser.lon
+                }
+            })
+        },
         onError: (err) => {
             setAlert({
                 open: true,
@@ -144,34 +154,24 @@ const Location = () => {
             })
         }
     });
-    const [ forceGeoPosition ] = useMutation(FORCE_GEO_POSITION, {
-        onCompleted: (data) => {
-            if (data.forceGeolocation) {
-                refetch();
-            }
-        },
-        onError: (err) => {
-        }
-    })
     const classes = useStyles();
 
-    if (!loading)
-        console.log(data);
-
-    useEffect(() => {
-        if (!loading && data)
-            setLocation({
-                loaded: true,
-                coords: {
-                    lat: data.getUser.lat,
-                    lng: data.getUser.lon
-                }
+    const forceGeoLocation = () => {
+        axios
+            .get("http://ip-api.com/json/")
+            .then(({ data }) => {
+                if (data.status == "success")
+                    modifyGeoLocation({
+                        variables: {
+                            lat: data.lat,
+                            lon: data.lon
+                        }
+                    })
             })
-    }, [ data ])
+    }
 
-    
     useEffect(() => {
-        if ("geolocation" in navigator) {
+        if ("geolocation" in navigator && location.loaded && location.coords.lat == 0 && location.coords.lng == 0) {
             navigator.geolocation.getCurrentPosition(
                 (location) => {
                     modifyGeoLocation({
@@ -182,11 +182,13 @@ const Location = () => {
                     });
                 },
                 (error) => {
-                    forceGeoPosition();
+                    if (error.message == "User denied Geolocation") {
+                        forceGeoLocation();
+                    }
                 }
             );
         }
-    }, []);
+    }, [location]);
 
     return (
         <Card>
