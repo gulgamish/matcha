@@ -34,7 +34,6 @@ export const filterList = (
     list, filters
 ) => {
     var newList = list;
-    console.log("list ", list);
     newList = newList.filter(elem => elem.age >= filters.age.min && elem.age <= filters.age.max);
     newList = newList.filter(elem => elem.distance >= filters.distance.min && elem.distance <= filters.distance.max);
     newList = newList.filter(elem => elem.score >= filters.score.min && elem.score <= filters.score.max);
@@ -48,12 +47,6 @@ export const filterList = (
             delete newList[i];
             }
         }
-    /*for (var i = 0; i < newList.length; i++) {
-        if (newList[i].interests.filter(
-            interest => filters.interests.includes(interest)
-        ).length === 0)
-            delete newList[i];
-    }*/
 
     return newList;
 }
