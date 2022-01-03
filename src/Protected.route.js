@@ -8,33 +8,32 @@ export default function ({ component: Component, ...rest }) {
     var { user, setUser } = useUserContext();
 
     useEffect(() => {
-        if (user.isLoggedIn)
-            axios
-                .post(
-                    "/graphql",
-                    {
-                        query: `
-                            query checkIfComplete {
-                                checkIfComplete
-                            }
-                        `
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${user.token}`
+        axios
+            .post(
+                "/graphql",
+                {
+                    query: `
+                        query checkIfComplete {
+                            checkIfComplete
                         }
+                    `
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`
                     }
-                )
-                .then(({ data }) => data.data.checkIfComplete)
-                .then(isComplete => {
-                    setIsCompleted(isComplete);
-                    if (!isComplete)
-                        setUser({
-                            ...user,
-                            errorMessage: "Please complete your profile informations"
-                        })
-                });
-    }, []);
+                }
+            )
+            .then(({ data }) => data.data.checkIfComplete)
+            .then(isComplete => {
+                setIsCompleted(isComplete);
+                if (!isComplete)
+                    setUser({
+                        ...user,
+                        errorMessage: "Please complete your profile informations"
+                    })
+            })
+    }, [])
 
     return (
         <Route
@@ -44,7 +43,7 @@ export default function ({ component: Component, ...rest }) {
                     if (isCompleted || props.location.pathname === "/profile") {
                         return <Component {...props} />;
                     }
-                    else
+                    else {
                         return (
                             <Redirect
                                 to={{
@@ -53,6 +52,7 @@ export default function ({ component: Component, ...rest }) {
                                 }}
                             />
                         );
+                    }
                 } else
                     return (
                         <Redirect

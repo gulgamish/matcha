@@ -78,6 +78,7 @@ export default function({ children }) {
         });
     }, []);
 
+
     if (loading)
         return <div>Loading ...</div>
     else {

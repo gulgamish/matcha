@@ -86,7 +86,8 @@ const Search = ({
 
     useEffect(() => {
         if (selected != null) {
-            fetchUsers(JSON.parse(selected));
+            var arr = sort(users, selected);
+            setUsers(arr);
         }
         else
             fetchUsers();
@@ -100,7 +101,7 @@ const Search = ({
     }, [ clear ])
 
     const filterUsers = () => {
-        var obj = {
+        /*var obj = {
             ...filter,
             score: {
                 min: filter.score.min * 10,
@@ -110,7 +111,9 @@ const Search = ({
         fetchUsers(
             selected == null ? undefined : JSON.parse(selected),
             obj
-        )
+        )*/
+        var arr = filterList(users, filter);
+        setUsers(arr);
     }
 
     return (
