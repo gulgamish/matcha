@@ -3,14 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import { Avatar, Button, CardActions, Fab } from '@material-ui/core'
+import { Avatar, Button, CardActions, CircularProgress, Fab } from '@material-ui/core'
 import img from '../../img/profile-photo.png'
 import Pictures from './Pictures'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_PROFILE_PICTURE } from '../../GraphQl/User/Queries'
+import { GET_LIKES, GET_PROFILE_PICTURE, GET_VIEWS } from '../../GraphQl/User/Queries'
 import "./style.css"
 import { UPLOAD } from '../../GraphQl/User/Mutations'
 import useAlert from "../tools/useAlert"
+import { Visibility, FavoriteBorder } from "@material-ui/icons"
+import { Who } from './Who'
 
 var useStyles = makeStyles({
     importButton: {
@@ -35,6 +37,11 @@ var Picture = (props) => {
     var [ open, setOpen ] = useState(false);
     const { SnackBar, setAlert } = useAlert();
     var [ profilePic, setProfilePic ] = useState(img);
+    const [ who, setWho ] = useState({
+        open: false,
+        title: "",
+        users: []
+    });
     const { data, loading, error } = useQuery(GET_PROFILE_PICTURE);
     const [ uploadFile ] = useMutation(UPLOAD, {
         onCompleted: (data) => {
@@ -52,6 +59,16 @@ var Picture = (props) => {
                 msg: "Error, please try again"
             })
         }
+    });
+    const { data: dataViews, loading: loadingViews } = useQuery(GET_VIEWS, {
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const { data: dataLikes, loading: loadingLikes } = useQuery(GET_LIKES, {
+        onError: (err) => {
+            console.log(err);
+        }
     })
 
     useEffect(() => {
@@ -61,6 +78,7 @@ var Picture = (props) => {
 
     return (
         <Card>
+            <Who open={who.open} setWho={setWho} title={who.title} users={who.users} />
             <CardContent>
                 <div className="img-container">
                     <Avatar src={profilePic} className={classes.profilePic} />
@@ -81,6 +99,40 @@ var Picture = (props) => {
                             }}
                         />
                         <label htmlFor="epicture">Edit picture</label>
+                    </div>
+                    <div className="ana">
+                        <div className="views" onClick={() => {
+                            setWho((value) => {
+                                return {
+                                    open: true,
+                                    title: "Views",
+                                    users: dataViews.getWhoLooked
+                                }
+                            })
+                        }}>
+                            {loadingViews ? (
+                                <CircularProgress size="20px" />
+                            ) : (
+                                <span>{dataViews.getWhoLooked.length}</span>
+                            )}
+                            <Visibility fontSize="small" />
+                        </div>
+                        <div className="likes" onClick={() => {
+                            setWho((value) => {
+                                return {
+                                    open: true,
+                                    title: "Likes",
+                                    users: dataLikes.getWhoLiked
+                                }
+                            })
+                        }}>
+                            {loadingLikes ? (
+                                <CircularProgress size="20px" />
+                            ) : (
+                                <span>{dataLikes.getWhoLiked.length}</span>
+                            )}
+                            <FavoriteBorder fontSize="small" />
+                        </div>
                     </div>
                 </div>
                 <Pictures />

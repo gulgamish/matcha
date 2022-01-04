@@ -42,3 +42,61 @@
   width: 100%;
   margin: 0;
 }
+
+.ana {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.views {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.views > span {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.likes > span {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.user:hover {
+  cursor: pointer;
+  background-color: rgb(245, 245, 245);
+}
+
+.user > span {
+  margin-left: 5px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}

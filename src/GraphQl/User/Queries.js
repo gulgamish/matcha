@@ -58,3 +58,19 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_VIEWS = gql`
+  query getWhoLooked {
+    getWhoLooked {
+      id
+    }
+  }
+`
+
+export const GET_LIKES = gql`
+  query getWhoLiked {
+    getWhoLiked {
+      id
+    }
+  }
+`

@@ -114,8 +114,6 @@ const Display = ({
     const { data: dataNewLastSeen, loading: loadingNewLastSeen } = useSubscription(NEW_LAST_SEEN);
     const classes = useStyles();
 
-    console.log("last seen ", lastSeen);
-
     useEffect(() => {
         if (!loading && data) {
             setImage(data.profilePicture);
@@ -130,7 +128,6 @@ const Display = ({
     useEffect(() => {
         if (!loadingNewLastSeen && dataNewLastSeen && data) {
             if (dataNewLastSeen.newLastSeen.id === data.id) {
-                console.log(dataNewLastSeen)
                 if ((new Date().getTime() - new Date(dataNewLastSeen.newLastSeen.last_seen).getTime()) / 1000 < 20) {
                     setStatus("online")
                     setLastSeen(dataNewLastSeen.newLastSeen.last_seen);
