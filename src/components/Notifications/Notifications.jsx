@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
-import { Divider, MenuList, MenuItem } from "@material-ui/core";
+import React, { useEffect, useState } from "react"
 import { NotificationsNone } from "@material-ui/icons";
 import clsx from "clsx";
 import "./style.css"
@@ -7,14 +6,31 @@ import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { NEW_NOTIFICATION } from "../../GraphQl/Match/Subscriptions";
 import { GET_NOTIFICATIONS } from "../../GraphQl/Match/Queries";
 import { READ_NOTIFICATIONS } from "../../GraphQl/Match/Mutations";
+import useAlert from "../tools/useAlert";
 
 const Notifications = () => {
-    const { loading, data, error } = useSubscription(NEW_NOTIFICATION);
+    const { SnackBar, setAlert } = useAlert();
+    const { loading, data } = useSubscription(NEW_NOTIFICATION, {
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            });
+        }
+    });
     const {
         data: dataNotifications,
         loading: loadingNotification,
-        error: errorNotifications
-    } = useQuery(GET_NOTIFICATIONS);
+    } = useQuery(GET_NOTIFICATIONS, {
+        onError: (err) => {
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            });
+        }
+    });
     const [ readNotifications ] = useMutation(READ_NOTIFICATIONS);
     const [ redNotif, setRedNotif ] = useState(false);
     const [ notificationCounter, setNotificationCounter ] = useState(null);
@@ -33,6 +49,7 @@ const Notifications = () => {
 
     useEffect(() => {
         setNotificationCounter(notifications.length);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ notifications ])
 
     useEffect(() => {
@@ -45,6 +62,7 @@ const Notifications = () => {
                 ]);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     useEffect(() => {
@@ -57,9 +75,8 @@ const Notifications = () => {
             if (notifs.length > 0)
                 setRedNotif(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataNotifications])
-
-    console.log(notifications, redNotif);
 
     return (
         <div className="menu-notif-container" onClick={e => e.stopPropagation()}>
@@ -91,6 +108,7 @@ const Notifications = () => {
                     ))}
                 </div>
             </div>
+            <SnackBar />
         </div>
     )
 }

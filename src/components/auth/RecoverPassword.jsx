@@ -8,10 +8,9 @@ import {
     InputLabel,
     makeStyles,
     OutlinedInput,
-    Snackbar
 } from '@material-ui/core'
 import { SendSharp } from '@material-ui/icons';
-import React, { useState } from 'react'
+import React from 'react'
 import useForm from '../tools/useForm';
 import { useMutation } from '@apollo/client'
 import { RECOVER_PASSWD } from '../../GraphQl/Auth/Mutations';
@@ -86,7 +85,7 @@ const RecoverPassword = (props) => {
                     endIcon={<SendSharp />}
                     disabled={errors.email}
                     onClick={() => {
-                        if (!("email" in values) || values.email == "") {
+                        if (!("email" in values) || values.email === "") {
                             setAlert({
                                 open: true,
                                 isError: true,

@@ -18,6 +18,7 @@ const MatchedUser = ({
                 <img
                     className="m-profile-photo"
                     src={img}
+                    alt="profile"
                 />
             </div>
             <div className="m-container-username">

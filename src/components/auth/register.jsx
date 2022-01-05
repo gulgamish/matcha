@@ -37,15 +37,7 @@ var useStyles = makeStyles({
     }
 })
 
-var err = {
-    'email': "Invalid email format, ex: abc@example.com",
-    'firstName': 'first name must contain only \
-                    letters between 2 to 20',
-    'lastName': 'last name must contain only \
-                    letters between 2 to 20'
-}
-
-export default function() {
+const Register = () => {
     var [ user, setUser ] = useState({});
     var [ errors, setErrors ] = useState({
         firstName: "",
@@ -62,7 +54,7 @@ export default function() {
         msg: ""
     });
     var classes = useStyles();
-    var [ signup, { data, error, loading } ] = useMutation(SIGN_UP, {
+    var [ signup, { loading } ] = useMutation(SIGN_UP, {
         errorPolicy: "all",
         onCompleted: () => {
             setAlert({
@@ -71,17 +63,17 @@ export default function() {
                 msg: "mail is sent, please confirm your account"
             })
         },
-        onError: () => {
+        onError: (err) => {
             setAlert({
                 open: true,
                 isError: true,
-                msg: error.message
+                msg: err.message
             })
         }
     })
 
     var register = () => {
-        const errs = Object.keys(errors).filter(key => errors[key] != "");
+        const errs = Object.keys(errors).filter(key => errors[key] !== "");
         if (errs.length > 0)
             setAlert({
                 open: true,
@@ -108,7 +100,7 @@ export default function() {
                         <FormControl
                             variant="outlined"
                             size="small"
-                            error={errors.firstName != "" ? true : false}
+                            error={errors.firstName !== "" ? true : false}
                             required
                         >
                             <InputLabel htmlFor="firstName">First Name</InputLabel>
@@ -119,8 +111,7 @@ export default function() {
                                     if (!v_name(e.target.value))
                                         setErrors({
                                             ...errors,
-                                            firstName: "your first name must contain only \
-                                                        alphabets and must not exceed 20 characters"
+                                            firstName: "your first name must contain only alphabets and must not exceed 20 characters"
                                         })
                                     else
                                         setErrors({
@@ -133,14 +124,14 @@ export default function() {
                                     })
                                 }}
                             />
-                            <FormHelperText error={errors.firstName != "" ? true : false}>
+                            <FormHelperText error={errors.firstName !== "" ? true : false}>
                                 {errors.firstName}
                             </FormHelperText>
                         </FormControl>
                         <FormControl
                             variant="outlined"
                             size="small"
-                            error={errors.lastName != "" ? true : false}
+                            error={errors.lastName !== "" ? true : false}
                             required
                         >
                             <InputLabel htmlFor="lastName">Last Name</InputLabel>
@@ -151,8 +142,7 @@ export default function() {
                                     if (!v_name(e.target.value))
                                         setErrors({
                                             ...errors,
-                                            lastName: "your last name must contain only \
-                                                        alphabets and must not exceed 20 characters"
+                                            lastName: "your last name must contain only alphabets and must not exceed 20 characters"
                                         })
                                     else
                                         setErrors({
@@ -165,7 +155,7 @@ export default function() {
                                     })
                                 }}
                             />
-                            <FormHelperText error={errors.lastName != "" ? true : false}>
+                            <FormHelperText error={errors.lastName !== "" ? true : false}>
                                 {errors.lastName}
                             </FormHelperText>
                         </FormControl>
@@ -174,7 +164,7 @@ export default function() {
                         variant="outlined"
                         size="small"
                         className={classes.input}
-                        error={errors.username != "" ? true : false}
+                        error={errors.username !== "" ? true : false}
                         required
                     >
                         <InputLabel htmlFor="username">username</InputLabel>
@@ -185,8 +175,7 @@ export default function() {
                                 if (!v_username(e.target.value))
                                     setErrors({
                                         ...errors,
-                                        username: "your username must contain only alphabets and digits and \
-                                                    not exceed 20 characters"
+                                        username: "your username must contain only alphabets and digits and not exceed 20 characters"
                                     })
                                 else
                                     setErrors({
@@ -199,7 +188,7 @@ export default function() {
                                 })
                             }}
                         />
-                        <FormHelperText error={errors.username != "" ? true : false}>
+                        <FormHelperText error={errors.username !== "" ? true : false}>
                             {errors.username}
                         </FormHelperText>
                     </FormControl>
@@ -207,7 +196,7 @@ export default function() {
                         variant="outlined"
                         size="small"
                         className={classes.input}
-                        error={errors.email != "" ? true : false}
+                        error={errors.email !== "" ? true : false}
                         required
                     >
                         <InputLabel htmlFor="email">email</InputLabel>
@@ -232,7 +221,7 @@ export default function() {
                                 })
                             }}
                         />
-                        <FormHelperText error={errors.email != "" ? true : false}>
+                        <FormHelperText error={errors.email !== "" ? true : false}>
                             {errors.email}
                         </FormHelperText>
                     </FormControl>
@@ -240,7 +229,7 @@ export default function() {
                         variant="outlined"
                         size="small"
                         className={classes.input}
-                        error={errors.password != "" ? true : false}
+                        error={errors.password !== "" ? true : false}
                         required
                     >
                         <InputLabel htmlFor="password">Password</InputLabel>
@@ -252,9 +241,7 @@ export default function() {
                                 if (!v_password(e.target.value))
                                     setErrors({
                                         ...errors,
-                                        password: "your password is not valid, \
-                                            Minimum eight characters, at least one uppercase letter, one lowercase letter,\
-                                            one number and one special character"
+                                        password: "your password is not valid, Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                     })
                                 else
                                     setErrors({
@@ -267,7 +254,7 @@ export default function() {
                                 })
                             }}
                         />
-                        <FormHelperText error={errors.password != "" ? true : false}>
+                        <FormHelperText error={errors.password !== "" ? true : false}>
                             {errors.password}
                         </FormHelperText>
                     </FormControl>
@@ -275,7 +262,7 @@ export default function() {
                         variant="outlined"
                         size="small"
                         className={classes.input}
-                        error={errors.rPassword != "" ? true : false}
+                        error={errors.rPassword !== "" ? true : false}
                         required
                     >
                         <InputLabel htmlFor="rpassword">Repeat password</InputLabel>
@@ -284,7 +271,7 @@ export default function() {
                             label="Repeat password"
                             type="password"
                             onChange={e => {
-                                if (e.target.value != user.password)
+                                if (e.target.value !== user.password)
                                     setErrors({
                                         ...errors,
                                         rPassword: "repeated password does not match"
@@ -296,7 +283,7 @@ export default function() {
                                     })
                             }}
                         />
-                        <FormHelperText error={errors.rPassword != "" ? true : false}>
+                        <FormHelperText error={errors.rPassword !== "" ? true : false}>
                             {errors.rPassword}
                         </FormHelperText>
                     </FormControl>
@@ -350,3 +337,5 @@ export default function() {
         </Card>
     )
 }
+
+export default Register;

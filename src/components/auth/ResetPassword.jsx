@@ -98,7 +98,7 @@ const ResetPassword = () => {
                     onClick={() => {
                         if (
                             !("password" in values) || !("rPassword" in values) ||
-                            values.password == "" || values.rPassword == ""
+                            values.password === "" || values.rPassword === ""
                         )
                             setAlert({
                                 open: true,

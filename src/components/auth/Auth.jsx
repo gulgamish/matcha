@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Login from './login'
 import Register from './register'
 
 const Authentification = ({ location }) => {
     var { pathname } = location;
 
-    if (pathname == '/')
+    if (pathname === '/')
         return <Login />;
     return <Register />;
 }
-
-export default function(props) {
+const Auth = (props) => {
     
     return (
         <div id="form-container">
@@ -20,3 +19,5 @@ export default function(props) {
         </div>
     )
 }
+
+export default Auth;

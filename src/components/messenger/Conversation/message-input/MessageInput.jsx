@@ -1,4 +1,3 @@
-import { Button, Fab } from "@material-ui/core"
 import { Send } from "@material-ui/icons"
 import React from "react"
 import "./style.css"

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, useParams } from 'react-router'
+import {  useParams } from 'react-router'
 import { CONFIRM_EMAIL, RE_CONFIRM_EMAIL } from '../../GraphQl/Auth/Mutations'
 import { useMutation } from '@apollo/client'
 import {
     Alert,
     AlertTitle
 } from '@material-ui/lab'
-import { Button, FormControl, FormHelperText, InputLabel, makeStyles, OutlinedInput, Snackbar } from '@material-ui/core'
+import { Button, FormControl, FormHelperText, InputLabel, makeStyles, OutlinedInput } from '@material-ui/core'
 import Show from '../tools/Show'
 import useForm from '../tools/useForm'
 import useAlert from '../tools/useAlert'
@@ -109,7 +109,7 @@ const Confirm = (props) => {
     const Actions = () => {
     
         const send = () => {
-            if (values.email == "")
+            if (values.email === "")
                 setAlert({
                     open: true,
                     isError: true,
@@ -144,6 +144,7 @@ const Confirm = (props) => {
         confirmEmail({
             variables: { token }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -159,7 +160,7 @@ const Confirm = (props) => {
                     <AlertTitle>Error</AlertTitle>
                      please try again, <a onClick={() => {
                          setOpen(true);
-                     }} href="#">click here</a>
+                     }} href="/">click here</a>
                      <Show
                         open={open}
                         setOpen={setOpen}

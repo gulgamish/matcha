@@ -12,8 +12,7 @@ import {
   FormHelperText,
   OutlinedInput
 } from "@material-ui/core";
-import { Edit, Save, SaveAlt } from "@material-ui/icons";
-import { Alert } from "@material-ui/lab";
+import { Save } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { 
   ADD_TAG,
@@ -105,6 +104,7 @@ const Input = ({
       setError(true);
     else
       setError(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ value ]);
 
   return (
@@ -139,7 +139,7 @@ const Input = ({
       <Fab
         size="small"
         className={classes.fab}
-        disabled={error || value == ""}
+        disabled={error || value === ""}
         onClick={() => {
           resolver({
             variables: {
@@ -206,7 +206,7 @@ var Info = () => {
   var classes = useStyles();
   const { SnackBar, setAlert } = useAlert();
   const [ tags, setTags ] = useState([]);
-  const { values, errors, onChange, setValues } = useForm({
+  const { values, setValues } = useForm({
     firstName: true,
     email: true,
     lastName: true
@@ -312,7 +312,7 @@ var Info = () => {
           resolver={modifyGender}
         />
         <SelectInput
-          initial={data.getUser.sexualPreference == null ?
+          initial={data.getUser.sexualPreference === null ?
             "" : data.getUser.sexualPreference }
           label="Sexual Orientation"
           items={[
@@ -332,8 +332,6 @@ var Info = () => {
           errorValidator={v_bio}
           errorMessage="your biography must not exceeds 500 characters"
           resolver={modifyBio}
-          multiline
-          rows={4}
         />
         <UserInputTag
           className={classes.fullWidth}

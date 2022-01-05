@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useSubscription } from "@apollo/client"
 import React, { useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
 import { SEND_MESSAGE } from "../../../GraphQl/Match/Mutations"
 import { GET_MESSAGES } from "../../../GraphQl/Match/Queries"
 import { NEW_MESSAGE } from "../../../GraphQl/Match/Subscriptions"
@@ -47,18 +46,19 @@ const Conversation = ({
 
     useEffect(() => {
         if (!loadingNewMessage) {
-            if (dataNewMessage.newMessage.from == from)
+            if (dataNewMessage.newMessage.from === from)
                 setMessages([
                     ...messages,
                     dataNewMessage.newMessage
                 ])
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataNewMessage])
 
     useEffect(() => {
         if (!loading)
             setMessages(data.getMessages);
-    }, [data])
+    }, [data, loading])
 
     useEffect(() => {
         if (messagesRef.current) {
@@ -77,8 +77,8 @@ const Conversation = ({
                 {messages.map(user => (
                     <Message
                         id={user.id}
-                        received={user.from == from}
-                        sent={user.from != from}
+                        received={user.from === from}
+                        sent={user.from !== from}
                         content={user.content}
                     />
                 ))}
@@ -90,7 +90,7 @@ const Conversation = ({
                     value={message}
                     disabled={from === null}
                     submit={() => {
-                        if (message != "") {
+                        if (message !== "") {
                             setMessage("");
                             sendMessage({
                                 variables: {

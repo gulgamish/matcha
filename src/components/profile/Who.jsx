@@ -62,7 +62,7 @@ export const Who = ({
                 })
                 .finally(() => setLoading(false));
         }
-    }, [open])
+    }, [open, users, user.token])
 
 
     if (open)
@@ -85,19 +85,26 @@ export const Who = ({
                                 <CircularProgress />
                             </div>
                         ) : (
-                            data.map(elem => {
-                                if (elem.data.data.checkProfile)
-                                    return <div key={elem.data.data.checkProfile.id}>
-                                        <div className="user" onClick={() => {
-                                            setOpen(true);
-                                            setUser(elem.data.data.checkProfile);
-                                        }}>
-                                            <Avatar src={elem.data.data.checkProfile.profilePicture} />
-                                            <span>{elem.data.data.checkProfile.firstName} {elem.data.data.checkProfile.lastName}</span>
+                            data && data.map(elem => {
+                                if (elem.data.data.checkProfile) {
+                                    return (
+                                        <div key={elem.data.data.checkProfile.id}>
+                                            <div className="user" onClick={() => {
+                                                setOpen(true);
+                                                setUser(elem.data.data.checkProfile);
+                                            }}>
+                                                <Avatar src={elem.data.data.checkProfile.profilePicture} />
+                                                <span>{elem.data.data.checkProfile.firstName} {elem.data.data.checkProfile.lastName}</span>
+                                            </div>
+                                            <Divider />
                                         </div>
-                                        <Divider />
-                                    </div>
+                                        )
+                                } else {
+                                    return null
+                                }
+                                    
                             })
+
                         )}
                     </div>
                 </div>

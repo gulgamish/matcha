@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
     GoogleMap,
     useLoadScript,
-    Marker,
-    InfoWindow
+    Marker
 } from '@react-google-maps/api'
 import { Card, CardContent, makeStyles } from '@material-ui/core';
 import usePlacesAutocomplete, {
@@ -84,7 +83,7 @@ const Search = ({ resolver }) => {
                 />
                 <ComboboxPopover>
                     {
-                        status  == "OK" && (
+                        status === "OK" && (
                             <ComboboxList>
                                 {data.map(({ description }) => (
                                     <ComboboxOption
@@ -160,7 +159,7 @@ const Location = () => {
         axios
             .get("http://ip-api.com/json/")
             .then(({ data }) => {
-                if (data.status == "success")
+                if (data.status === "success")
                     modifyGeoLocation({
                         variables: {
                             lat: data.lat,
@@ -171,7 +170,7 @@ const Location = () => {
     }
 
     useEffect(() => {
-        if ("geolocation" in navigator && location.loaded && location.coords.lat == 0 && location.coords.lng == 0) {
+        if ("geolocation" in navigator && location.loaded && location.coords.lat === 0 && location.coords.lng === 0) {
             navigator.geolocation.getCurrentPosition(
                 (location) => {
                     modifyGeoLocation({
@@ -182,12 +181,13 @@ const Location = () => {
                     });
                 },
                 (error) => {
-                    if (error.message == "User denied Geolocation") {
+                    if (error.message === "User denied Geolocation") {
                         forceGeoLocation();
                     }
                 }
             );
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location]);
 
     return (

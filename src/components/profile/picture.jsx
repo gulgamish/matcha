@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import { Avatar, Button, CardActions, CircularProgress, Fab } from '@material-ui/core'
+import { Avatar, CircularProgress } from '@material-ui/core'
 import img from '../../img/profile-photo.png'
 import Pictures from './Pictures'
 import { useMutation, useQuery } from '@apollo/client'
@@ -34,7 +34,6 @@ var useStyles = makeStyles({
 
 var Picture = (props) => {
     var classes = useStyles();
-    var [ open, setOpen ] = useState(false);
     const { SnackBar, setAlert } = useAlert();
     var [ profilePic, setProfilePic ] = useState(img);
     const [ who, setWho ] = useState({
@@ -42,7 +41,7 @@ var Picture = (props) => {
         title: "",
         users: []
     });
-    const { data, loading, error } = useQuery(GET_PROFILE_PICTURE);
+    const { data, loading } = useQuery(GET_PROFILE_PICTURE);
     const [ uploadFile ] = useMutation(UPLOAD, {
         onCompleted: (data) => {
             setAlert({
@@ -56,24 +55,33 @@ var Picture = (props) => {
             setAlert({
                 open: true,
                 isError: true,
-                msg: "Error, please try again"
+                msg: err.message
             })
         }
     });
     const { data: dataViews, loading: loadingViews } = useQuery(GET_VIEWS, {
         onError: (err) => {
-            console.log(err);
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            })
         }
     });
     const { data: dataLikes, loading: loadingLikes } = useQuery(GET_LIKES, {
         onError: (err) => {
-            console.log(err);
+            setAlert({
+                open: true,
+                isError: true,
+                msg: err.message
+            })
         }
     })
 
     useEffect(() => {
         if (!loading)
             setProfilePic(data.getUser.profilePicture)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     return (

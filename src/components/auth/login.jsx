@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default function(props) {
+const Login = (props) => {
     var { values, onChange } = useForm({});
     const { SnackBar, setAlert } = useAlert();
     var classes = useStyles();
@@ -108,3 +108,5 @@ export default function(props) {
         </Card>
     )
 }
+
+export default Login;
