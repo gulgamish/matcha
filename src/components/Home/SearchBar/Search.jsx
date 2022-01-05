@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import {
     Button,
-    Divider, makeStyles, Slider, Typography
+    makeStyles, Slider, Typography
 } from "@material-ui/core"
 import Chip from "../Chip/Chip"
 import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
 import * as _ from "../../../Constants/sort"
-import { useLazyQuery } from '@apollo/client'
-import { USERS_SORTED_FILTRED } from '../../../GraphQl/Match/Queries'
 import { sort, filterList } from "../tools"
-import { Cancel } from "@material-ui/icons"
 import axios from 'axios'
 import { useUserContext } from '../../../user.wrapper'
 
@@ -91,6 +88,7 @@ const Search = ({
         }
         else
             fetchUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selected])
 
     useEffect(() => {
@@ -98,20 +96,10 @@ const Search = ({
             setSelected(null);
             setClear(false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ clear ])
 
     const filterUsers = () => {
-        /*var obj = {
-            ...filter,
-            score: {
-                min: filter.score.min * 10,
-                max: filter.score.max * 10
-            }
-        }
-        fetchUsers(
-            selected == null ? undefined : JSON.parse(selected),
-            obj
-        )*/
         var arr = filterList(users, filter);
         setUsers(arr);
     }

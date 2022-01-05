@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import "./Style.css"
 import img from "../../../img/profile-photo.png"
 import 'font-awesome/css/font-awesome.min.css';
-import { Chip, Fab, makeStyles } from '@material-ui/core';
+import { Chip, makeStyles } from '@material-ui/core';
 import "react-circular-progressbar/dist/styles.css";
-import { useHistory } from "react-router-dom"
 
 var useStyles = makeStyles({
     root: {
@@ -24,9 +23,7 @@ const Card = ({
     interests,
     onClick
 }) => {
-    const [toggle, setToggle] = useState(false);
     const classes = useStyles();
-    const history = useHistory();
 
     return (
         <div
@@ -40,6 +37,7 @@ const Card = ({
                     <img
                         className="media-avatar"
                         src={image}
+                        alt="media avatar"
                     />
                 </div>
             </div>

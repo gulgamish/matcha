@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from './NavBar'
@@ -15,7 +15,7 @@ import Messenger from './components/messenger/messenger';
 import NotFound from './components/NotFoundPage/NotFound';
 import OnlineUsersWrapper from './OnlineUsersWrapper';
 
-export default function() {
+const AppRouter = () => {
 
     return (
         <Router>
@@ -38,3 +38,5 @@ export default function() {
         </Router>
     )
 }
+
+export default AppRouter;

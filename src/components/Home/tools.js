@@ -1,5 +1,4 @@
 import * as _ from "../../Constants/sort"
-import { filter, reject } from "lodash"
 
 export const sort = (list, type) => {
     var newList = [];
@@ -22,12 +21,6 @@ export const sort = (list, type) => {
         newList = list.slice().sort((a, b) => b.interests.length - a.interests.length);
 
     return newList;
-}
-
-const check = (elem, list) => {
-    console.log(elem, list);
-    var temp = list.filter(element => element === elem);
-    return temp.length;
 }
 
 export const filterList = (

@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Redirect, Route } from 'react-router'
 import { useUserContext } from './user.wrapper'
 
-export default function({ component: Component, ...rest }) {
+const AppRoute = ({ component: Component, ...rest }) => {
     var { user } = useUserContext();
 
     return (
@@ -14,3 +14,5 @@ export default function({ component: Component, ...rest }) {
         }} />
     )
 }
+
+export default AppRoute;

@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { LAST_SEEN } from "./GraphQl/User/Mutations";
 import { useUserContext } from "./user.wrapper";
 
@@ -18,11 +18,11 @@ const OnlineUsersWrapper = ({
                 updateLastSeen();
             }, 20000));
 
-            return (() => {
+            return () => {
                 clearInterval(onlineIndicator);
-            })
+            }
         }
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

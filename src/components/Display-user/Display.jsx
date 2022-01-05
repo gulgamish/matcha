@@ -1,10 +1,9 @@
-import { useMutation, useQuery, useSubscription } from "@apollo/client";
+import { useMutation, useSubscription } from "@apollo/client";
 import { Button, Chip, CircularProgress, Dialog, DialogActions, LinearProgress, makeStyles } from "@material-ui/core";
-import { Block, Flag, FlagOutlined, LocationOn, Report } from "@material-ui/icons";
+import { Block, FlagOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react"
 import Heart from "react-heart"
 import { BLOCK, LIKE, REPORT, UNLIKE } from "../../GraphQl/Match/Mutations";
-import { GET_USER } from "../../GraphQl/Match/Queries";
 import { NEW_LAST_SEEN } from "../../GraphQl/Match/Subscriptions";
 import Confirm from "../profile/Confirm";
 import useAlert from "../tools/useAlert";
@@ -23,14 +22,6 @@ const useStyles = makeStyles({
         width: "90%"
     }
 })
-
-const onError = (setAlert) => (err) => {
-    setAlert({
-        open: true,
-        isError: true,
-        msg: "Error: please try again"
-    })
-}
 
 const Information = ({
     label,
@@ -62,6 +53,7 @@ const Display = ({
     const updateLastSeen = useCallback(() => {
         if(lastSeen && (new Date().getTime() - new Date(lastSeen).getTime()) / 1000 > 20)
             setStatus(`last seen: ${moment(data.lastSeen).format("DD MMMM YYYY HH:mm")}`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ lastSeen, setLastSeen ]);
     const [ like ] = useMutation(LIKE, {
         onError: (err) => {
@@ -134,12 +126,13 @@ const Display = ({
                 }
             }
         }
-    }, [ dataNewLastSeen, loadingNewLastSeen ]);
+    }, [ dataNewLastSeen, loadingNewLastSeen, data ]);
 
     useEffect(() => {
         var timer = setInterval(updateLastSeen, 10000);
 
         return () => clearInterval(timer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ lastSeen ])
 
     if (loading)
@@ -165,6 +158,7 @@ const Display = ({
                         <img
                             src={image}
                             className="image-display"
+                            alt="display"
                         />
                     </div>
                     <div className="others-image-container">
@@ -175,6 +169,7 @@ const Display = ({
                                 onClick={() => {
                                     setImage(user?.profilePicture);
                                 }}
+                                alt="slide"
                             />
                         </div>
                         {user.regularPictures && user.regularPictures.map(image => (
@@ -185,6 +180,7 @@ const Display = ({
                                     onClick={() => {
                                         setImage(image);
                                     }}
+                                    alt="another slide"
                                 />
                             </div>
                         ))}

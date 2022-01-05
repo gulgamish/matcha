@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { NavLink } from 'react-router-dom'
 import { useUserContext } from './user.wrapper'
 import 'font-awesome/css/font-awesome.min.css'
-import { Avatar, Button, Chip, Divider, Fab, List, ListItemIcon, makeStyles, MenuItem, MenuList, Typography } from '@material-ui/core'
+import { Avatar, Button, Chip, Divider, ListItemIcon, MenuItem, MenuList, Typography } from '@material-ui/core'
 import { ChatBubble, ExitToApp, Person } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
@@ -12,7 +12,7 @@ import Menu from './sub-components/menu-dropdown/Menu'
 import Notifications from './components/Notifications/Notifications'
 import { SIGN_OUT } from './GraphQl/User/Mutations'
 
-export default function(props) {
+const NavBar = () => {
     var { user } = useUserContext();
     var history = useHistory();
     const { data, loading } = useQuery(GET_USERNAME_PICTURE);
@@ -111,3 +111,5 @@ export default function(props) {
         </div>
     )
 }
+
+export default NavBar;

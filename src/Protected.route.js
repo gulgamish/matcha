@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useUserContext } from "./user.wrapper";
 
-export default function ({ component: Component, ...rest }) {
+const ProtectedRoute = ({ component: Component, ...rest }) => {
     const [isCompleted, setIsCompleted] = useState(true);
     var { user, setUser } = useUserContext();
 
@@ -33,6 +33,7 @@ export default function ({ component: Component, ...rest }) {
                         errorMessage: "Please complete your profile informations"
                     })
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -66,3 +67,5 @@ export default function ({ component: Component, ...rest }) {
         />
     );
 }
+
+export default ProtectedRoute;
