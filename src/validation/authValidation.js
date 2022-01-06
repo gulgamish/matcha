@@ -8,5 +8,6 @@ export const v_password = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$
 export const v_name = (name) => _.isString(name) &&
             /^[a-zA-Z]{2,20}$/.test(name)
 
+/* eslint-disable */
 export const v_email = (email) => _.isString(email) &&
             /^([0-9A-Za-z.]+\@[0-9A-Za-z]+\.[a-z]+(\.[a-z]+)?)$/.test(email)

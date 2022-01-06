@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import "./style.css"
 
 const Menu = ({

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Picture from './picture'
 import Info from './info'
@@ -7,7 +7,7 @@ import { useUserContext } from '../../user.wrapper'
 import useAlert from '../tools/useAlert'
 
 
-export default function(props) {
+const UserProfile = (props) => {
     const { user } = useUserContext();
     const { SnackBar, setAlert } = useAlert();
 
@@ -18,7 +18,7 @@ export default function(props) {
                 isError: true,
                 msg: user.errorMessage
             })
-    }, []);
+    }, [ user.errorMessage, setAlert ]);
     
     return (
         <div className="profile">
@@ -33,3 +33,5 @@ export default function(props) {
         </div>
     )
 }
+
+export default UserProfile;

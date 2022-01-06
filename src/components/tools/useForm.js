@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { v_email, v_name, v_password } from '../../validation/authValidation'
 
 const useForm = ({
@@ -16,8 +16,6 @@ const useForm = ({
         firstName: false,
         lastName: false
     });
-
-    console.log(errors);
 
     useEffect(() => {
         if (lastName && ("lastName" in values)) {
@@ -70,7 +68,7 @@ const useForm = ({
                 })
         }
         if (rPassword && ("rPassword" in values)) {
-            if (values.rPassword != values.password) {
+            if (values.rPassword !== values.password) {
                 setErrors({
                     ...errors,
                     rPassword: true
@@ -82,6 +80,7 @@ const useForm = ({
                     rPassword: false
                 })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values])
 
     const onChange = (e) => {

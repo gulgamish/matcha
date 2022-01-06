@@ -34,7 +34,6 @@ var DisplayImage = ({ open, setOpen, img }) => {
         }
     })
     var classes = useStyles();
-    console.log(img);
 
     return (
         <Dialog
@@ -121,9 +120,9 @@ var Pictures = () => {
         <div className="images-group">
             {
                 pictures && pictures.length > 0 ? ( <ul>
-                {pictures.map((picture) => (
+                {pictures.map((picture, index) => (
                     <li
-                        key={picture}
+                        key={index}
                     >
                         <Button
                             onClick={() => {
@@ -171,11 +170,13 @@ var Pictures = () => {
                         }
                     }}
                 />
-                <label htmlFor="reg-picture">
-                    <IconButton color="primary" aria-label="upload picture" component="span">
-                        <PhotoCamera />
-                    </IconButton>
-                </label>
+                {pictures.length < 4 && (
+                    <label htmlFor="reg-picture">
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera />
+                        </IconButton>
+                    </label>
+                )}
             </div>
             <SnackBar />
         </div>

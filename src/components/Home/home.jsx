@@ -112,22 +112,24 @@ const Home = () => {
         {
           (!usersDataLoading && users && users.length > 0 ?
             users.map((user, index) => {
-            if (user)
-              return <Card
-                id={user.id}
-                key={index}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                age={user.age}
-                distance={user.distance}
-                interests={user.interests}
-                fameRating={user.score}
-                image={user.profilePicture}
-                onClick={() => {
-                  fetchUser(user.id);
-                  setOpen(true);
-                }}
+              if (user)
+                return <div key={index}> <Card
+                  id={user.id}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
+                  age={user.age}
+                  distance={user.distance}
+                  interests={user.interests}
+                  fameRating={user.score}
+                  image={user.profilePicture}
+                  onClick={() => {
+                    fetchUser(user.id);
+                    setOpen(true);
+                  }}
               />
+              </div>
+            else
+                return null;
           }) : (
             <div className="no-match">
               <div className="icon">

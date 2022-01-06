@@ -164,8 +164,6 @@ const SelectInput = ({
   const [ value, setValue ] = useState(initial);
   const classes = useStyles();
 
-  console.log(value)
-
   return (
     <div className={classes.form}>
       <FormControl
@@ -254,8 +252,6 @@ var Info = () => {
     onError: error(setAlert),
     onCompleted: success(setAlert)
   })
-
-  console.log(data);
 
   if (loading)
     return (

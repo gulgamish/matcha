@@ -14,6 +14,7 @@ import ResetPassword from './components/auth/ResetPassword';
 import Messenger from './components/messenger/messenger';
 import NotFound from './components/NotFoundPage/NotFound';
 import OnlineUsersWrapper from './OnlineUsersWrapper';
+import Alert from "./components/Alert"
 
 const AppRouter = () => {
 
@@ -23,6 +24,7 @@ const AppRouter = () => {
                 <OnlineUsersWrapper>
                     <Navbar />
                     <hr />
+                    <Alert />
                     <Switch>
                         <AuthRoute exact path={[ "/", "/register" ]} component={Auth} />
                         <AuthRoute exact path="/confirmation/:token" component={Confirm} />

@@ -1,5 +1,4 @@
 import { Chip } from '@material-ui/core';
-import { Clear } from "@material-ui/icons"
 import React, { useEffect, useState } from 'react'
 import { v_tag } from '../../validation/userValidations';
 import "./style.css"
@@ -31,7 +30,7 @@ const UserInputTags = ({
         const tag = value;
         
         if (e.key === "Enter" && !error) {
-            if (tags.filter(elem => elem === tag).length == 0 && tag.length != 0) {
+            if (tags.filter(elem => elem === tag).length === 0 && tag.length !== 0) {
                 setTags([
                     ...tags,
                     tag
@@ -56,7 +55,7 @@ const UserInputTags = ({
                         className="tag"
                         onDelete={() => {
                             setTags(
-                                tags.filter(value => value != tag)
+                                tags.filter(value => value !== tag)
                             )
                             onTagDelete(tag);
                         }}
@@ -71,7 +70,7 @@ const UserInputTags = ({
                     }}
                     placeholder="Enter tag"
                     onKeyUp={onKeyUp}
-                    disabled={tags.length == max}
+                    disabled={tags.length === max}
                 />
             </div>
             {error && (

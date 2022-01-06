@@ -39,9 +39,6 @@ const SearchDialog = ({
                             })
                         }}
                         defaultValue={[18, 25]}
-                        marks={[
-                            
-                        ]}
                         valueLabelDisplay="auto"
                         min={18}
                         max={60}

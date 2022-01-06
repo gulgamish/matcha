@@ -55,7 +55,6 @@ const Register = () => {
     });
     var classes = useStyles();
     var [ signup, { loading } ] = useMutation(SIGN_UP, {
-        errorPolicy: "all",
         onCompleted: () => {
             setAlert({
                 open: true,
@@ -296,7 +295,7 @@ const Register = () => {
                         style={{ width: "150px" }}
                     >
                         {loading ? (
-                            <CircularProgress htmlColor="#FFFFFF" size="25px" />
+                            <CircularProgress size="25px" />
                         ) : (
                             "sign up"
                         )}

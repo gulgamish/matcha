@@ -12,7 +12,7 @@ export const useUserContext = () => useContext(UserContext);
 
 
 
-export default function({ children }) {
+const UserWrapper = ({ children }) => {
     const [ user, setUser ] = useState({ isLoggedIn: false, token: "" });
     const [ token, setToken ] = useState("");
     const [ loading, setLoading ] = useState(true);
@@ -43,9 +43,21 @@ export default function({ children }) {
     const client = new ApolloClient({
         link: new RetryLink().split(({ query }) => {
             const { operation } = getMainDefinition(query);
-            return operation == "subscription"
+            return operation === "subscription"
         }, socketLink, authLink.concat(uploadLink)),
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache({
+            typePolicies: {
+                Query: {
+                  fields: {
+                    getUser: {
+                      merge(existing, incoming) {
+                        return incoming;
+                      }
+                  },
+                },
+              }
+            }
+        }),
         credentials: "include"
     })
 
@@ -91,3 +103,5 @@ export default function({ children }) {
         )
     }
 }
+
+export default UserWrapper;

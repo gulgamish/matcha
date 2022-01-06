@@ -172,8 +172,8 @@ const Display = ({
                                 alt="slide"
                             />
                         </div>
-                        {user.regularPictures && user.regularPictures.map(image => (
-                            <div className="slide-image-container">
+                        {user.regularPictures && user.regularPictures.map((image, index) => (
+                            <div className="slide-image-container" key={index}>
                                 <img
                                     src={image}
                                     className="slide-image"
@@ -237,8 +237,8 @@ const Display = ({
                         label="Interests"
                         content={
                             <ul>
-                                {user.interests.map(tag => (
-                                    <li key={tag}>
+                                {user.interests.map((tag, index) => (
+                                    <li key={index}>
                                         <Chip
                                             label={tag}
                                             variant="outlined"

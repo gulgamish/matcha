@@ -15,6 +15,7 @@ const InputTags = ({
 
     useEffect(() => {
         onChange(tags);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ tags ])
 
     useEffect(() => {
@@ -37,7 +38,7 @@ const InputTags = ({
         const tag = value;
         
         if (e.key === "Enter" && !error) {
-            if (tags.filter(elem => elem === tag).length == 0 && tag.length != 0) {
+            if (tags.filter(elem => elem === tag).length === 0 && tag.length !== 0) {
                 setTags([
                     ...tags,
                     tag
@@ -47,7 +48,7 @@ const InputTags = ({
             setValue("");
         }
         if (e.key === "Backspace") {
-            if (value.length != 0)
+            if (value.length !== 0)
                 setValue("");
             else {
                 const newTags = tags.filter((value, index) => index < tags.length - 1);
@@ -70,7 +71,7 @@ const InputTags = ({
                         className="tag"
                         onDelete={() => {
                             setTags(
-                                tags.filter(value => value != tag)
+                                tags.filter(value => value !== tag)
                             )
                         }}
                     />
@@ -83,7 +84,7 @@ const InputTags = ({
                     }}
                     placeholder="Enter tag"
                     onKeyUp={onKeyUp}
-                    disabled={tags.length == max}
+                    disabled={tags.length === max}
                 />
                 <div
                     className={`clear-tags ${isActive ? "clear-tags-active" : ""}`}

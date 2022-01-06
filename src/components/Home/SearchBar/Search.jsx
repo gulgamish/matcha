@@ -42,8 +42,6 @@ const Search = ({
     })
     const { button } = useStyles();
 
-    console.log(filter);
-
     const fetchUsers = (orderBy, filterBy) => {
         axios.post('/graphql', {
           query: `
@@ -176,9 +174,6 @@ const Search = ({
                                 }}
                                 defaultValue={[18, 25]}
                                 value={[ filter.age.min, filter.age.max ]}
-                                marks={[
-                                    
-                                ]}
                                 valueLabelDisplay="auto"
                                 min={18}
                                 max={60}
