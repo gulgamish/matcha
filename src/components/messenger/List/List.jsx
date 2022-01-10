@@ -16,15 +16,17 @@ const List = ({
         <div className="list-container">
             {
                 !loading && data && (
-                    data.getMatchedUsers.map(user => (
-                        <MatchedUser
-                            img={user.profilePicture}
-                            username={user.username}
-                            onClick={() => {
-                                setSelectedUser(user.id)
-                            }}
-                            selected={selectedUser === user.id}
-                        />
+                    data.getMatchedUsers.map((user, index) => (
+                        <div key={index}>
+                            <MatchedUser
+                                img={user.profilePicture}
+                                username={user.username}
+                                onClick={() => {
+                                    setSelectedUser(user.id)
+                                }}
+                                selected={selectedUser === user.id}
+                            />
+                        </div>
                     ))
                 )
             }

@@ -25,21 +25,7 @@ const Search = ({
 }) => {
     const { user } = useUserContext();
     const [ selected, setSelected ] = useState(null);
-    const [ filter, setFilter ] = useState({
-        age: {
-            min: 18,
-            max: 25
-        },
-        distance: {
-            min: 0,
-            max: 20
-        },
-        score: {
-            min: 0,
-            max: 60
-        },
-        interests: []
-    })
+    const [ filter, setFilter ] = useState({})
     const { button } = useStyles();
 
     const fetchUsers = (orderBy, filterBy) => {
@@ -92,6 +78,7 @@ const Search = ({
     useEffect(() => {
         if (clear) {
             setSelected(null);
+            setFilter({});
             setClear(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -164,16 +151,17 @@ const Search = ({
                             <Slider
                                 aria-labelledby="track-inverted-range-slider"
                                 onChange={(e, newv) => {
-                                    setFilter({
-                                        ...filter,
-                                        age: {
-                                            min: newv[0],
-                                            max: newv[1]
+                                    setFilter((value) => {
+                                        return {
+                                            ...value,
+                                            age: {
+                                                min: newv[0],
+                                                max: newv[1]
+                                            }
                                         }
                                     })
                                 }}
                                 defaultValue={[18, 25]}
-                                value={[ filter.age.min, filter.age.max ]}
                                 valueLabelDisplay="auto"
                                 min={18}
                                 max={60}
@@ -192,15 +180,16 @@ const Search = ({
                             <Slider
                                 aria-labelledby="track-inverted-range-slider"
                                 onChange={(e, newv) => {
-                                    setFilter({
-                                        ...filter,
-                                        distance: {
-                                            min: newv[0],
-                                            max: newv[1]
+                                    setFilter((value) => {
+                                        return {
+                                            ...value,
+                                            distance: {
+                                                min: newv[0],
+                                                max: newv[1]
+                                            }
                                         }
                                     })
                                 }}
-                                value={[ filter.distance.min, filter.distance.max ]}
                                 valueLabelDisplay="auto"
                                 defaultValue={[0, 20]}
                                 min={0}
@@ -219,15 +208,17 @@ const Search = ({
                             </Typography>
                             <Slider
                                 onChange={(e, newv) => {
-                                    setFilter({
-                                        ...filter,
-                                        score: {
-                                            min: newv[0],
-                                            max: newv[1]
+                                    setFilter((value) => {
+                                        return {
+                                            ...value,
+                                            score: {
+                                                min: newv[0],
+                                                max: newv[1]
+                                            }
                                         }
                                     })
                                 }}
-                                value={[ filter.score.min, filter.score.max ]}
+                                
                                 defaultValue={[0, 60]}
                                 valueLabelDisplay="auto"
                                 max={100}
@@ -246,10 +237,13 @@ const Search = ({
                             <InputTags
                                 max={6}
                                 onChange={(tags) => {
-                                    setFilter({
-                                        ...filter,
-                                        interests: tags
-                                    })
+                                    if (tags.length >= 0)
+                                        setFilter((value) => {
+                                            return {
+                                                ...value,
+                                                interests: tags
+                                            }
+                                        })
                                 }}
                             />
                         </div>

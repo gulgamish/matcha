@@ -14,3 +14,7 @@
   padding-top: 10px;
   padding-right: 10px;
 }
+
+.error {
+  color: #f14949;
+}

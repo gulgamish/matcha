@@ -1,5 +1,5 @@
 import { Send } from "@material-ui/icons"
-import React from "react"
+import React, { useState } from "react"
 import "./style.css"
 
 const MessageInput = ({
@@ -9,7 +9,7 @@ const MessageInput = ({
     submit,
     disabled
 }) => {
-
+    const [ error, setError ] = useState("");
 
     return (
         <form
@@ -23,7 +23,12 @@ const MessageInput = ({
                     <input
                         value={value}
                         onChange={(e) => {
-                            setValue(e.target.value);
+                            if (e.target.value.length <= 500) {
+                                setValue(e.target.value);
+                                setError("");
+                            }
+                            else
+                                setError("Message is too long");
                         }}
                         type="text"
                         className="m-input"
@@ -38,6 +43,11 @@ const MessageInput = ({
                     <Send color="primary" />
                 </button>
             </div>
+            {error !== "" && (
+                <div className="error">
+                    {error}
+                </div>
+            )}
         </form>
     )
 }

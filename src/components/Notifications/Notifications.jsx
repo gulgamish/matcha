@@ -76,7 +76,7 @@ const Notifications = () => {
                 setRedNotif(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataNotifications])
+    }, [loadingNotification, dataNotifications]);
 
     return (
         <div className="menu-notif-container" onClick={e => e.stopPropagation()}>
@@ -101,8 +101,8 @@ const Notifications = () => {
                 block: showMenu
             })}>
                 <div className="notif-container">
-                    {notifications.map(notification => (
-                        <div className="notification">
+                    {notifications.map((notification, index) => (
+                        <div className="notification" key={index}>
                             {notification}
                         </div>
                     ))}

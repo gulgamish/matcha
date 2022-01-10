@@ -27,10 +27,13 @@ export const filterList = (
     list, filters
 ) => {
     var newList = list;
-    newList = newList.filter(elem => elem.age >= filters.age.min && elem.age <= filters.age.max);
-    newList = newList.filter(elem => elem.distance >= filters.distance.min && elem.distance <= filters.distance.max);
-    newList = newList.filter(elem => elem.score >= filters.score.min && elem.score <= filters.score.max);
-    if (filters.interests.length > 0)
+    if (Object.hasOwnProperty.call(filters, "age"))
+        newList = newList.filter(elem => elem.age >= filters.age.min && elem.age <= filters.age.max);
+    if (Object.hasOwnProperty.call(filters, "distance"))
+        newList = newList.filter(elem => elem.distance >= filters.distance.min && elem.distance <= filters.distance.max);
+    if (Object.hasOwnProperty.call(filters, "score"))
+        newList = newList.filter(elem => elem.score >= filters.score.min && elem.score <= filters.score.max);
+    if (Object.hasOwnProperty.call(filters, "interests") && filters.interests.length > 0)
         for (let i = 0; i < newList.length; i++) {
             if (
             newList[i].interests.filter((value) =>
