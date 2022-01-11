@@ -5,6 +5,7 @@ import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
 import axios from "axios"
 import { useUserContext } from "../../../user.wrapper"
+import { Checkbox } from "@material-ui/core"
 
 const SearchDialog = ({
     search,
@@ -24,9 +25,24 @@ const SearchDialog = ({
             </DialogTitle>
             <div className="s-container">
                 <div className="search-input-wrapper">
-                    <Typography id="track-inverted-range-slider" gutterBottom>
-                        Age
-                    </Typography>
+                    <div>
+                        <Checkbox
+                            value={Object.prototype.hasOwnProperty.call(search, "age")}
+                            checked={Object.prototype.hasOwnProperty.call(search, "age")}
+                            onChange={(e, checked) => {
+                                if (checked)
+                                    setSearch((value) => ({ ...value, age: { min: 18, max: 25 } }))
+                                else
+                                    setSearch((value) => {
+                                        delete value.age
+                                        return { ...value }
+                                    })
+                            }}
+                        />
+                        <Typography id="track-inverted-range-slider">
+                            Age
+                        </Typography>
+                    </div>
                     <Slider
                         aria-labelledby="track-inverted-range-slider"
                         onChange={(e, newv) => {
@@ -48,12 +64,28 @@ const SearchDialog = ({
                                 label: `${elem}`
                             }
                         })}
+                        disabled={!Object.prototype.hasOwnProperty.call(search, "age")}
                     />
                 </div>
                 <div className="search-input-wrapper">
-                    <Typography id="track-inverted-range-slider" gutterBottom>
-                        Distance
-                    </Typography>
+                    <div>
+                        <Checkbox
+                            value={Object.prototype.hasOwnProperty.call(search, "distance")}
+                            checked={Object.prototype.hasOwnProperty.call(search, "distance")}
+                            onChange={(e, checked) => {
+                                if (checked)
+                                    setSearch((value) => ({ ...value, distance: { min: 0, max: 100 } }))
+                                else
+                                    setSearch((value) => {
+                                        delete value.distance
+                                        return { ...value }
+                                    })
+                            }}
+                        />
+                        <Typography id="track-inverted-range-slider" gutterBottom>
+                            Distance
+                        </Typography>
+                    </div>
                     <Slider
                         aria-labelledby="track-inverted-range-slider"
                         onChange={(e, newv) => {
@@ -75,12 +107,28 @@ const SearchDialog = ({
                                 label: `${elem} km`
                             }
                         })}
+                        disabled={!Object.prototype.hasOwnProperty.call(search, "distance")}
                     />
                 </div>
                 <div className="search-input-wrapper">
-                    <Typography gutterBottom>
-                        Fame Rating
-                    </Typography>
+                    <div>
+                        <Checkbox
+                            value={Object.prototype.hasOwnProperty.call(search, "score")}
+                            checked={Object.prototype.hasOwnProperty.call(search, "score")}
+                            onChange={(e, checked) => {
+                                if (checked)
+                                    setSearch((value) => ({ ...value, score: { min: 0, max: 100 } }))
+                                else
+                                    setSearch((value) => {
+                                        delete value.score
+                                        return { ...value }
+                                    })
+                            }}
+                        />
+                        <Typography gutterBottom>
+                            Fame Rating
+                        </Typography>
+                    </div>
                     <Slider
                         onChange={(e, newv) => {
                             setSearch({
@@ -100,12 +148,28 @@ const SearchDialog = ({
                                 label: `${elem}`
                             }
                         })}
+                        disabled={!Object.prototype.hasOwnProperty.call(search, "score")}
                     />
                 </div>
                 <div className="search-input-wrapper">
-                    <Typography>
-                        Common tags
-                    </Typography>
+                    <div>
+                        <Checkbox
+                            value={Object.prototype.hasOwnProperty.call(search, "interests")}
+                            checked={Object.prototype.hasOwnProperty.call(search, "interests")}
+                            onChange={(e, checked) => {
+                                if (checked)
+                                    setSearch((value) => ({ ...value, interests: [] }))
+                                else
+                                    setSearch((value) => {
+                                        delete value.interests
+                                        return { ...value }
+                                    })
+                            }}
+                        />
+                        <Typography>
+                            Common tags
+                        </Typography>
+                    </div>
                     <InputTags
                         onChange={(tags) => {
                             setSearch({
@@ -113,6 +177,7 @@ const SearchDialog = ({
                                 interests: tags
                             })
                         }}
+                        disabled={!Object.prototype.hasOwnProperty.call(search, "interests")}
                     />
                 </div>
                 <div className="search-button">
@@ -133,21 +198,7 @@ const AdvancedSearch = ({
     setUsers
 }) => {
     const { user } = useUserContext();
-    const [ search, setSearch ] = useState({
-        age: {
-            min: 18,
-            max: 25
-        },
-        distance: {
-            min: 0,
-            max: 20
-        },
-        score: {
-            min: 0,
-            max: 60
-        },
-        interests: []
-    });
+    const [ search, setSearch ] = useState({});
     const [ open, setOpen ] = useState(false);
 
     const fetchUsers = (filterBy) => {
@@ -188,7 +239,6 @@ const AdvancedSearch = ({
         fetchUsers(search);
         setOpen(false);
     }
-
 
     return (
         <div className="as-container">
