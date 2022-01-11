@@ -176,6 +176,7 @@ const Search = ({
                                                 return { ...value };
                                             });
                                     }}
+                                    color="primary"
                                 />
                                 <Typography id="track-inverted-range-slider">
                                     Age
@@ -221,6 +222,7 @@ const Search = ({
                                                 return { ...value };
                                             });
                                     }}
+                                    color="primary"
                                 />
                                 <Typography id="track-inverted-range-slider">
                                     Distance
@@ -266,6 +268,7 @@ const Search = ({
                                                 return { ...value };
                                             });
                                     }}
+                                    color="primary"
                                 />
                                 <Typography>
                                     Fame Rating
@@ -310,6 +313,7 @@ const Search = ({
                                                 return { ...value };
                                             });
                                     }}
+                                    color="primary"
                                 />
                                 <Typography>
                                     Common tags

@@ -38,6 +38,7 @@ const SearchDialog = ({
                                         return { ...value }
                                     })
                             }}
+                            color="primary"
                         />
                         <Typography id="track-inverted-range-slider">
                             Age
@@ -81,6 +82,7 @@ const SearchDialog = ({
                                         return { ...value }
                                     })
                             }}
+                            color="primary"
                         />
                         <Typography id="track-inverted-range-slider" gutterBottom>
                             Distance
@@ -124,6 +126,7 @@ const SearchDialog = ({
                                         return { ...value }
                                     })
                             }}
+                            color="primary"
                         />
                         <Typography gutterBottom>
                             Fame Rating
@@ -165,6 +168,7 @@ const SearchDialog = ({
                                         return { ...value }
                                     })
                             }}
+                            color="primary"
                         />
                         <Typography>
                             Common tags
