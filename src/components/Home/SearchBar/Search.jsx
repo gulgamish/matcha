@@ -88,14 +88,14 @@ const Search = ({
     const filterUsers = useCallback(() => {
         var newList = [...users];
         if (Object.prototype.hasOwnProperty.call(filter, "age"))
-            newList = newList.filter(elem => elem.age >= filter.age.min && elem.age <= filter.age.max);
+            newList = newList.filter(elem => elem?.age >= filter.age.min && elem?.age <= filter.age.max);
         if (Object.prototype.hasOwnProperty.call(filter, "distance"))
-            newList = newList.filter(elem => elem.distance >= filter.distance.min && elem.distance <= filter.distance.max);
+            newList = newList.filter(elem => elem?.distance >= filter.distance.min && elem?.distance <= filter.distance.max);
         if (Object.prototype.hasOwnProperty.call(filter, "score"))
-            newList = newList.filter(elem => elem.score >= filter.score.min && elem.score <= filter.score.max);
+            newList = newList.filter(elem => elem?.score >= filter.score.min && elem?.score <= filter.score.max);
         if (Object.prototype.hasOwnProperty.call(filter, "interests") && filter?.interests.length > 0) {
             for (let i = 0; i < newList.length; i++) {
-                var arr = newList[i].interests.filter((value) =>
+                var arr = newList[i]?.interests.filter((value) =>
                     filter.interests.includes(value)
                 );
                 if ( arr.length === 0) {
