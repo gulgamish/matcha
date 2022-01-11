@@ -27,6 +27,9 @@ const useStyles = makeStyles({
     input: {
         marginTop: "5px",
         marginBottom: "5px"
+    },
+    cProgress: {
+        color: "#FFFFFF"
     }
 })
 
@@ -94,7 +97,7 @@ const Login = (props) => {
                         style={{ width: "140px" }}
                     >
                         {loading ? (
-                            <CircularProgress color="#FFFFFF" size="25px" />
+                            <CircularProgress className={classes.cProgress} size="25px" />
                         ) : (
                             "sign in"
                         )}

@@ -5,8 +5,10 @@ import { v_tag } from '../../validation/userValidations';
 import "./style.css"
 
 const InputTags = ({
+    clear = false,
     onChange = () => {},
     max = -1,
+    disabled = false,
 }) => {
     const [ tags, setTags ] = useState([]);
     const [ value, setValue ] = useState("");
@@ -16,7 +18,13 @@ const InputTags = ({
     useEffect(() => {
         onChange(tags);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ tags ])
+    }, [ tags.length ])
+
+    useEffect(() => {
+        if (clear) {
+            setTags([]);
+        }
+    }, [ clear ])
 
     useEffect(() => {
         if (tags.length > 0)
@@ -84,7 +92,7 @@ const InputTags = ({
                     }}
                     placeholder="Enter tag"
                     onKeyUp={onKeyUp}
-                    disabled={tags.length === max}
+                    disabled={tags.length === max || disabled}
                 />
                 <div
                     className={`clear-tags ${isActive ? "clear-tags-active" : ""}`}

@@ -48,9 +48,6 @@ const RecoverPassword = (props) => {
                 isSuccess: true,
                 msg: "mail is sent to reset your password"
             })
-            setTimeout(() => {
-                props.history.push("/");
-            }, 6000);
         }
     })
 

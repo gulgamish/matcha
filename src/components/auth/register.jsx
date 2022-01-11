@@ -37,7 +37,7 @@ var useStyles = makeStyles({
     }
 })
 
-const Register = () => {
+const Register = (props) => {
     var [ user, setUser ] = useState({});
     var [ errors, setErrors ] = useState({
         firstName: "",

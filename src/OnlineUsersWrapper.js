@@ -23,7 +23,7 @@ const OnlineUsersWrapper = ({
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user.isLoggedIn]);
 
     return (
         children

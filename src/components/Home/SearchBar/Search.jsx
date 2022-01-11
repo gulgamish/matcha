@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
     Button,
+    Checkbox,
     makeStyles, Slider, Typography
 } from "@material-ui/core"
 import Chip from "../Chip/Chip"
 import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
 import * as _ from "../../../Constants/sort"
-import { sort, filterList } from "../tools"
+import { sort } from "../tools"
 import axios from 'axios'
 import { useUserContext } from '../../../user.wrapper'
 
@@ -84,10 +85,27 @@ const Search = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ clear ])
 
-    const filterUsers = () => {
-        var arr = filterList(users, filter);
-        setUsers(arr);
-    }
+    const filterUsers = useCallback(() => {
+        var newList = [...users];
+        if (Object.prototype.hasOwnProperty.call(filter, "age"))
+            newList = newList.filter(elem => elem.age >= filter.age.min && elem.age <= filter.age.max);
+        if (Object.prototype.hasOwnProperty.call(filter, "distance"))
+            newList = newList.filter(elem => elem.distance >= filter.distance.min && elem.distance <= filter.distance.max);
+        if (Object.prototype.hasOwnProperty.call(filter, "score"))
+            newList = newList.filter(elem => elem.score >= filter.score.min && elem.score <= filter.score.max);
+        if (Object.prototype.hasOwnProperty.call(filter, "interests") && filter?.interests.length > 0) {
+            for (let i = 0; i < newList.length; i++) {
+                var arr = newList[i].interests.filter((value) =>
+                    filter.interests.includes(value)
+                );
+                if ( arr.length === 0) {
+                    delete newList[i];
+                }
+            }
+        }
+        setUsers(newList);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filter]);
 
     return (
         <div className="search-container">
@@ -145,9 +163,24 @@ const Search = ({
                 <div className="filter">
                     <div className="filter-controllers">
                         <div className="filter-wrapper">
-                            <Typography id="track-inverted-range-slider" gutterBottom>
-                                Age
-                            </Typography>
+                            <div>
+                                <Checkbox
+                                    value={Object.prototype.hasOwnProperty.call(filter, "age")}
+                                    checked={Object.prototype.hasOwnProperty.call(filter, "age")}
+                                    onChange={(e, checked) => {
+                                        if (checked)
+                                            setFilter((value) => ({ ...value, age: {min: 18, max: 25} }))
+                                        else
+                                            setFilter((value) => {
+                                                delete value.age;
+                                                return { ...value };
+                                            });
+                                    }}
+                                />
+                                <Typography id="track-inverted-range-slider">
+                                    Age
+                                </Typography>
+                            </div>
                             <Slider
                                 aria-labelledby="track-inverted-range-slider"
                                 onChange={(e, newv) => {
@@ -171,12 +204,28 @@ const Search = ({
                                         label: `${elem}`
                                     }
                                 })}
+                                disabled={!Object.prototype.hasOwnProperty.call(filter, "age")}
                             />
                         </div>
                         <div className="filter-wrapper">
-                            <Typography id="track-inverted-range-slider" gutterBottom>
-                                Distance
-                            </Typography>
+                            <div>
+                                <Checkbox
+                                    value={Object.prototype.hasOwnProperty.call(filter, "distance")}
+                                    checked={Object.prototype.hasOwnProperty.call(filter, "distance")}
+                                    onChange={(e, checked) => {
+                                        if (checked)
+                                            setFilter((value) => ({ ...value, distance: {min: 0, max: 100} }))
+                                        else
+                                            setFilter((value) => {
+                                                delete value.distance;
+                                                return { ...value };
+                                            });
+                                    }}
+                                />
+                                <Typography id="track-inverted-range-slider">
+                                    Distance
+                                </Typography>
+                            </div>
                             <Slider
                                 aria-labelledby="track-inverted-range-slider"
                                 onChange={(e, newv) => {
@@ -200,12 +249,28 @@ const Search = ({
                                         label: `${elem} km`
                                     }
                                 })}
+                                disabled={!Object.prototype.hasOwnProperty.call(filter, "distance")}
                             />
                         </div>
                         <div className="filter-wrapper">
-                            <Typography gutterBottom>
-                                Fame Rating
-                            </Typography>
+                            <div>
+                                <Checkbox
+                                    value={Object.prototype.hasOwnProperty.call(filter, "score")}
+                                    checked={Object.prototype.hasOwnProperty.call(filter, "score")}
+                                    onChange={(e, checked) => {
+                                        if (checked)
+                                            setFilter((value) => ({ ...value, score: {min: 0, max: 100} }))
+                                        else
+                                            setFilter((value) => {
+                                                delete value.score;
+                                                return { ...value };
+                                            });
+                                    }}
+                                />
+                                <Typography>
+                                    Fame Rating
+                                </Typography>
+                            </div>
                             <Slider
                                 onChange={(e, newv) => {
                                     setFilter((value) => {
@@ -228,13 +293,30 @@ const Search = ({
                                         label: `${elem}`
                                     }
                                 })}
+                                disabled={!Object.prototype.hasOwnProperty.call(filter, "score")}
                             />
                         </div>
                         <div className="filter-wrapper">
-                            <Typography>
-                                Common tags
-                            </Typography>
+                            <div>
+                                <Checkbox
+                                    value={Object.prototype.hasOwnProperty.call(filter, "interests")}
+                                    checked={Object.prototype.hasOwnProperty.call(filter, "interests")}
+                                    onChange={(e, checked) => {
+                                        if (checked)
+                                            setFilter((value) => ({ ...value, interests: [] }))
+                                        else
+                                            setFilter((value) => {
+                                                delete value.interests;
+                                                return { ...value };
+                                            });
+                                    }}
+                                />
+                                <Typography>
+                                    Common tags
+                                </Typography>
+                            </div>
                             <InputTags
+                                clear={clear}
                                 max={6}
                                 onChange={(tags) => {
                                     if (tags.length >= 0)
@@ -245,6 +327,7 @@ const Search = ({
                                             }
                                         })
                                 }}
+                                disabled={!Object.prototype.hasOwnProperty.call(filter, "interests")}
                             />
                         </div>
                     </div>

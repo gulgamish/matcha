@@ -9,8 +9,10 @@ const List = ({
     setSelectedUser
 }) => {
     const { loading, data } = useQuery(GET_MATCHED_USERS, {
-        
-    })
+        onError: (err) => {
+            console.log(err);
+        }
+    });
 
     return (
         <div className="list-container">

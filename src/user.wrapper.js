@@ -22,7 +22,7 @@ const UserWrapper = ({ children }) => {
     });
 
     const socketLink = new WebSocketLink({
-        uri: `ws://localhost:5000/graphql`,
+        uri: `ws://10.11.6.10:5000/graphql`,
         options: {
             reconnect: true,
             connectionParams: {
