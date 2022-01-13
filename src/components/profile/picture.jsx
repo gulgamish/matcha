@@ -46,19 +46,22 @@ var Picture = (props) => {
     const { data, loading } = useQuery(GET_PROFILE_PICTURE);
     const [ uploadFile ] = useMutation(UPLOAD, {
         onCompleted: (data) => {
-            setAlert({
-                open: true,
-                isSucces: true,
-                msg: "Picture uploaded successfuly"
-            });
-            setProfilePic(data.uploadFile.url);
+            if (!data.uploadFile.success)
+                setAlert({
+                    open: true,
+                    isError: true,
+                    msg: data.uploadFile.message
+                })
+            else {
+                setAlert({
+                    open: true,
+                    isSucces: true,
+                    msg: "Picture uploaded successfuly"
+                });
+                setProfilePic(data.uploadFile.url);
+            }
         },
         onError: (err) => {
-            setAlert({
-                open: true,
-                isError: true,
-                msg: err.message
-            })
         }
     });
     const { data: dataViews, loading: loadingViews } = useQuery(GET_VIEWS, {

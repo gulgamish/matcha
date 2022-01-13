@@ -11,6 +11,8 @@ import { useCallback } from "react";
 import moment from "moment"
 import "./style.css"
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const useStyles = makeStyles({
     root: {
         margin: "5px"
@@ -156,7 +158,7 @@ const Display = ({
                 <div className="user-images-container">
                     <div className="image-container">
                         <img
-                            src={image}
+                            src={`http://${baseURL}${image}`}
                             className="image-display"
                             alt="display"
                         />
@@ -175,7 +177,7 @@ const Display = ({
                         {user.regularPictures && user.regularPictures.map((image, index) => (
                             <div className="slide-image-container" key={index}>
                                 <img
-                                    src={image}
+                                    src={`http://${baseURL}${image}`}
                                     className="slide-image"
                                     onClick={() => {
                                         setImage(image);

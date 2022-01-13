@@ -2,7 +2,7 @@ FROM node:14-stretch AS builder
 
 ENV NODE_ENV="production"
 
-ENV REACT_APP_BASE_URL="10.11.6.10:5050"
+ENV REACT_APP_BASE_URL="localhost:5050"
 
 RUN mkdir /home/node/app
 

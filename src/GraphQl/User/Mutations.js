@@ -22,6 +22,8 @@ export const UPLOAD = gql`
             file: $file
         ) {
             url
+            message
+            success
         }
     }
 `

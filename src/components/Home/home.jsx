@@ -9,6 +9,8 @@ import Clear from "./Clear/Clear"
 import { useUserContext } from "../../user.wrapper";
 import client from "../../axiosClient";
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const Home = () => {
   const { user } = useUserContext();
   const [ users, setUsers ] = useState([]);
@@ -121,7 +123,7 @@ const Home = () => {
                   distance={user.distance}
                   interests={user.interests}
                   fameRating={user.score}
-                  image={user.profilePicture}
+                  image={`http://${baseURL}${user.profilePicture}`}
                   onClick={() => {
                     fetchUser(user.id);
                     setOpen(true);

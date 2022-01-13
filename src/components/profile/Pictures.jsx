@@ -104,10 +104,17 @@ var Pictures = () => {
     });
     const [ uploadFile ] = useMutation(UPLOAD, {
         onCompleted: (data) => {
-            setPictures([
-                ...pictures,
-                data.uploadFile.url
-            ])
+            if (!data.uploadFile.success)
+                setAlert({
+                    open: true,
+                    isError: true,
+                    msg: data.uploadFile.message
+                })
+            else
+                setPictures([
+                    ...pictures,
+                    data.uploadFile.url
+                ])
         },
         onError: (err) => {
             setAlert({
