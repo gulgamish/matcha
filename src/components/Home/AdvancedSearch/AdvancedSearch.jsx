@@ -3,9 +3,9 @@ import { Search } from "@material-ui/icons"
 import React, { useState } from "react"
 import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
-import axios from "axios"
 import { useUserContext } from "../../../user.wrapper"
 import { Checkbox } from "@material-ui/core"
+import client from "../../../axiosClient"
 
 const SearchDialog = ({
     search,
@@ -206,7 +206,7 @@ const AdvancedSearch = ({
     const [ open, setOpen ] = useState(false);
 
     const fetchUsers = (filterBy) => {
-        axios.post('/graphql', {
+        client.post('/graphql', {
           query: `
             query browse (
               $filterBy: FilterByInput

@@ -6,8 +6,8 @@ import "./style.css"
 import Display from "../Display-user/Display";
 import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
 import Clear from "./Clear/Clear"
-import axios from "axios";
 import { useUserContext } from "../../user.wrapper";
+import client from "../../axiosClient";
 
 const Home = () => {
   const { user } = useUserContext();
@@ -19,7 +19,7 @@ const Home = () => {
   const [ clear, setClear ] = useState(false);
 
   const fetchUsers = (orderBy, filterBy) => {
-    axios.post('/graphql', {
+    client.post('/graphql', {
       query: `
         query browse (
           $orderBy: OrderByInput,
@@ -64,7 +64,7 @@ const Home = () => {
 
   const fetchUser = (id) => {
     setUserDataLoading(true)
-    axios.post('/graphql' , {
+    client.post('/graphql' , {
       query: `
         query checkProfile (
           $id: ID

@@ -7,6 +7,8 @@ import { GET_PICTURES } from '../../GraphQl/User/Queries';
 import { DELETE_PICTURE, UPLOAD } from "../../GraphQl/User/Mutations"
 import useAlert from "../tools/useAlert"
 
+var baseURL = process.env.REACT_APP_BASE_URL;
+
 var useStyles = makeStyles({
     image: {
         width: '100px',
@@ -45,7 +47,7 @@ var DisplayImage = ({ open, setOpen, img }) => {
             <DialogContent>
                 <div className="preview-image">
                     <Avatar
-                        src={img}
+                        src={`http://${baseURL}${img}`}
                         className={classes.preImg}
                     />
                 </div>
@@ -131,7 +133,7 @@ var Pictures = () => {
                             }}
                         >
                             <Avatar
-                                src={picture}
+                                src={`http://${baseURL}${picture}`}
                                 className={classes.avatar}
                             />
                         </Button>

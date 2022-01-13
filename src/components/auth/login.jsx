@@ -46,6 +46,7 @@ const Login = (props) => {
             })
         },
         onCompleted: (data) => {
+            window.localStorage.setItem("token", data.login.token);
             window.location.reload();
         }
     });

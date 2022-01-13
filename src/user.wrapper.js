@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, createContext } from 'react'
 import { ApolloLink, InMemoryCache, ApolloProvider, ApolloClient } from "@apollo/client"
-import axios from 'axios';
 import { createUploadLink } from 'apollo-upload-client'
 import { WebSocketLink } from "@apollo/client/link/ws"
 import { RetryLink } from "@apollo/client/link/retry"
@@ -10,19 +9,18 @@ export var UserContext = createContext(null);
 
 export const useUserContext = () => useContext(UserContext);
 
-
+var baseURL = process.env.REACT_APP_BASE_URL;
 
 const UserWrapper = ({ children }) => {
     const [ user, setUser ] = useState({ isLoggedIn: false, token: "" });
-    const [ token, setToken ] = useState("");
-    const [ loading, setLoading ] = useState(true);
+    const token = localStorage.getItem("token");
 
     const uploadLink = createUploadLink({
-        uri: '/graphql'
+        uri: `http://${baseURL}/graphql`,
     });
 
     const socketLink = new WebSocketLink({
-        uri: `ws://10.11.6.10:5000/graphql`,
+        uri: `ws://${baseURL}/graphql`,
         options: {
             reconnect: true,
             connectionParams: {
@@ -35,7 +33,7 @@ const UserWrapper = ({ children }) => {
         operation.setContext({
             headers: {
                 Authorization: `Bearer ${token}`
-            }
+            },
         });
         return forward(operation);
     })
@@ -62,46 +60,27 @@ const UserWrapper = ({ children }) => {
     })
 
     useEffect(() => {
-        axios.post('/graphql' , {
-            query: `
-                mutation refreshToken {
-                    refreshToken {
-                        token
-                    }
-                }
-            `
-        })
-        .then(({ data }) => {
-            if (data.data) {
-                setToken(data.data.refreshToken.token);
-                setUser({
-                    isLoggedIn: true,
-                    token: data.data.refreshToken.token
-                });
-            }
-            else if (data.errors) {
-                setUser({
-                    isLoggedIn: false
-                })
-            }
-        })
-        .finally(() => {
-            setLoading(false);
-        });
-    }, []);
+        if (token) {
+            setUser({
+                isLoggedIn: true,
+                token: token
+            });
+        }
+        else {
+            setUser({
+                isLoggedIn: false
+            })
+        }
+    }, [token]);
 
 
-    if (loading)
-        return <div>Loading ...</div>
-    else {
-        return (
-            <UserContext.Provider value={{ user, setUser }}>
-                <ApolloProvider client={client}>
-                    { children }
-                </ApolloProvider>
-            </UserContext.Provider>
-        )
-    }
+    return (
+        <UserContext.Provider value={{ user, setUser }}>
+            <ApolloProvider client={client}>
+                { children }
+            </ApolloProvider>
+        </UserContext.Provider>
+    )
 }
 
 export default UserWrapper;

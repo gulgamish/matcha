@@ -18,7 +18,7 @@ const InputTags = ({
     useEffect(() => {
         onChange(tags);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ tags.length ])
+    }, [ tags ])
 
     useEffect(() => {
         if (clear) {

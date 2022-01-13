@@ -9,8 +9,8 @@ import InputTags from "../../../sub-components/InputTag/InputTag"
 import "./style.css"
 import * as _ from "../../../Constants/sort"
 import { sort } from "../tools"
-import axios from 'axios'
 import { useUserContext } from '../../../user.wrapper'
+import client from "../../../axiosClient";
 
 const useStyles = makeStyles({
     button: {
@@ -30,7 +30,7 @@ const Search = ({
     const { button } = useStyles();
 
     const fetchUsers = (orderBy, filterBy) => {
-        axios.post('/graphql', {
+        client.post('/graphql', {
           query: `
             query browse (
               $orderBy: OrderByInput,

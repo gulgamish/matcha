@@ -18,15 +18,17 @@ const NavBar = () => {
     const [ getUsername, { data, loading } ] = useLazyQuery(GET_USERNAME_PICTURE);
     const [ signOut ] = useMutation(SIGN_OUT, {
         onCompleted: (data) => {
+            window.localStorage.removeItem("token");
             window.location.reload();
         }
     });
 
     useEffect(() => {
-        if (user.isLoggedIn)
+        if (user.isLoggedIn) {
             getUsername();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [  ])
+    }, [user.isLoggedIn]);
 
     return (
         <div id="navbar">

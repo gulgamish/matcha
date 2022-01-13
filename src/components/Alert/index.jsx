@@ -1,7 +1,7 @@
 import { useUserContext } from "../../user.wrapper";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Alert as AlertC } from "@material-ui/lab"
+import client from "../../axiosClient";
 
 const Alert = (props) => {
     const { user } = useUserContext();
@@ -10,7 +10,7 @@ const Alert = (props) => {
 
     useEffect(() => {
         if (user.isLoggedIn) {
-            axios
+            client
                 .post(
                     "/graphql",
                     {
@@ -33,7 +33,7 @@ const Alert = (props) => {
                 .finally(() => setLoading(false));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [user.isLoggedIn])
 
     if (!loading && isComplete !== null)
         return (
