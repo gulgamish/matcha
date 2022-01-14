@@ -12,6 +12,8 @@ import Menu from './sub-components/menu-dropdown/Menu'
 import Notifications from './components/Notifications/Notifications'
 import { SIGN_OUT } from './GraphQl/User/Mutations'
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const NavBar = () => {
     var { user } = useUserContext();
     var history = useHistory();
@@ -47,7 +49,7 @@ const NavBar = () => {
                         nav={<Chip
                             clickable={true}
                             variant="outlined"
-                            avatar={<Avatar src={!loading ? data?.getUser.profilePicture : null} />}
+                            avatar={<Avatar src={!loading ? `http://${baseURL}${data?.getUser.profilePicture}` : null} />}
                             label={!loading ? data?.getUser.username : null}
                             className="menu-header"
                         />}
