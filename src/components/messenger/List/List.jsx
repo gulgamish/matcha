@@ -4,6 +4,8 @@ import MatchedUser from "./match-user/MatchedUser"
 import { GET_MATCHED_USERS } from "../../../GraphQl/Match/Queries"
 import "./style.css"
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const List = ({
     selectedUser,
     setSelectedUser
@@ -21,7 +23,7 @@ const List = ({
                     data.getMatchedUsers.map((user, index) => (
                         <div key={index}>
                             <MatchedUser
-                                img={user.profilePicture}
+                                img={`http://${baseURL}${user.profilePicture}`}
                                 username={user.username}
                                 onClick={() => {
                                     setSelectedUser(user.id)
